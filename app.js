@@ -4,11 +4,8 @@ var express = require('express')
   , path = require('path')
   , favicon = require('serve-favicon')
   , logger = require('morgan')
-  , cookieParser = require('cookie-parser')
-  , bodyParser = require('body-parser')
-  , lessMiddleware = require('less-middleware')
   , package = require('./package.json')
-  ; 
+  ;
 
 var basepath = function (p) { return path.join(__dirname, p); }
 
@@ -21,10 +18,6 @@ app.set('view engine', 'pug');
 
 app.use(favicon(basepath('public/favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(lessMiddleware(basepath('public')));
 app.use(express.static(basepath('public')));
 
 app.locals.appname = package.name;

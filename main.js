@@ -21,6 +21,5 @@ program
   ;
 
 program.parse(process.argv);
-console.log(process.argv.length)
 if (!program.args.length) { program.help(); }
 
