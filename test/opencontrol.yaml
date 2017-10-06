@@ -1,0 +1,8 @@
+schema_version: "1.0.0"
+name: ssptool test data
+metadata:
+  description: Test data for ssptool test suite - snarf from freedonia
+dependencies:
+  systems:
+  - url: https://github.com/opencontrol/freedonia-compliance
+    revision: master
