@@ -8,6 +8,7 @@ var prepScript =
 var expect = require('expect.js')
   , path = require('path')
   , fs = require('fs')
+  , _ = require('underscore')
   , datadir = path.join(__dirname, 'opencontrols')
   , opencontrol         // system under test
   ;
@@ -51,10 +52,18 @@ describe("Loader", function () {
         expected.controls.forEach(key =>
             expect(db.controls).to.have.property(key));
     });
+    it("should not have any unexpected junk", function () {
+        expect(_.keys(db.controls).length)
+              .to.equal(expected.controls.length);
+    });
 
     it("should load all components", function () {
         expected.components.forEach(key =>
             expect(db.components).to.have.property(key));
+    });
+    it("should not have any unexpected junk", function () {
+        expect(_.keys(db.components).length)
+              .to.equal(expected.components.length);
     });
 
 });
