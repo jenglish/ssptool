@@ -52,6 +52,14 @@ describe("Loader", function () {
         expected.controls.forEach(key =>
             expect(db.controls).to.have.property(key));
     });
+    it("should add 'key' and 'standard_key' properties", function () {
+        expected.controls.forEach(key => {
+	    let control = db.controls[key];
+            expect(control).to.have.property('standard_key');
+            expect(control).to.have.property('key');
+            expect(control.key).to.equal(key);
+	})
+    });
     it("should not have any unexpected junk", function () {
         expect(_.keys(db.controls).length)
               .to.equal(expected.controls.length);
@@ -61,9 +69,12 @@ describe("Loader", function () {
         expected.components.forEach(key =>
             expect(db.components).to.have.property(key));
     });
+    it("should add 'key' property to all components", function () {
+        expected.components.forEach(key =>
+            expect(db.components[key].key).to.equal(key));
+    });
     it("should not have any unexpected junk", function () {
         expect(_.keys(db.components).length)
               .to.equal(expected.components.length);
     });
-
 });
