@@ -45,7 +45,7 @@ describe("Loader", function () {
 
     it("should return a database", function () {
         expect(db).to.be.ok();
-        expect(db).to.be.an(opencontrol.System);
+        expect(db).to.be.an(opencontrol.Database);
     });
 
     it("should load all controls", function () {

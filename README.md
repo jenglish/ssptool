@@ -2,7 +2,7 @@
 
 This is a nodejs / express application for working with [OpenControl] content.
 It works in conjunction with [compliance-masonry] to generate
-SSPs, gap an
+Sytem Security Plans and other compliance documentation.
 
 # Quick demo
 
@@ -15,6 +15,10 @@ cd freedonia compliance
 compliance-masonry get
 node /path/to/ssptool/main.js server
 ```
+
+# More info
+
+See [usage instructions](doc/usage.md) for more information.
 
 # References
 

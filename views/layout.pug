@@ -1,3 +1,5 @@
+include mixins.pug
+include data.pug
 doctype html
 html
   head
@@ -6,5 +8,11 @@ html
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
     title= appname
   body
-    div.container
-      block content
+    div.container-fluid
+      include parts/navbar
+      div.row
+        div.col-xs-3
+          block sidebar
+            +menubox("Contents", topmenu)
+        div.col-xs-9
+          block content

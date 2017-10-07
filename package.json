@@ -23,7 +23,8 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-jsdoc3": "^1.0.1",
-    "mocha": "^4.0.0"
+    "mocha": "^4.0.0",
+    "supertest": "^3.0.0"
   },
   "description": "express app for working with OpenControl content",
   "main": "main.js",

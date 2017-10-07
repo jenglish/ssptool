@@ -5,38 +5,49 @@ var express = require('express')
   , favicon = require('serve-favicon')
   , logger = require('morgan')
   , package = require('./package.json')
+  , router = require('./routes')
+  , app = express()
   ;
 
 var basepath = function (p) { return path.join(__dirname, p); }
 
-var index = require('./routes/index');
+/** Add logging middleware based on NODE_ENV
+ */
+function chooseLogger (app) {
+    let env = app.get('env');
+    if (env === 'development') {
+    	app.use(logger('dev'));
+    } else if (env !== 'test') {
+    	app.use(logger('combined'));
+    }
+}
 
-var app = express();
+function notFoundHandler (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+};
+
+function errorHandler (err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');
+};
 
 app.set('views', basepath('views'));
 app.set('view engine', 'pug');
 
 app.use(favicon(basepath('public/favicon.ico')));
-app.use(logger('dev'));
+chooseLogger(app);
 app.use(express.static(basepath('public')));
 
 app.locals.appname = package.name;
 app.locals.appversion = package.version;
 
-app.use('/', index);
+app.use(router);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-// error handler
-app.use(function(err, req, res, next) {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(err.status || 500);
-  res.render('error');
-});
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 module.exports = app;
