@@ -10,8 +10,7 @@ var supertest = require('supertest')
   , app = require('../app')
   , agent = supertest.agent(app)
   , opencontrol = require('../lib/opencontrol')
-  , path = require('path')
-  , datadir = path.join(__dirname, 'opencontrols')
+  , mock = require('../mock')
   ;
 
 function tryPage (url) {
@@ -20,8 +19,9 @@ function tryPage (url) {
     }
 }
 
+before(function (done) { mock.preflight(done); });
 before(function (done) {
-    opencontrol.load(datadir, function (err, db) {
+    opencontrol.load(mock.datadir, function (err, db) {
         app.set('db', db);
         done(err, db);
     })

@@ -1,23 +1,12 @@
 /* vim: set sw=4 et :*/
 /* global describe, it */
 
-var prepScript =
-    'Please run `compliance-masonry get` in the test directory\n' +
-    'in order to populate the opencontrols/ data store\n';
-
 var expect = require('expect.js')
-  , path = require('path')
-  , fs = require('fs')
+  , mock = require('../mock')
+  , expected = mock.expected
   , _ = require('underscore')
-  , datadir = path.join(__dirname, 'opencontrols')
   , opencontrol         // system under test
   ;
-
-// see freedonia-compliance repo
-var expected = {
-    controls: ['AU-1', 'AU-2', 'AU-2 (3)', 'PE-2', 'SC-1', 'SC-7', 'XX-1'],
-    components: ['AU_policy', 'AWS_implementation', 'AWS_core']
-};
 
 before(function () {
     opencontrol = require('../lib/opencontrol');
@@ -26,18 +15,10 @@ before(function () {
 describe("Loader", function () {
     var db;
 
-    before(function (done) {
-        fs.stat(datadir, function (err, stat) {
-            if (err || !stat.isDirectory()) {
-                done(new Error(err.message + '\n\n' + prepScript))
-            } else {
-                done();
-            }
-        });
-    })
+    before(function (done) { mock.preflight(done); });
 
     it("should work", function (done) {
-        opencontrol.load(datadir, function (err, _db) {
+        opencontrol.load(mock.datadir, function (err, _db) {
             db = _db;
             done(err, db);
         });
