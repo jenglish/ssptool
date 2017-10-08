@@ -45,7 +45,7 @@ app.locals.appurl = appurl
 
 app.use(favicon(basepath('public/favicon.ico')));
 chooseLogger(app);
-app.use(express.static(basepath('public')));
+app.use(express.static(basepath('public'), { maxAge: 1000 * 60 * 60 }));
 app.use(router);
 app.use(notFoundHandler);
 app.use(errorHandler);
