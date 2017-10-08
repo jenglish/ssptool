@@ -1,0 +1,25 @@
+extends layout
+block content
+  div.content
+    h1 #{component.key} - #{component.name}
+    dl.dl-horizontal
+      dt System
+      dd #{component.system}
+      dt Documentation
+      dd #{component.documentation_complete ? 'Yep' : 'Nope'}
+      dt Responsible role
+      dd #{component.responsible_role}
+
+    h2 References
+
+    if component.satisfies
+      h2 Satisfies
+      each satisfaction in component.satisfies
+        p: a(href=appurl('controls',satisfaction.control_key))
+          | #{satisfaction.standard_key} #{satisfaction.control_key}
+        each n in satisfaction.narrative
+          p= n.text
+        p
+          b= "Status: "
+          satisfies.implementation_status
+

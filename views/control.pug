@@ -1,0 +1,12 @@
+extends layout
+block content
+  h1
+    | #{control.key}
+    small / (#{control.standard_key})
+  h2 #{control.name}
+  dl.dl-horizontal
+    dt Family
+    dd #{control.family}
+    dt Description
+    dd #{control.description}
+

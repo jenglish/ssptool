@@ -9,7 +9,8 @@ var express = require('express')
   , app = express()
   ;
 
-var basepath = function (p) { return path.join(__dirname, p); }
+function basepath (p) { return path.join(__dirname, p); }
+function appurl (...args) { return "/" + args.join("/"); }
 
 /** Add logging middleware based on NODE_ENV
  */
@@ -38,15 +39,14 @@ function errorHandler (err, req, res, next) {
 app.set('views', basepath('views'));
 app.set('view engine', 'pug');
 
+app.locals.appname = package.name;
+app.locals.appversion = package.version;
+app.locals.appurl = appurl
+
 app.use(favicon(basepath('public/favicon.ico')));
 chooseLogger(app);
 app.use(express.static(basepath('public')));
-
-app.locals.appname = package.name;
-app.locals.appversion = package.version;
-
 app.use(router);
-
 app.use(notFoundHandler);
 app.use(errorHandler);
 

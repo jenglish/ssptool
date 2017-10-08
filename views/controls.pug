@@ -3,4 +3,4 @@ block content
   h1 Controls
   ul
     each control in controls
-      li #{control.name}
+      li: a(href=appurl('controls', control.key)) #{control.key} - #{control.name}
