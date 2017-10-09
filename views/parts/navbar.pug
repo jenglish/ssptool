@@ -1,5 +1,10 @@
+//- top navigation bar
+
 nav.navbar
   div.navbar-header
     img.navbar-brand(src='/img/opencontrol-icon.png')
-  p.navbar-text #{appname} #{appversion}
-
+    ul.nav.navbar-nav
+      li: +navlink('prev', "Previous")
+      li: +navlink('next', "Next")
+  div.navbar-right
+    p.navbar-text #{appname} #{appversion}

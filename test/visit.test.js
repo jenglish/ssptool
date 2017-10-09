@@ -3,10 +3,11 @@
 process.env.NODE_ENV = 'test';
 
 /**
- * Purpose: try visiting all of the routes, 
+ * Purpose: try visiting all of the routes,
  * verify that no errors are raised.
  */
 var supertest = require('supertest')
+  , expect = require('expect.js')
   , app = require('../app')
   , agent = supertest.agent(app)
   , opencontrol = require('../lib/opencontrol')
@@ -22,8 +23,9 @@ function tryPage (url) {
 before(function (done) { mock.preflight(done); });
 before(function (done) {
     opencontrol.load(mock.datadir, function (err, db) {
-        app.set('db', db);
-        done(err, db);
+        if (err) { return done(err); }
+        app.initialize(db);
+        done();
     })
 });
 
@@ -45,3 +47,22 @@ describe("Component pages", function () {
         agent.get("/components/XX-Policy").expect(404).end(done)
     })
 });
+describe("Crawl the TOC", function () {
+    const { NavIndex, NavItem } = require('../lib/navigation');
+    const async = require('async');
+    var navindex;
+    it("has a navigation index", function () {
+        navindex = app.get('navindex');
+        expect(navindex).to.be.a(NavIndex);
+        expect(navindex.toc).to.be.a(NavItem);
+    });
+
+    it("can serve all pages in the TOC", function (done) {
+        var tasks = []
+        for (var item = navindex.toc; item; item = item.next()) {
+            tasks.push(tryPage(item.path))
+        };
+        async.series(tasks, done);
+    });
+});
+

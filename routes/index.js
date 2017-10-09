@@ -1,8 +1,7 @@
 
-var express = require('express')
-  , router = express.Router()
-  , _ = require('underscore')
-  ;
+const { NavItem, NavIndex } = require('../lib/navigation');
+const _ = require('lodash');
+var router = require('express').Router();
 
 /************************************************************************
  ***
@@ -10,10 +9,23 @@ var express = require('express')
  ***
  ***/
 
+/** Utility function for constructing an application url from path components
+ *
+ * @note also available in res.locals (see app.initialize)
+ */
+
+function appurl (...args) {
+    return "/" + _.map(args, encodeURIComponent).join("/");
+}
+
 /** Route middleware constructor
  */
 function sendpage (view) {
-    return function(req, res, next) { res.render(view); }
+    return function(req, res, next) {
+        var navindex = req.app.get('navindex');
+        res.locals.nav = navindex.navinfo(req.path);
+        res.render(view);
+    }
 }
 
 /** Route middleware constructor
@@ -56,9 +68,9 @@ function notfound (what, name) {
 function findByKey(what, collection, params) {
     var key = params[what], ans = {};
     if (_.has(collection, key)) {
-	ans[what] = collection[key];
+        ans[what] = collection[key];
     } else {
-	throw notfound('control', key);
+        throw notfound('control', key);
     }
     return ans;
 }
@@ -89,4 +101,34 @@ router.get('/components', runquery(listComponents), sendpage('components'));
 router.get('/controls/:control', runquery(findControl), sendpage('control'));
 router.get('/components/:component', runquery(findComponent), sendpage('component'));
 
-module.exports = router;
+/************************************************************************
+ ***
+ *** Table of contents.
+ ***
+ ***/
+
+function navindex (db) {
+    var toc = new NavItem('/', '/');
+    var item;
+
+    item = new NavItem('/components', 'Components');
+    for (component of _.values(db.components)) {
+        item.add(new NavItem(appurl('components', component.key),
+                component.key, component.name));
+    }
+    toc.add(item)
+
+    item = new NavItem('/controls', 'Controls');
+    for (control of _.values(db.controls)) {
+        item.add(new NavItem(appurl('controls', control.key),
+                control.key, control.key + " - " + control.name));
+    }
+    toc.add(item)
+
+    return new NavIndex(toc);
+}
+
+module.exports.router = router;
+module.exports.navindex = navindex;
+module.exports.appurl = appurl;
+

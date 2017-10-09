@@ -1,0 +1,12 @@
+
+mixin menubox(title, items)
+  div.list-group
+    p.list-group-item.active= title
+    each item in items
+        a.list-group-item(href=item.path)= item.title
+
+mixin tocbox(title)
+  div.panel.panel-default
+    div.panel-heading= title
+    div.panel-body
+      block

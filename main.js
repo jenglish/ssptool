@@ -37,8 +37,8 @@ program
       ;
     server.on('error', logError);
 
-    loadControls(function (db) {
-      app.set('db', db);
+    loadControls(db => {
+      app.initialize(db);
       server.listen(options.port, () =>
 	logger.info('listening on http://localhost:%d', options.port));
     });

@@ -5,12 +5,11 @@ var express = require('express')
   , favicon = require('serve-favicon')
   , logger = require('morgan')
   , package = require('./package.json')
-  , router = require('./routes')
+  , routes = require('./routes')
   , app = express()
   ;
 
 function basepath (p) { return path.join(__dirname, p); }
-function appurl (...args) { return "/" + args.join("/"); }
 
 /** Add logging middleware based on NODE_ENV
  */
@@ -41,13 +40,25 @@ app.set('view engine', 'pug');
 
 app.locals.appname = package.name;
 app.locals.appversion = package.version;
-app.locals.appurl = appurl
 
 app.use(favicon(basepath('public/favicon.ico')));
 chooseLogger(app);
 app.use(express.static(basepath('public'), { maxAge: 1000 * 60 * 60 }));
-app.use(router);
+app.use(routes.router);
 app.use(notFoundHandler);
 app.use(errorHandler);
+
+/**
+ * Initialization.
+ *
+ * @param (opencontrol.Database) db
+ * @param config - not yet used
+ */
+
+app.initialize = function (db, config) {
+    app.set('db', db);
+    app.set('navindex', routes.navindex(db));
+    app.locals.appurl = routes.appurl
+}
 
 module.exports = app;

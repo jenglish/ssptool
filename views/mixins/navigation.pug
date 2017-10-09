@@ -1,0 +1,37 @@
+//-
+//- Navigational aides
+//-
+
+//- general navigational link
+//-  rel: prev or next
+//-  label: fixed anchor text
+//
+mixin navlink(rel, label)
+  if nav[rel]
+    a(rel=rel, href=nav[rel].path, title=nav[rel].label)
+      = label
+  else
+    a.disabled= label
+
+//- Bootstrap breadcrumb bar
+mixin breadcrumbs
+  if nav && nav.breadcrumbs
+    ol.breadcrumb
+      each crumb in nav.breadcrumbs
+        li: a(href=crumb.path)= crumb.label
+
+//- Full table of contents
+mixin toc(contents)
+  if contents.length
+    ul.toc
+      each item in contents
+        li: a(href=item.path)= item.title
+          +toc(item.contents)
+
+//- Bootstrap pager - next/prev links
+mixin pager
+  nav(aria-label="...")
+    ul.pager
+      li.previous: +navlink('prev', '\u2190 Previous')
+      li.next: +navlink('next', 'Next \u2192')
+

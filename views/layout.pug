@@ -1,18 +1,27 @@
-include mixins.pug
-include data.pug
+include mixins/navigation.pug
+include mixins/miscellaneous.pug
+include mixins/data.pug
+
 doctype html
 html
   head
     meta(charset='utf-8')
     meta(name='vieport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
-    title= appname
+    title
+      if nav && nav.title
+        | #{nav.title} - #{appname}
+      else
+        | #{appname}
   body
     div.container-fluid
       include parts/navbar
       div.row
         div.col-xs-3
           block sidebar
-            +menubox("Contents", topmenu)
+            include parts/sidebar
+
         div.col-xs-9
+          +breadcrumbs
           block content
+
