@@ -1,6 +1,6 @@
 {
   "name": "ssptool",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "test": "mocha"
@@ -29,7 +29,6 @@
     "mocha": "^4.0.0",
     "supertest": "^3.0.0"
   },
-
   "main": "main.js",
   "description": "express app for working with OpenControl content",
   "license": "MIT",
