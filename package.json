@@ -5,6 +5,9 @@
   "scripts": {
     "test": "mocha"
   },
+  "bin": {
+    "ssptool": "./main.js"
+  },
   "dependencies": {
     "async": "^2.5.0",
     "commander": "^2.11.0",
@@ -26,8 +29,14 @@
     "mocha": "^4.0.0",
     "supertest": "^3.0.0"
   },
-  "description": "express app for working with OpenControl content",
+
   "main": "main.js",
+  "description": "express app for working with OpenControl content",
+  "license": "MIT",
+  "homepage": "https://github.com/jenglish/ssptool",
   "author": "Joe English <jenglish@flightlab.com>",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jenglish/ssptool.git"
+  }
 }

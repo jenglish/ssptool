@@ -15,6 +15,11 @@ cd freedonia compliance
 compliance-masonry get
 node /path/to/ssptool/main.js server
 ```
+
+# Status
+
+Alpha release. Can browse raw data, that's about all right now.
+
 # More info
 
 See [usage instructions](doc/usage.md) for more information.
@@ -23,8 +28,6 @@ See [usage instructions](doc/usage.md) for more information.
 
 Built with [express], [pug], and [Bootstrap 3].
 Tested on node v8.0.0.
-
-# References
 
 [OpenControl]: http://open-control.org/
 [compliance-masonry]: https://github.com/opencontrol/compliance-masonry
