@@ -1,6 +1,8 @@
 
-const { NavItem, NavIndex } = require('../lib/navigation');
+const Sitemap = require('../lib/navigation/sitemap').Sitemap;
 const _ = require('lodash');
+const debug = require('debug')('routes');
+
 var router = require('express').Router();
 
 /************************************************************************
@@ -22,8 +24,9 @@ function appurl (...args) {
  */
 function sendpage (view) {
     return function(req, res, next) {
-        var navindex = req.app.get('navindex');
-        res.locals.nav = navindex.navinfo(req.path);
+        var sitemap = req.app.get('sitemap');
+        res.locals.nav = sitemap.navinfo(req.path);
+	res.locals.toplinks = sitemap.toplinks;
         res.render(view);
     }
 }
@@ -95,11 +98,25 @@ function findComponent (db, params) {
  ***/
 
 router.get('/', sendpage('index'));
-router.get('/controls', runquery(listControls), sendpage('controls'));
-router.get('/components', runquery(listComponents), sendpage('components'));
 
-router.get('/controls/:control', runquery(findControl), sendpage('control'));
-router.get('/components/:component', runquery(findComponent), sendpage('component'));
+router.get('/components',
+    runquery(listComponents), sendpage('components'));
+
+router.get('/components/:component',
+    runquery(findComponent), sendpage('component'));
+appurl.component = component => appurl('components', component.key);
+
+router.get('/standards', sendpage('contents'));
+router.get('/standards/:standard_key', sendpage('contents'));
+appurl.standard = standard => appurl('standards', standard.key);
+
+router.get('/standards/:standard_key/:control',
+        runquery(findControl), sendpage('control'))
+appurl.control = control =>
+        appurl('standards', control.standard_key, control.key);
+
+router.get('/family/:standard_key/:family', sendpage('contents'));
+appurl.family = (standard_key, family) => appurl('family', standard_key, family);
 
 /************************************************************************
  ***
@@ -107,28 +124,38 @@ router.get('/components/:component', runquery(findComponent), sendpage('componen
  ***
  ***/
 
-function navindex (db) {
-    var toc = new NavItem('/', '/');
-    var item;
+function sitemap (db) {
+    var site = new Sitemap;
 
-    item = new NavItem('/components', 'Components');
+    site.begin('/components', 'Components');
     for (component of _.values(db.components)) {
-        item.add(new NavItem(appurl('components', component.key),
-                component.key, component.name));
+        site.add(appurl.component(component), component.key, component.name);
     }
-    toc.add(item)
+    site.end();
 
-    item = new NavItem('/controls', 'Controls');
-    for (control of _.values(db.controls)) {
-        item.add(new NavItem(appurl('controls', control.key),
-                control.key, control.key + " - " + control.name));
-    }
-    toc.add(item)
+    site.begin('/standards', 'Standards');
+    _(db.controls)
+    .values()
+    .groupBy('standard_key')
+    .forEach(function (controls, standard_key) {
+        site.begin(appurl('standards', standard_key), standard_key);
+        _(controls).groupBy('family')
+        .forEach(function (controls, family) {
+            site.begin(appurl.family(standard_key, family), family);
+            _(controls).forEach(function (control) {
+                site.add(appurl.control(control),
+                    control.key, control.key + " - " + control.name)
+                });
+            site.end();
+        });
+        site.end();
+    });
+    site.end();
 
-    return new NavIndex(toc);
+    return site;
 }
 
 module.exports.router = router;
-module.exports.navindex = navindex;
+module.exports.sitemap = sitemap;
 module.exports.appurl = appurl;
 

@@ -14,14 +14,14 @@ html
       else
         | #{appname}
   body
-    div.container-fluid
-      include parts/navbar
-      div.row
-        div.col-xs-3
-          block sidebar
-            include parts/sidebar
-
-        div.col-xs-9
-          +breadcrumbs
-          block content
+    block body
+      div.container-fluid
+        include parts/navbar
+        div.row
+          div.col-xs-3
+            block sidebar
+              include parts/sidebar
+          div.col-xs-9
+            +breadcrumbs
+            block content
 

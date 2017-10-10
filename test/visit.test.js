@@ -29,38 +29,32 @@ before(function (done) {
     })
 });
 
-describe("Main areas", function () {
-    it("/",             tryPage("/"))
-    it("/controls",     tryPage("/controls"))
-    it("/components",   tryPage("/components"))
+describe("Proper 404 handling", function () {
+    it("returns 404 for missing pages", function (done) {
+        agent.get("/no/such/page").expect(404).end(done)
+    });
 });
 
-describe("Control pages", function () {
-    it("finds control pages", tryPage("/controls/AU-1"))
-    it("returns proper error code for missing pages", function (done) {
-        agent.get("/controls/XX-99").expect(404).end(done)
-    })
-});
 describe("Component pages", function () {
     it("finds component pages", tryPage("/components/AU_policy"))
     it("returns proper error code for missing pages", function (done) {
         agent.get("/components/XX-Policy").expect(404).end(done)
     })
 });
-describe("Crawl the TOC", function () {
-    const { NavIndex, NavItem } = require('../lib/navigation');
+describe("Crawl the whole site", function () {
+    const { Sitemap, NavItem } = require('../lib/navigation/sitemap');
     const async = require('async');
-    var navindex;
-    it("has a navigation index", function () {
-        navindex = app.get('navindex');
-        expect(navindex).to.be.a(NavIndex);
-        expect(navindex.toc).to.be.a(NavItem);
+    var sitemap;
+
+    it("has a sitemap", function () {
+        sitemap = app.get('sitemap');
+        expect(sitemap).to.be.a(Sitemap);
     });
 
-    it("can serve all pages in the TOC", function (done) {
+    it("can serve all pages in the sitemap", function (done) {
         var tasks = []
-        for (var item = navindex.toc; item; item = item.next()) {
-            tasks.push(tryPage(item.path))
+	for (var item in sitemap.items) {
+            tasks.push(tryPage(item))
         };
         async.series(tasks, done);
     });

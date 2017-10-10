@@ -1,10 +1,12 @@
 extends layout
 
-block content
-  if error.status
-    h1.alert.alert-danger #{error.status} - #{message}
-  else
-    h1.alert.alert-danger Internal error
-    p.alert.alert-danger #{message}
+block body
+  div.container
+    include parts/navbar
+    if error.status
+      h1.alert.alert-danger #{error.status} - #{message}
+    else
+      h1.alert.alert-danger Internal error
+      p.alert.alert-danger #{message}
 
-  pre.alert.alert-warning #{error.stack}
+    pre.alert.alert-warning #{error.stack}

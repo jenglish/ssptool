@@ -1,0 +1,10 @@
+//- template for index pages - just show immediate contents
+extends layout
+
+block content
+  h1 #{nav.title}
+
+  ul.toc
+    each item in nav.contents
+      li: a(href=item.path)= item.title
+

@@ -2,9 +2,14 @@
 
 nav.navbar
   div.navbar-header
-    img.navbar-brand(src='/img/opencontrol-icon.png')
+    a(href="/")
+      img.navbar-brand(src='/img/opencontrol-icon.png')
     ul.nav.navbar-nav
-      li: +navlink('prev', "Previous")
-      li: +navlink('next', "Next")
+      if nav
+        li: +navlink('prev', "\u2190 Previous")
+        li: +navlink('next', "Next \u2192")
+        li: +navlink('up', "Up \u2191")
+      each link in toplinks
+        li: +brieflink(link)
   div.navbar-right
     p.navbar-text #{appname} #{appversion}

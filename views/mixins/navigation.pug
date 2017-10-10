@@ -3,15 +3,24 @@
 //-
 
 //- general navigational link
-//-  rel: prev or next
+//-  rel: 'prev', 'next', 'up', etc.
 //-  label: fixed anchor text
 //
 mixin navlink(rel, label)
-  if nav[rel]
+  if nav && nav[rel]
     a(rel=rel, href=nav[rel].path, title=nav[rel].label)
       = label
   else
     a.disabled= label
+
+//- link to a NavItem using label as anchor text
+//-
+mixin brieflink(navitem)
+  a(href=navitem.path, title=navitem.title)= navitem.label
+
+//-link to a NavItem using title as anchor text
+mixin linkto(navitem)
+  a(href=navitem.path): navitem.title
 
 //- Bootstrap breadcrumb bar
 mixin breadcrumbs

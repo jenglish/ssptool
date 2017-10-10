@@ -1,18 +1,20 @@
 
-var navigation, NavItem, NavIndex;        // system under test
+var navigation, NavItem, Sitemap;        // system under test
 
 var expect = require('expect.js');
 
 before(function () {
-    navigation = require('..');
+    navigation = require('../lib/navigation');
 });
 
 describe("navigation module", function () {
     it("exports a NavItem constructor", function () {
         NavItem = navigation.NavItem;
+	expect(NavItem).to.be.ok();
     });
-    it("exports a NavIndex constructor", function () {
-        NavIndex = navigation.NavIndex;
+    it("exports a Sitemap constructor", function () {
+        Sitemap = navigation.Sitemap;
+	expect(Sitemap).to.be.ok();
     });
 });
 
@@ -59,6 +61,20 @@ var buildtree = function (p, childno, depth, width) {
     return item;
 }
 
+/** Build a dummy NavItem hierarchy using Sitemap
+ */
+var buildsite = function (sitemap, p, childno, depth, width) {
+    p = p.slice();
+    p.push(childno);
+    sitemap.begin(p.join("/"), p.slice(1).join("."));
+    if (depth > 0) {
+        for (var i = 0; i < width; ++i) {
+            buildsite(sitemap, p, i+1, depth-1, width);
+        }
+    }
+    sitemap.end();
+}
+
 describe("NavItem hierarchy", function () {
     it("add() method adds child nodes", function () {
         var p1 = new NavItem("/part1")
@@ -102,27 +118,47 @@ describe("NavItem hierarchy", function () {
 
 });
 
-describe("NavIndex", function () {
-    var toc, index;
-    it("builds an index from a table of contents", function () {
-        toc = buildtree([], "", 3, 3);
-        index = new NavIndex(toc);
+describe("Sitemap", function () {
+    var sitemap;
+    it("builds an index incrementally", function () {
+	sitemap = new Sitemap;
+        buildsite(sitemap, [], "", 3, 3);
     });
     it("find() method looks up NavItems based on paths", function () {
-        expect(index.find("/1/1/3")).to.be.a(NavItem);
+        expect(sitemap.find("/1/1/3")).to.be.a(NavItem);
     });
     it("navinfo() method", function () {
-        var nav = index.navinfo("/1/3/2");
+        var nav = sitemap.navinfo("/1/3/2");
         expect(nav.title).to.eql("1.3.2");
         expect(nav.label).to.eql("1.3.2");
         expect(nav.next).to.be.a(NavItem);
-        expect(nav.toc).to.equal(toc);
+	expect(nav.next.label).to.eql("1.3.3");
+	expect(nav.prev.label).to.eql("1.3.1");
 
         var bclabels = [];
         for (var crumb of nav.breadcrumbs) {
             bclabels.push(crumb.label);
         }
         expect(bclabels).to.eql(["", "1", "1.3", "1.3.2"]);
+    });
+
+    it("supports multiple root TOCs", function () {
+	var s = new Sitemap;
+	s.begin("/sectionA", "Section A");
+	s.add("/sectionA/page1", "Section A page 1");
+	s.add("/sectionA/page2", "Section A page 2");
+	s.end();
+
+	s.begin("/sectionB", "Section B");
+	s.add("/sectionB/page1", "Section B page 1");
+	s.add("/sectionB/page2", "Section B page 2");
+	s.end();
+
+	expect(s.toplinks.length).to.equal(2);
+	expect(s.toplinks[0]).to.be.a(NavItem);
+	expect(s.toplinks[0].label).to.eql("Section A");
+	expect(s.toplinks[1]).to.be.a(NavItem);
+	expect(s.toplinks[1].label).to.eql("Section B");
     });
 });
 

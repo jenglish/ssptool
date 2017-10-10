@@ -14,12 +14,11 @@ block content
 
     if component.satisfies
       h2 Satisfies
-      each satisfaction in component.satisfies
-        p: a(href=appurl('controls',satisfaction.control_key))
-          | #{satisfaction.standard_key} #{satisfaction.control_key}
-        each n in satisfaction.narrative
+      each sat in component.satisfies
+        p: a(href=appurl('standards',sat.standard_key, sat.control_key))
+          | #{sat.standard_key} - #{sat.control_key}
+          if sat.implementation_status
+            b= " - status: " + sat.implementation_status
+        each n in sat.narrative
           p= n.text
-        p
-          b= "Status: "
-          satisfies.implementation_status
 

@@ -57,7 +57,7 @@ app.use(errorHandler);
 
 app.initialize = function (db, config) {
     app.set('db', db);
-    app.set('navindex', routes.navindex(db));
+    app.set('sitemap', routes.sitemap(db));
     app.locals.appurl = routes.appurl
 }
 

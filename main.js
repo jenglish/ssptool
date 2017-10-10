@@ -37,10 +37,12 @@ program
       ;
     server.on('error', logError);
 
+    logger.info("Loading opencontrol data...");
     loadControls(db => {
+      logger.info("Initializing...");
       app.initialize(db);
-      server.listen(options.port, () =>
-	logger.info('listening on http://localhost:%d', options.port));
+      logger.info('Listening on http://localhost:%d', options.port);
+      server.listen(options.port, () => logger.info("Ready."));
     });
   });
 
