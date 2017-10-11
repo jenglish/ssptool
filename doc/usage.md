@@ -18,8 +18,16 @@ the raw OpenControl data, viz:
 - Components
 - Certifications
 
+# Validating data
 
-# Generating documents
+```
+ssptool validate
+```
+
+Validates all of the files in `opencontrols/` against
+the schemas defined in [](../lib/opencontrol/schemas.js).
+
+# Reports and documents
 
 _TBD_.
 

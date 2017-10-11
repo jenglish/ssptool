@@ -5,7 +5,9 @@ var program = require('commander')
   , opencontrol = require('./lib/opencontrol')
   , logger = console
   , commands = 
-    { list: require('./commands/list') };
+    { list: require('./commands/list')
+    , validate: require('./commands/validate')
+    };
 
 program.version(package.version);
 
@@ -51,6 +53,13 @@ program
   .description('List all OpenControl artefacts')
   .action(function () {
     loadControls(db => commands.list.run(db));
+  });
+
+program
+  .command('validate')
+  .description('Validate all OpenControl artefacts')
+  .action(function () {
+    commands.validate(program.dir)
   });
 
 program

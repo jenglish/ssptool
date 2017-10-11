@@ -9,6 +9,7 @@
     "ssptool": "./main.js"
   },
   "dependencies": {
+    "ajv": "^5.2.3",
     "async": "^2.5.0",
     "commander": "^2.11.0",
     "debug": "^3.1.0",
@@ -19,6 +20,7 @@
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5",
+    "stream-end": "^0.1.0",
     "stream-exhaust": "^1.0.2",
     "through2": "^2.0.3",
     "vinyl-fs": "^2.4.4"

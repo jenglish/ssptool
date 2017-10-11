@@ -16,9 +16,10 @@ compliance-masonry get
 node /path/to/ssptool/main.js server
 ```
 
-# Status
+# Current features
 
-Alpha release. Can browse raw data, that's about all right now.
+- Web application for browsing raw OpenControl data
+- Can validate OpenControl data
 
 # More info
 
