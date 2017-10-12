@@ -16,17 +16,17 @@ var prepScript =
 /**
  * Preflight check for test scripts.
  * Usage (in mocha):
- *	before (function (done) { preflight(done); });
+ *      before (function (done) { preflight(done); });
  */
 function preflight (done) {
     fs.stat(datadir, function (err, stat) {
-	if (err || !stat.isDirectory()) {
-	    done(new Error(err.message + '\n\n' + prepScript))
-	} else {
-	    done();
-	}
+        if (err || !stat.isDirectory()) {
+            done(new Error(err.message + '\n\n' + prepScript));
+        } else {
+            done();
+        }
     });
-};
+}
 
 exports.preflight = preflight;
 exports.datadir = datadir;

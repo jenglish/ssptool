@@ -1,4 +1,3 @@
-/*! vim: set et sw=4 :*/
 
 var program = require('commander')
   , package = require('./package.json')
@@ -11,7 +10,7 @@ var program = require('commander')
 
 program.version(package.version);
 
-program.option('-d, --dir <dir>', 'Path to opencontrols data', './opencontrols')
+program.option('-d, --dir <dir>', 'Path to opencontrols data', './opencontrols');
 
 /** Log an Error
  * @param err (Error) 
@@ -39,12 +38,12 @@ program
       ;
     server.on('error', logError);
 
-    logger.info("Loading opencontrol data...");
+    logger.info('Loading opencontrol data...');
     loadControls(db => {
-      logger.info("Initializing...");
+      logger.info('Initializing...');
       app.initialize(db);
       logger.info('Listening on http://localhost:%d', options.port);
-      server.listen(options.port, () => logger.info("Ready."));
+      server.listen(options.port, () => logger.info('Ready.'));
     });
   });
 
@@ -59,7 +58,7 @@ program
   .command('validate')
   .description('Validate all OpenControl artefacts')
   .action(function () {
-    commands.validate(program.dir)
+    commands.validate(program.dir);
   });
 
 program

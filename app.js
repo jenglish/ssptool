@@ -1,4 +1,3 @@
-/*! vim: set et sw=4 :*/
 
 var express = require('express')
   , path = require('path')
@@ -16,9 +15,9 @@ function basepath (p) { return path.join(__dirname, p); }
 function chooseLogger (app) {
     let env = app.get('env');
     if (env === 'development') {
-    	app.use(logger('dev'));
+        app.use(logger('dev'));
     } else if (env !== 'test') {
-    	app.use(logger('combined'));
+        app.use(logger('combined'));
     }
 }
 
@@ -26,14 +25,14 @@ function notFoundHandler (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
-};
+}
 
 function errorHandler (err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
     res.render('error');
-};
+}
 
 app.set('views', basepath('views'));
 app.set('view engine', 'pug');
@@ -58,7 +57,7 @@ app.use(errorHandler);
 app.initialize = function (db, config) {
     app.set('db', db);
     app.set('sitemap', routes.sitemap(db));
-    app.locals.appurl = routes.appurl
-}
+    app.locals.appurl = routes.appurl;
+};
 
 module.exports = app;
