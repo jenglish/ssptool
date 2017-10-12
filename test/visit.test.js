@@ -41,7 +41,7 @@ describe('Component pages', function () {
     });
 });
 describe('Crawl the whole site', function () {
-    const { Sitemap, NavItem } = require('../lib/navigation/sitemap');
+    const { Sitemap } = require('../lib/navigation/sitemap');
     const async = require('async');
     var sitemap;
 

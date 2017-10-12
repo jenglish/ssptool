@@ -51,10 +51,9 @@ app.use(errorHandler);
  * Initialization.
  *
  * @param (opencontrol.Database) db
- * @param config - not yet used
  */
 
-app.initialize = function (db, config) {
+app.initialize = function (db) {
     app.set('db', db);
     app.set('sitemap', routes.sitemap(db));
     app.locals.appurl = routes.appurl;

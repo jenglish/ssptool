@@ -64,7 +64,7 @@ program
 program
   .command('*')
   .description('Show help')
-  .action(function(env) { program.help(); })
+  .action(function() { program.help(); })
   ;
 
 program.parse(process.argv);
