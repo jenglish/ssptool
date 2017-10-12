@@ -20,14 +20,31 @@ function appurl (...args) {
     return "/" + _.map(args, encodeURIComponent).join("/");
 }
 
-/** Route middleware constructor
+/** Construct a 404 Error that may be thrown from a query function
+ *  or passed to next() from a middleware function
+ *
+ * @param what - type of thing that wasn't found
+ * @param name - name of thing that wasn't found
+ */
+
+function notfound (what, name) {
+    var err = new Error(what + ' ' + name + ' not found');
+    err.status = 404;
+    return err;
+}
+
+/** Route middleware constructor.
  */
 function sendpage (view) {
     return function(req, res, next) {
         var sitemap = req.app.get('sitemap');
-        res.locals.nav = sitemap.navinfo(req.path);
 	res.locals.toplinks = sitemap.toplinks;
-        res.render(view);
+        res.locals.nav = sitemap.navinfo(req.path);
+        if (res.locals.nav) {
+            res.render(view);
+        } else {
+            next(notfound('page', req.path));
+        }
     }
 }
 
@@ -49,18 +66,6 @@ function runquery (qf) {
         }
         next();
     }
-}
-
-/** Construct a 404 Error that may be thrown from a query function
- *
- * @param what - type of thing that wasn't found
- * @param name - name of thing that wasn't found
- */
-
-function notfound (what, name) {
-    var err = new Error(what + ' ' + name + ' not found');
-    err.status = 404;
-    return err;
 }
 
 /************************************************************************

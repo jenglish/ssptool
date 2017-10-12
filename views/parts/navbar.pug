@@ -9,7 +9,9 @@ nav.navbar
         li: +navlink('prev', "\u2190 Previous")
         li: +navlink('next', "Next \u2192")
         li: +navlink('up', "Up \u2191")
-      each link in toplinks
-        li: +brieflink(link)
+      if toplinks
+        each link in toplinks
+          li: +brieflink(link)
   div.navbar-right
-    p.navbar-text #{appname} #{appversion}
+    p.navbar-text
+      a(href=apphomepage) #{appname} #{appversion}

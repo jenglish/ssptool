@@ -15,7 +15,10 @@ var supertest = require('supertest')
 
 function tryPage (url) {
     return function (done) {
-        agent.get(url).expect(200).end(done);
+        agent.get(url)
+            .expect(200)
+            .expect('content-type', /html/)
+            .end(done);
     };
 }
 
@@ -30,15 +33,30 @@ before(function (done) {
 
 describe('Proper 404 handling', function () {
     it('returns 404 for missing pages', function (done) {
-        agent.get('/no/such/page').expect(404).end(done);
+        agent.get('/no/such/page')
+            .expect(404)
+            .expect('content-type', /html/)
+            .end(done);
     });
 });
 
 describe('Component pages', function () {
     it('finds component pages', tryPage('/components/AU_policy'));
-    it('returns proper error code for missing pages', function (done) {
-        agent.get('/components/XX-Policy').expect(404).end(done);
+
+    it('returns proper error code for missing components', function (done) {
+        agent.get('/components/XX-Policy')
+            .expect(404)
+            .expect('content-type', /html/)
+            .end(done);
     });
+
+    it('missing /standards', function (done) {
+        agent.get('/standards/no-such-standard')
+            .expect(404)
+            .expect('content-type', /html/)
+            .end(done);
+    });
+
 });
 describe('Crawl the whole site', function () {
     const { Sitemap } = require('../lib/navigation/sitemap');

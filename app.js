@@ -40,6 +40,7 @@ app.set('view engine', 'pug');
 
 app.locals.appname = package.name;
 app.locals.appversion = package.version;
+app.locals.apphomepage = package.homepage;
 
 app.use(favicon(basepath('public/favicon.ico')));
 chooseLogger(app);
