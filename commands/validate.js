@@ -9,13 +9,13 @@ const { Loader } = require('../lib/opencontrol/loader')
 
 function reportErrors (file, errors) {
     logger.warn(file.relative);
-    for (error of validator.errors) {
+    for (var error of errors) {
         logger.warn('\t' + error.dataPath + ': ' + error.message);
         debug(error);
     }
 }
 
-function validate_a(what) {
+function validate_a (what) {
     return function (file) {
         debug('Checking ', file.relative);
         if (!validator.validate(what, file.yaml)) {
@@ -24,7 +24,7 @@ function validate_a(what) {
     };
 }
 
-var alldone = (err, ans) => { if (err) logError(err); logger.info('Done.'); };
+var alldone = (err, _unused) => { if (err) logError(err); logger.info('Done.'); };
 
 function validate (datadir) {
     var loader = new Loader(datadir);

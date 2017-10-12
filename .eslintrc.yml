@@ -3,6 +3,9 @@ env:
   node: true
 extends: 'eslint:recommended'
 rules:
+  no-unused-vars:
+    - error
+    - argsIgnorePattern: '^_'
   no-tabs:
     - warn
   linebreak-style:
