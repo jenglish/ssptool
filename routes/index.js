@@ -34,8 +34,22 @@ function notfound (what, name) {
 }
 
 /** Route middleware constructor.
+ *  Render specified view.
+ *  If req.path is in the sitemap, navigation information will be added.
  */
 function sendpage (view) {
+    return function(req, res, next) {
+        var sitemap = req.app.get('sitemap');
+	res.locals.toplinks = sitemap.toplinks;
+        res.locals.nav = sitemap.navinfo(req.path);
+	res.render(view);
+    }
+}
+
+/** Route middleware constructor.
+ *  Render specified view. req.path must be in the sitemap.
+ */
+function tocpage (view) {
     return function(req, res, next) {
         var sitemap = req.app.get('sitemap');
 	res.locals.toplinks = sitemap.toplinks;
@@ -111,8 +125,8 @@ router.get('/components/:component',
     runquery(findComponent), sendpage('component'));
 appurl.component = component => appurl('components', component.key);
 
-router.get('/standards', sendpage('contents'));
-router.get('/standards/:standard_key', sendpage('contents'));
+router.get('/standards', tocpage('contents'));
+router.get('/standards/:standard_key', tocpage('contents'));
 appurl.standard = standard => appurl('standards', standard.key);
 
 router.get('/standards/:standard_key/:control',
@@ -120,7 +134,7 @@ router.get('/standards/:standard_key/:control',
 appurl.control = control =>
         appurl('standards', control.standard_key, control.key);
 
-router.get('/family/:standard_key/:family', sendpage('contents'));
+router.get('/family/:standard_key/:family', tocpage('contents'));
 appurl.family = (standard_key, family) => appurl('family', standard_key, family);
 
 /************************************************************************

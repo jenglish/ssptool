@@ -13,10 +13,21 @@ var supertest = require('supertest')
   , mock = require('../mock')
   ;
 
-function tryPage (url) {
+function tryPage (path) {
+    return function (done) {
+        agent.get(path)
+            .expect(200)
+            .expect('content-type', /html/)
+            .end(done);
+    };
+}
+
+/* Check for correct 404 responses.
+ */
+function badPage (url) {
     return function (done) {
         agent.get(url)
-            .expect(200)
+            .expect(404)
             .expect('content-type', /html/)
             .end(done);
     };
@@ -32,32 +43,16 @@ before(function (done) {
 });
 
 describe('Proper 404 handling', function () {
-    it('returns 404 for missing pages', function (done) {
-        agent.get('/no/such/page')
-            .expect(404)
-            .expect('content-type', /html/)
-            .end(done);
-    });
+    it('returns 404 for missing pages', badPage('/no/such/page'));
+    it('handles missing components', badPage('/components/XX-Policy'));
+    it('handles missing standards',  badPage('/standards/no-such-standard'));
 });
 
-describe('Component pages', function () {
+describe('Pages', function () {
+    it('can load the root page', tryPage('/'));
     it('finds component pages', tryPage('/components/AU_policy'));
-
-    it('returns proper error code for missing components', function (done) {
-        agent.get('/components/XX-Policy')
-            .expect(404)
-            .expect('content-type', /html/)
-            .end(done);
-    });
-
-    it('missing /standards', function (done) {
-        agent.get('/standards/no-such-standard')
-            .expect(404)
-            .expect('content-type', /html/)
-            .end(done);
-    });
-
 });
+
 describe('Crawl the whole site', function () {
     const { Sitemap } = require('../lib/navigation/sitemap');
     const async = require('async');
