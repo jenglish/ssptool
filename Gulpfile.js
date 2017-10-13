@@ -11,7 +11,7 @@ gulp.task('jsdoc', function (cb) {
 );
 
 gulp.task('eslint', function () {
-    gulp.src(['./lib/**/*.js', '*.js', 'commands/*.js', 'test/*.js'])
+    gulp.src(['./lib/**/*.js', '*.js', 'routes/*.js', 'commands/*.js', 'test/*.js'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());

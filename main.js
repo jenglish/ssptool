@@ -10,7 +10,7 @@ var program = require('commander')
 
 program.version(package.version);
 
-program.option('-d, --dir <dir>', 'Path to opencontrols data', './opencontrols');
+program.option('-d, --datadir <dir>', 'Path to opencontrols data', './opencontrols');
 
 /** Log an Error
  * @param err (Error) 
@@ -20,7 +20,7 @@ function logError(err) { logger.error(err.message); }
 /** Load opencontrols data and pass System to callback if successful.
  */
 var loadControls = function (cb) {
-    opencontrol.load(program.dir, function (err, db) {
+    opencontrol.load(program.datadir, function (err, db) {
         return err ? logError(err) : cb(db);
     });
 };
@@ -58,7 +58,7 @@ program
   .command('validate')
   .description('Validate all OpenControl artefacts')
   .action(function () {
-    commands.validate(program.dir);
+    commands.validate(program.datadir);
   });
 
 program

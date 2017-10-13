@@ -11,6 +11,7 @@ var supertest = require('supertest')
   , agent = supertest.agent(app)
   , opencontrol = require('../lib/opencontrol')
   , mock = require('../mock')
+  , expected = mock.expected
   ;
 
 function tryPage (path) {
@@ -22,7 +23,8 @@ function tryPage (path) {
     };
 }
 
-/* Check for correct 404 responses.
+/**
+ * Check for correct 404 responses.
  */
 function badPage (url) {
     return function (done) {
@@ -42,6 +44,7 @@ before(function (done) {
     });
 });
 
+// SEEALSO: routes.js, keep in sync.
 describe('Proper 404 handling', function () {
     it('returns 404 for missing pages', badPage('/no/such/page'));
     it('handles missing components', badPage('/components/XX-Policy'));
@@ -68,6 +71,15 @@ describe('Crawl the whole site', function () {
         for (var item in sitemap.items) {
             tasks.push(tryPage(item));
         }
+        async.series(tasks, done);
+    });
+
+    it('can find all expected controls', function (done) {
+        const appurl = app.locals.appurl;
+        const standard_key = expected.standard;
+        var tasks = [];
+        expected.controls.forEach(control_key =>
+            tasks.push(tryPage(appurl('standards',standard_key,control_key))));
         async.series(tasks, done);
     });
 });

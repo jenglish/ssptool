@@ -17,7 +17,7 @@ var router = require('express').Router();
  */
 
 function appurl (...args) {
-    return "/" + _.map(args, encodeURIComponent).join("/");
+    return '/' + _.map(args, encodeURIComponent).join('/');
 }
 
 /** Construct a 404 Error that may be thrown from a query function
@@ -28,22 +28,36 @@ function appurl (...args) {
  */
 
 function notfound (what, name) {
-    var err = new Error(what + ' ' + name + ' not found');
+    var err = new Error(what + ' ' + (name || '') + ' not found');
     err.status = 404;
     return err;
 }
+
+/** Multi-level _.groupBy.
+*/
+function nest (collection, keys) {
+    var result = _.groupBy(collection, keys[0]);
+    var rest = keys.slice(1);
+    if (rest.length) {
+        for (var group in result) {
+            result[group] = nest(result[group], rest);
+        }
+    }
+    return result;
+}
+
 
 /** Route middleware constructor.
  *  Render specified view.
  *  If req.path is in the sitemap, navigation information will be added.
  */
 function sendpage (view) {
-    return function(req, res, next) {
+    return function(req, res) {
         var sitemap = req.app.get('sitemap');
-	res.locals.toplinks = sitemap.toplinks;
+        res.locals.toplinks = sitemap.toplinks;
         res.locals.nav = sitemap.navinfo(req.path);
-	res.render(view);
-    }
+        res.render(view);
+    };
 }
 
 /** Route middleware constructor.
@@ -52,34 +66,34 @@ function sendpage (view) {
 function tocpage (view) {
     return function(req, res, next) {
         var sitemap = req.app.get('sitemap');
-	res.locals.toplinks = sitemap.toplinks;
+        res.locals.toplinks = sitemap.toplinks;
         res.locals.nav = sitemap.navinfo(req.path);
         if (res.locals.nav) {
             res.render(view);
         } else {
             next(notfound('page', req.path));
         }
-    }
+    };
 }
 
 /** Route middleware constructor
  *
  *  @param qf - query function.
  *
- * qf takes a @{link opencontrol.Database} and the query parameters
+ * qf takes an opencontrol#Database and the query parameters
  * and returns a hash. All keys in the hash are added to res.locals.
  */
 function runquery (qf) {
     return function (req, res, next) {
         try {
             let db = req.app.get('db');
-            let ans = qf(db, req.params)
+            let ans = qf(db, req.params);
             _.forEach(ans, (v,k) => res.locals[k] = v);
         } catch (err) {
           return next(err);
         }
         next();
-    }
+    };
 }
 
 /************************************************************************
@@ -87,28 +101,16 @@ function runquery (qf) {
  *** Queries
  ***
  ***/
-function findByKey(what, collection, params) {
-    var key = params[what], ans = {};
-    if (_.has(collection, key)) {
-        ans[what] = collection[key];
-    } else {
-        throw notfound('control', key);
-    }
-    return ans;
-}
 
-function listControls (db, params) {
-    return { controls: _.values(db.controls) }
-}
-function findControl (db, params) {
-    return findByKey('control', db.controls, params);
-}
-function listComponents (db, params) {
-    return { components: _.values(db.components) }
-}
-function findComponent (db, params) {
-    return findByKey('component', db.components, params);
-}
+var findControl = (db, params) => ({
+    control: db.controls.findByKey(params.standard, params.control)
+});
+var listComponents = (db, _params) => ({
+    components: db.components.records
+});
+var findComponent = (db, params) => ({
+    component: db.components.findByKey(params.component)
+});
 
 /************************************************************************
  ***
@@ -129,8 +131,8 @@ router.get('/standards', tocpage('contents'));
 router.get('/standards/:standard_key', tocpage('contents'));
 appurl.standard = standard => appurl('standards', standard.key);
 
-router.get('/standards/:standard_key/:control',
-        runquery(findControl), sendpage('control'))
+router.get('/standards/:standard/:control',
+        runquery(findControl), sendpage('control'));
 appurl.control = control =>
         appurl('standards', control.standard_key, control.key);
 
@@ -147,23 +149,23 @@ function sitemap (db) {
     var site = new Sitemap;
 
     site.begin('/components', 'Components');
-    for (component of _.values(db.components)) {
+    for (var component of db.components.records) {
         site.add(appurl.component(component), component.key, component.name);
     }
     site.end();
 
     site.begin('/standards', 'Standards');
-    _(db.controls)
-    .values()
-    .groupBy('standard_key')
-    .forEach(function (controls, standard_key) {
+    _(nest(db.controls.records, ['standard_key', 'family']))
+    .forEach(function (group, standard_key) {
+        debug('creating toc for standard %s', standard_key);
         site.begin(appurl('standards', standard_key), standard_key);
-        _(controls).groupBy('family')
-        .forEach(function (controls, family) {
+        _(group).forEach(function (controls, family) {
+            debug('creating subtoc for family %s', family);
             site.begin(appurl.family(standard_key, family), family);
             _(controls).forEach(function (control) {
+                debug('creating tocentry for %s', control.key);
                 site.add(appurl.control(control),
-                    control.key, control.key + " - " + control.name)
+                    control.key, control.key + ' - ' + control.name);
                 });
             site.end();
         });

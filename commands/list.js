@@ -1,17 +1,22 @@
 
-var _ = require('lodash')
-  , format = require('util').format
-  ;
+const { format } = require('util');
 
 var outfp = process.stdout;
 var writeln = function (s) { outfp.write(s + '\n'); };
 
-exports.run = function (sys) {
+exports.run = function (db) {
     writeln('Controls');
-    _.forEach(sys.controls, (control, key) =>
-        writeln(format('  %s: %s', key, control.name)));
+
+    db.controls.chain()
+    .sortBy('key')
+    .forEach(control =>
+        writeln(format('  %s: %s', control.key, control.name)))
+    .value();
 
     writeln('Components');
-    _.forEach(sys.components, (component, key) =>
-        writeln(format('  %s: %s', key, component.name)));
+    db.components.chain()
+    .sortBy('key')
+    .forEach(component =>
+        writeln(format('  %s: %s', component.key, component.name)))
+    .value();
 };
