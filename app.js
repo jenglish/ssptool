@@ -4,7 +4,7 @@ var express = require('express')
   , favicon = require('serve-favicon')
   , logger = require('morgan')
   , package = require('./package.json')
-  , routes = require('./routes')
+  , routes = require('./lib/routes')
   , app = express()
   ;
 
