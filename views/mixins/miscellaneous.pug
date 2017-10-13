@@ -1,4 +1,7 @@
 
+mixin stylesheet(uri)
+    link(rel='stylesheet', href=uri)
+
 mixin menubox(title, items)
   div.list-group
     p.list-group-item.active= title
