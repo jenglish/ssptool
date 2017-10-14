@@ -56,4 +56,20 @@ describe('Loader', function () {
               .to.equal(expected.components.length);
     });
     });
+
+    describe('Certifications', function () {
+
+    it('are stored as a flat table', function () {
+        expect(db.certifications.records.length)
+            .to.eql(expected.certified.length);
+        for (var c of db.certifications.records) {
+            expect(c).to.have.property('certification');
+            expect(c).to.have.property('standard_key');
+            expect(c).to.have.property('certification');
+        }
+    });
+
+    });
+
+
 });

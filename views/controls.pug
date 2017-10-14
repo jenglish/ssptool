@@ -1,6 +1,0 @@
-extends layout
-block content
-  h1 Controls
-  ul
-    each control in controls
-      li: a(href=appurl('controls', control.key)) #{control.key} - #{control.name}

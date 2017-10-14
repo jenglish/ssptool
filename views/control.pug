@@ -1,12 +1,23 @@
 extends layout
 block content
-  h1
+  h1 #{control.name}
+  h2
     | #{control.key}
-    small / (#{control.standard_key})
-  h2 #{control.name}
-  dl.dl-horizontal
-    dt Family
-    dd #{control.family}
-    dt Description
-    dd #{control.description}
+    small= " / " + control.standard_key
+
+  h3 Description
+  p= control.description
+
+  each certification in certifications
+    p CERT: #{certification.certification}
+
+  if satisfied.length
+    h2 Satisfied By
+    +satisfied(satisfied)
+  else if certifications && certifications.length
+    +warning
+      | This control is not satisfied by any component
+  else
+    +info
+      | This control is not referenced in any certification
 

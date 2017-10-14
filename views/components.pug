@@ -1,7 +1,0 @@
-extends layout
-block content
-  h1 Components
-  ul
-    each component in components
-      li: a(href=appurl('components', component.key))
-        | #{component.name}

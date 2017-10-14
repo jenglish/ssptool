@@ -1,0 +1,33 @@
+//- various tables ...
+
+mixin satisfied(sats)
+  table.table
+    thead
+      tr
+        td Component
+        td Name
+        td Status
+        td Details
+    tbody
+      each sat in sats
+        tr
+          td: a(href=linkto.component(sat.component_key))= sat.component_key
+          td= "..."
+          td= sat.implementation_status
+          td= sat.narrative[0].text
+
+mixin satisfies(sats)
+  table.table
+    thead
+      tr
+        td Control
+        td Name
+        td Status
+    tbody
+      each sat in sats
+        tr
+          td: a(href=linkto.control(sat.standard_key, sat.control_key))
+            = sat.control_key
+          td= "..."
+          td= sat.implementation_status
+

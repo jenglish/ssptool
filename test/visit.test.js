@@ -14,24 +14,34 @@ var supertest = require('supertest')
   , expected = mock.expected
   ;
 
+/**
+ * add context to error messages.
+ */
+function errorContext (context, next) {
+    return function (err, ans) {
+        if (err) { err.message = context + ': ' + err.message; }
+        next(err, ans);
+    };
+}
+
 function tryPage (path) {
     return function (done) {
         agent.get(path)
             .expect(200)
             .expect('content-type', /html/)
-            .end(done);
+            .end(errorContext(path, done));
     };
 }
 
 /**
  * Check for correct 404 responses.
  */
-function badPage (url) {
+function badPage (path) {
     return function (done) {
-        agent.get(url)
+        agent.get(path)
             .expect(404)
             .expect('content-type', /html/)
-            .end(done);
+            .end(errorContext(path,done));
     };
 }
 
@@ -75,11 +85,11 @@ describe('Crawl the whole site', function () {
     });
 
     it('can find all expected controls', function (done) {
-        const appurl = app.locals.appurl;
+        const linkto = app.locals.linkto;
         const standard_key = expected.standard;
         var tasks = [];
         expected.controls.forEach(control_key =>
-            tasks.push(tryPage(appurl('standards',standard_key,control_key))));
+            tasks.push(tryPage(linkto.control(standard_key, control_key))));
         async.series(tasks, done);
     });
 });

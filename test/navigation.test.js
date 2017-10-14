@@ -1,7 +1,7 @@
 
-var navigation, NavItem, Sitemap;        // system under test
-
 var expect = require('expect.js');
+
+var navigation, NavItem, Sitemap;        // system under test
 
 before(function () {
     navigation = require('../lib/navigation');

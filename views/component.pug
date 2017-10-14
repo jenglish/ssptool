@@ -10,15 +10,26 @@ block content
       dt Responsible role
       dd #{component.responsible_role}
 
-    h2 References
-
     if component.satisfies
       h2 Satisfies
+      +satisfies(component.satisfies)
+
+      h2 Details
       each sat in component.satisfies
-        p: a(href=appurl('standards',sat.standard_key, sat.control_key))
-          | #{sat.standard_key} - #{sat.control_key}
-          if sat.implementation_status
-            b= " - status: " + sat.implementation_status
+        h3
+          | #{sat.control_key} #{""}
+          small status: #{sat.implementation_status}
+        //- KeyedText(sat.narrative)
         each n in sat.narrative
-          p= n.text
+          p
+            if n.key
+              b (#{n.key})
+              = " "
+            = n.text
+
+    if component.references && component.references.length
+      h2 References
+      ol
+        each ref in component.references
+          li: a(href=ref.path)= ref.name
 
