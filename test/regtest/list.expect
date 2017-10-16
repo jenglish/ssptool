@@ -1,0 +1,12 @@
+Controls
+  AU-1: Audit and Accountability Policy and Procedures
+  AU-2: Audit Events
+  AU-2 (3): Audit Events | Reviews and Updates
+  PE-2: Physical Access Authorizations
+  SC-1: System and Communications Protection Policy and Procedures
+  SC-7: Boundary Protection
+  XX-1: Dummy Mock Control
+Components
+  AU_policy: Audit Policy
+  AWS_core: AWS Core
+  AWS_implementation: AWS Implementation
