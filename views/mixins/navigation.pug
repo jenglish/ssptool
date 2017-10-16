@@ -2,11 +2,19 @@
 //- Navigational aides
 //-
 
-//- general navigational link
+- var onpath = function (item) {
+-   if (!nav) { return false; };
+-   for (var c of nav.breadcrumbs) {
+-     if (item.path == c.path) return true;
+-   }
+-   return false;
+- }
+
+//- relative link
 //-  rel: 'prev', 'next', 'up', etc.
 //-  label: fixed anchor text
 //
-mixin navlink(rel, label)
+mixin rellink(rel, label)
   if nav && nav[rel]
     a(rel=rel, href=nav[rel].path, title=nav[rel].label)
       = label
@@ -30,17 +38,27 @@ mixin breadcrumbs
         li: a(href=crumb.path)= crumb.label
 
 //- Full table of contents
+
 mixin toc(contents)
   if contents.length
     ul.toc
       each item in contents
-        li: a(href=item.path)= item.title
+        li(class = onpath(item) ? 'toc-open' : 'toc-closed')
+          span.toc-title: a(href=item.path)= item.title
           +toc(item.contents)
 
 //- Bootstrap pager - next/prev links
 mixin pager
   nav(aria-label="...")
     ul.pager
-      li.previous: +navlink('prev', '\u2190 Previous')
-      li.next: +navlink('next', 'Next \u2192')
+      li.previous: +rellink('prev', '\u2190 Previous')
+      li.next: +rellink('next', 'Next \u2192')
+
+//- Top-level navigation links
+mixin topnav
+  ul.nav.navbar-nav
+    if toplinks
+      each link in toplinks
+        li(class = onpath(link) ? 'active' : null)
+          +brieflink(link)
 

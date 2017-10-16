@@ -22,3 +22,12 @@ mixin warning
   div.alert.alert-warning
     block
 
+mixin keyedtext(narrative)
+  each n in narrative
+    p
+      if n.key
+        b (#{n.key})
+        = " "
+      = n.text
+
+

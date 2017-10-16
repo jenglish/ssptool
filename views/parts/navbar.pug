@@ -1,17 +1,19 @@
 //- top navigation bar
 
-nav.navbar
-  div.navbar-header
-    a(href="/")
-      img.navbar-brand(src='/img/opencontrol-icon.png')
+mixin brand
+  a(href="/")
+    img.navbar-brand(src='/img/opencontrol-icon.png')
+
+mixin rellinks
+  if nav
     ul.nav.navbar-nav
-      if nav
-        li: +navlink('prev', "\u2190 Previous")
-        li: +navlink('next', "Next \u2192")
-        li: +navlink('up', "Up \u2191")
-      if toplinks
-        each link in toplinks
-          li: +brieflink(link)
+      li: +rellink('prev', "\u2190 Previous")
+      li: +rellink('next', "Next \u2192")
+      li: +rellink('up', "Up \u2191")
+
+nav.navbar.navbar-default
+  div.navbar-header
+    +brand
+    +topnav
   div.navbar-right
-    p.navbar-text
-      a(href=apphomepage) #{appname} #{appversion}
+    +rellinks

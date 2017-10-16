@@ -20,4 +20,30 @@ ul.toc li {
   list-style-type: none;
   margin: 0px 0px 5px 0px;
 }
+
+ul.toc li.toc-open {
+  list-style-type: disclosure-open;
+}
+
+ul.toc li.toc-closed {
+  list-style-type: disclosure-closed;
+}
+ul.toc > li.toc-closed > ul {
+    display: none;
+}
+
+.panel ul.toc li {
+  list-style-position: inside;	/* otherwise bullet vanishes */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Avoid disappearing/reappearing scrollbar -
+ * force it always on:
+ */
+html {
+  overflow-y: scroll;
+}
+
 /*EOF*/

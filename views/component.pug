@@ -1,8 +1,10 @@
 extends layout
 block content
   div.content
-    h1 #{component.key} - #{component.name}
+    h1 #{component.name}
     dl.dl-horizontal
+      dt Component
+      dd #{component.key}
       dt System
       dd #{component.system}
       dt Documentation
@@ -19,17 +21,10 @@ block content
         h3
           | #{sat.control_key} #{""}
           small status: #{sat.implementation_status}
-        //- KeyedText(sat.narrative)
-        each n in sat.narrative
-          p
-            if n.key
-              b (#{n.key})
-              = " "
-            = n.text
+        +keyedtext(sat.narrative)
 
     if component.references && component.references.length
       h2 References
       ol
         each ref in component.references
           li: a(href=ref.path)= ref.name
-

@@ -77,6 +77,7 @@ describe('Crawl the whole site', function () {
     });
 
     it('can serve all pages in the sitemap', function (done) {
+        this.timeout(5000); // can take a while on slow machines
         var tasks = [];
         for (var item in sitemap.items) {
             tasks.push(tryPage(item));

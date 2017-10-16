@@ -1,19 +1,29 @@
 extends layout
 block content
   h1 #{control.name}
-  h2
-    | #{control.key}
-    small= " / " + control.standard_key
+  dl.dl-horizontal
+    dt Control
+    dd #{control.key}
+    dt Standard
+    dd #{control.standard_key}
+    dt Certifications
+    dd
+      each certification in certifications
+        span.label.label-default #{certification.certification}
 
-  h3 Description
+  h2 Description
   p= control.description
 
-  each certification in certifications
-    p CERT: #{certification.certification}
-
-  if satisfied.length
+  if satisfied && satisfied.length
     h2 Satisfied By
     +satisfied(satisfied)
+
+    h2 Details
+    each sat in satisfied
+      h3
+        | #{sat.component_key} #{""}
+        small status: #{sat.implementation_status}
+      +keyedtext(sat.narrative)
   else if certifications && certifications.length
     +warning
       | This control is not satisfied by any component
