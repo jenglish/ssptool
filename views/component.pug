@@ -12,14 +12,14 @@ block content
       dt Responsible role
       dd #{component.responsible_role}
 
-    if component.satisfies
+    if satisfies && satisfies.length
       h2 Satisfies
-      +satisfies(component.satisfies)
+      +satisfies(satisfies)
 
       h2 Details
-      each sat in component.satisfies
+      each sat in satisfies
         h3
-          | #{sat.control_key} #{""}
+          | #{sat.control_key} #{sat.control.name} #{""}
           small status: #{sat.implementation_status}
         +keyedtext(sat.narrative)
 

@@ -21,7 +21,7 @@ block content
     h2 Details
     each sat in satisfied
       h3
-        | #{sat.component_key} #{""}
+        | #{sat.component.name} #{""}
         small status: #{sat.implementation_status}
       +keyedtext(sat.narrative)
   else if certifications && certifications.length
