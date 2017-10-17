@@ -48,9 +48,8 @@ describe('Collections', function () {
         expect(coll.findByKey('A2', 'B2').c).to.equal('C4');
     });
 
-    it('throws an exception if the record is not found', function () {
-        expect(() => coll.findByKey('A2', 'B3'))
-            .to.throwException(/not found/);
+    it('returns null if the record is not found', function () {
+        expect(coll.findByKey('A2', 'B3')).to.be(null);
     });
 
     it('must be called with the right number of arguments', function () {

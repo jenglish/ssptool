@@ -31,6 +31,7 @@ function errorHandler (err, req, res, next) {
     if (res.headersSent) { return next(err); }
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.path = req.path;
     res.status(err.status || 500);
     res.render('error');
 }

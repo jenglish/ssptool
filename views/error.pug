@@ -9,4 +9,13 @@ block body
       h1.alert.alert-danger Internal error
       p.alert.alert-danger #{message}
 
-    pre.alert.alert-warning #{error.stack}
+    dl.alert.alert-danger.dl-horizontal
+      dt path
+      dd #{path}
+      each value, param in params || {}
+        dt #{param}
+        dd #{value}
+
+    if error.stack
+      pre.alert.alert-warning #{error.stack}
+
