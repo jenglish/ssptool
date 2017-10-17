@@ -2,7 +2,7 @@
 
 This is a nodejs / express application for working with [OpenControl] content.
 It works in conjunction with [compliance-masonry] to generate
-Sytem Security Plans and other compliance documentation.
+System Security Plans and other compliance documentation.
 
 # Quick demo
 
