@@ -10,20 +10,18 @@ var program = require('commander')
 
 program.version(package.version);
 
-program.option('-d, --datadir <dir>', 'Path to opencontrols data', './opencontrols');
+program.option('-d, --datadir <dir>', 'path to opencontrols data', './opencontrols');
+program.option('-m, --docdir <dir>', 'path to markdown documents', './markdowns');
 
-/** Log an Error
- * @param err (Error) 
+/** Log an error
+ * @param {Error} err
  */
 function logError(err) { logger.error(err.message); }
 
-/** Load opencontrols data and pass System to callback if successful.
- */
-var loadControls = function (cb) {
-    opencontrol.load(program.datadir, function (err, db) {
-        return err ? logError(err) : cb(db);
-    });
-};
+function loadDatabase (cb) {
+    opencontrol.load({ datadir: program.datadir, docdir: program.docdir },
+        (err, db) => err ? logError(err) : cb(db));
+}
 
 /** Launch HTTP server
  */
@@ -39,7 +37,7 @@ program
     server.on('error', logError);
 
     logger.info('Loading opencontrol data...');
-    loadControls(db => {
+    loadDatabase(db => {
       logger.info('Initializing...');
       app.initialize(db);
       logger.info('Listening on http://localhost:%d', options.port);
@@ -51,7 +49,7 @@ program
   .command('list').alias('ls')
   .description('List all OpenControl artefacts')
   .action(function () {
-    loadControls(db => commands.list.run(db));
+    loadDatabase(db => commands.list.run(db));
   });
 
 program

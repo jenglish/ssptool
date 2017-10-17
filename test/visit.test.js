@@ -47,7 +47,7 @@ function badPage (path) {
 
 before(function (done) { mock.preflight(done); });
 before(function (done) {
-    opencontrol.load(mock.datadir, function (err, db) {
+    opencontrol.load(mock.loadOptions, function (err, db) {
         if (err) { return done(err); }
         app.initialize(db);
         done();
@@ -59,6 +59,7 @@ describe('Proper 404 handling', function () {
     it('returns 404 for missing pages', badPage('/no/such/page'));
     it('handles missing components', badPage('/components/XX-Policy'));
     it('handles missing standards',  badPage('/standards/no-such-standard'));
+    it('handles missing pages',  badPage('/pages/no-such-page'));
 });
 
 describe('Pages', function () {

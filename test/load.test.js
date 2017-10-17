@@ -12,7 +12,7 @@ describe('Loader', function () {
     var db;
 
     it('should work', function (done) {
-        opencontrol.load(mock.datadir, function (err, _db) {
+        opencontrol.load(mock.loadOptions, function (err, _db) {
             db = _db;
             done(err, db);
         });
@@ -71,5 +71,26 @@ describe('Loader', function () {
 
     });
 
+    describe('Pages', function () {
+
+        it('should load markdown pages', function () {
+            expect(db.pages.records.length).to.eql(2);
+        });
+
+        it('... identified by relative pathname', function () {
+            var readme = db.pages.chain()
+                .find({ relative: 'README.md' }).value();
+            expect(readme).to.be.ok();
+        });
+
+        it('parses YAML frontmatter in *.md files', function () {
+            var readme = db.pages.chain()
+                .find({ relative: 'README.md' }).value();
+            expect(readme).to.have.property('data');
+            expect(readme.data).to.have.property('title');
+            expect(readme).to.have.property('html');
+        });
+
+    });
 
 });

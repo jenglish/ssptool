@@ -6,7 +6,7 @@
 #
 
 NMBIN = ./node_modules/.bin
-SSPTOOL = node main.js --datadir=examples/opencontrols
+SSPTOOL = node main.js --datadir=examples/test/opencontrols
 LINTABLE =			\
 	'*.js'			\
 	'lib/**/*.js'		\
@@ -21,7 +21,7 @@ usage ::
 	@echo "make qa"
 
 test-prep ::
-	( cd examples ; compliance-masonry get )
+	( cd examples/test ; compliance-masonry get )
 usage ::
 	@echo "make test-prep"
 
@@ -48,7 +48,7 @@ usage ::
 	@echo "make jsdoc"
 
 demo ::
-	(cd examples ; node ../main.js server)
+	(cd examples/test ; node ../../main.js server)
 usage ::
 	@echo "make demo"
 
