@@ -1,0 +1,19 @@
+documentation_complete: false
+name: BAD-1
+schema_version: 3.0.0
+satisfies:
+- control_key: BC-2 (3)
+  standard_key: FRIST-800-53
+  covered_by: []
+  narrative:
+    - key: a
+      text: |
+        This component references a nonexistant control.
+        This is not an error -- components may satisfy multiple standards,
+        some of which may be omitted from a particular SSP.
+    - key: b
+      text: |
+        However, there should probably still be some kind of warning
+        somwehere if the Standard is known but the Control isn't found there.
+        TBDWL.
+
