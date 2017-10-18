@@ -42,8 +42,10 @@ test ::
 usage ::
 	@echo "make test"
 
+qa :: jsdoc
 jsdoc ::
-	$(NMBIN)/jsdoc -r lib -d jsdocs
+	@echo "Running jsdoc..."
+	@$(NMBIN)/jsdoc -c .jsdoc.json -r lib -d jsdocs
 usage ::
 	@echo "make jsdoc"
 
