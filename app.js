@@ -63,6 +63,7 @@ app.initialize = function (db) {
     app.locals.linkto = routes.linkto;
 
     routes.buildSite(db);
+    app.locals.toplinks = routes.sitemap.toplinks;
 };
 
 module.exports = app;
