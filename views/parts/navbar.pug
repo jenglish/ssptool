@@ -5,7 +5,7 @@ mixin brand
     img.navbar-brand(src='/img/opencontrol-icon.png')
 
 mixin rellinks
-  if nav
+  if navinfo
     ul.nav.navbar-nav
       li: +rellink('prev', "\u2190 Previous")
       li: +rellink('next', "Next \u2192")

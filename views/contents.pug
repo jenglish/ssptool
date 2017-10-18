@@ -2,9 +2,9 @@
 extends layout
 
 block content
-  h1 #{nav.title}
+  h1 #{navinfo.title}
 
   ul.toc
-    each item in nav.contents
+    each item in navinfo.contents
       li: a(href=item.path)= item.title
 

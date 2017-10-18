@@ -128,15 +128,16 @@ describe('Sitemap', function () {
         expect(sitemap.find('/1/1/3')).to.be.a(NavItem);
     });
     it('navinfo() method', function () {
-        var nav = sitemap.navinfo('/1/3/2');
-        expect(nav.title).to.eql('1.3.2');
-        expect(nav.label).to.eql('1.3.2');
-        expect(nav.next).to.be.a(NavItem);
-        expect(nav.next.label).to.eql('1.3.3');
-        expect(nav.prev.label).to.eql('1.3.1');
+        var navinfo = sitemap.navinfo('/1/3/2');
+        expect(navinfo.title).to.eql('1.3.2');
+        expect(navinfo.label).to.eql('1.3.2');
+        expect(navinfo.links.next).to.be.a(NavItem);
+        expect(navinfo.links.next.label).to.eql('1.3.3');
+        expect(navinfo.links.prev.label).to.eql('1.3.1');
+        expect(navinfo.links.up.label).to.eql('1.3');
 
         var bclabels = [];
-        for (var crumb of nav.breadcrumbs) {
+        for (var crumb of navinfo.breadcrumbs) {
             bclabels.push(crumb.label);
         }
         expect(bclabels).to.eql(['', '1', '1.3', '1.3.2']);

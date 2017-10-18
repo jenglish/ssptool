@@ -12,8 +12,8 @@ html
       +stylesheet(bootstrap)
       +stylesheet('/css/style.css')
     title
-      if nav && nav.title
-        | #{nav.title} - #{appname}
+      if navinfo && navinfo.title
+        | #{navinfo.title} - #{appname}
       else
         | #{appname}
   body

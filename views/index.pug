@@ -4,8 +4,8 @@ block content
   h1 #{appname}
   p Welcome to #{appname} #{appversion}
 
-  if nav && nav.toc
+  if navinfo && navinfo.toc
     ul
-      each item in nav.toc.contents
+      each item in navinfo.toc.contents
         li: a(href=item.path)= item.title
 

@@ -3,8 +3,8 @@
 //-
 
 - var onpath = function (item) {
--   if (!nav) { return false; };
--   for (var c of nav.breadcrumbs) {
+-   if (!navinfo) { return false; };
+-   for (var c of navinfo.breadcrumbs) {
 -     if (item.path == c.path) return true;
 -   }
 -   return false;
@@ -15,8 +15,9 @@
 //-  label: fixed anchor text
 //
 mixin rellink(rel, label)
-  if nav && nav[rel]
-    a(rel=rel, href=nav[rel].path, title=nav[rel].label)
+  if navinfo && navinfo.links[rel]
+    - var navitem = navinfo.links[rel]
+    a(rel=rel, href=navitem.path, title=navitem.label)
       = label
   else
     a.disabled= label
@@ -32,9 +33,9 @@ mixin linkto(navitem)
 
 //- Bootstrap breadcrumb bar
 mixin breadcrumbs
-  if nav && nav.breadcrumbs
+  if navinfo && navinfo.breadcrumbs
     ol.breadcrumb
-      each crumb in nav.breadcrumbs
+      each crumb in navinfo.breadcrumbs
         li: a(href=crumb.path)= crumb.label
 
 //- Full table of contents

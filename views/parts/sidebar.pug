@@ -1,5 +1,5 @@
 //- sidebar
 
-if nav && nav.toc
+if navinfo && navinfo.links.toc
   +tocbox("Contents")
-    +toc(nav.toc.contents)
+    +toc(navinfo.links.toc.contents)
