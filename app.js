@@ -58,9 +58,11 @@ app.use(errorHandler);
 
 app.initialize = function (db) {
     app.set('db', db);
-    app.set('sitemap', routes.sitemap(db));
+    app.set('sitemap', routes.sitemap);
     app.locals.appurl = routes.appurl;
     app.locals.linkto = routes.linkto;
+
+    routes.buildSite(db);
 };
 
 module.exports = app;
