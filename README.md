@@ -1,31 +1,44 @@
-# Overview
+# SSPTOOL
 
-This is a nodejs / express application for working with [OpenControl] content.
+This is a node.js / express application for working with [OpenControl] content.
 It works in conjunction with [compliance-masonry] to generate
 System Security Plans and other compliance documentation.
 
-# Quick demo
+Features include:
+
+- Web application for browsing compliance data
+- Command-line interface for batch operations
+- Validation
+- Report generation
+
+## Status
+
+Currently _(Oct 2017)_ in early development / dogfood mode.
+Progress is being tracked on the [project board].
+
+## Quick start
 
 ```/bin/sh
 git clone [this repo]
 ( cd ssptool ; npm install)
+```
 
-git clone https://github.com/opencontrol/freedonia-compliance
-cd freedonia compliance
+Basic features should work out of the box
+in any directory with OpenControl content:
+
+```
 compliance-masonry get
 node /path/to/ssptool/main.js server
 ```
 
-# Current features
+Then point your web browser at localhost:3000
+Run `ssptool help` for more options.
 
-- Web application for browsing raw OpenControl data
-- Can validate OpenControl data
+## More info
 
-# More info
+All documentation is on the [wiki] for now.
 
-See [usage instructions](doc/usage.md) for more information.
-
-# Colophon
+## Colophon
 
 Built with [express], [pug], and [Bootstrap 3].
 Tested on node v8.0.0.
@@ -35,4 +48,6 @@ Tested on node v8.0.0.
 [express]: https://expressjs.com/
 [pug]: https://pugjs.org/
 [Bootstrap 3]: https://getbootstrap.com/docs/3.3/
+[wiki]: https://github.com/jenglish/ssptool/wiki
+[project board]: https://github.com/jenglish/ssptool/projects/1
 
