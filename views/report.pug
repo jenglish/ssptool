@@ -1,0 +1,15 @@
+//- report pages
+extends layout
+block content
+  h1= report.title
+  table.table.table-bordered
+    thead
+      tr
+        each colname in report.columns
+          th= colname
+    tbody
+      each row in rows
+        tr
+          each col in row
+            td= col
+

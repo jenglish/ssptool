@@ -3,15 +3,15 @@ var program = require('commander')
   , package = require('./package.json')
   , opencontrol = require('./lib/opencontrol')
   , logger = console
-  , commands = 
+  , commands =
     { list: require('./commands/list')
     , validate: require('./commands/validate')
     };
 
 program.version(package.version);
 
-program.option('-d, --datadir <dir>', 'path to opencontrols data', './opencontrols');
-program.option('-m, --docdir <dir>', 'path to markdown documents', './markdowns');
+program.option('--datadir <dir>','path to opencontrols data','./opencontrols');
+program.option('--docdir <dir>','path to markdown documents','./markdowns');
 
 /** Log an error
  * @param {Error} err
@@ -57,6 +57,29 @@ program
   .description('Validate all OpenControl artefacts')
   .action(function () {
     commands.validate(program.datadir);
+  });
+
+program
+  .command('report [reportid]')
+  .description('Generate report')
+  .action(function (reportid) {
+    const reports = require('./lib/reports');
+    const report = reports[reportid];
+    if (reportid && !report) {
+        logger.error('Report %s not defined', reportid);
+    }
+    if (!reportid || !report) {
+        logger.info('\nAvailable reports:\n');
+        for (reportid in reports) {
+            logger.info('   %s - %s', reportid, reports[reportid].title);
+        }
+        logger.info('\n');
+    } else {
+        loadDatabase(db => {
+            process.stdout.write(
+                JSON.stringify(report.run(db), null, ' '));
+        });
+    }
   });
 
 program
