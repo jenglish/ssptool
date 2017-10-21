@@ -1,6 +1,10 @@
+/**
+ * @file ssptool CLI main entry point.
+ */
 
 var program = require('commander')
   , package = require('./package.json')
+  , config = require('./lib/config')
   , opencontrol = require('./lib/opencontrol')
   , logger = console
   , commands =
@@ -10,17 +14,31 @@ var program = require('commander')
 
 program.version(package.version);
 
-program.option('--datadir <dir>','path to opencontrols data','./opencontrols');
-program.option('--docdir <dir>','path to markdown documents','./markdowns');
+program.option('-c, --config <file>','path to configuration file');
+program.option('-d, --datadir <dir>','path to opencontrols data','./opencontrols');
+program.option('-m, --docdir <dir>','path to markdown documents','./markdowns');
 
-/** Log an error
+/** Log an error.
  * @param {Error} err
  */
 function logError(err) { logger.error(err.message); }
 
+/**
+ * Load configuration from a config file (if --config specified)
+ * or from command-line arguments / program defaults (otherwise).
+ */
+function loadConfig (cb) {
+    if (program.config) {
+        config.load(program.config, cb);
+    } else {
+        cb(null, { datadir: program.datadir, docdir: program.docdir });
+    }
+}
+
 function loadDatabase (cb) {
-    opencontrol.load({ datadir: program.datadir, docdir: program.docdir },
-        (err, db) => err ? logError(err) : cb(db));
+    var done = (err, db) => err ? logError(err) : cb(db);
+    loadConfig ((err, config) =>
+        err ? done(err) : opencontrol.load(config, done));
 }
 
 /** Launch HTTP server
