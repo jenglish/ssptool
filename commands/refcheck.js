@@ -28,7 +28,7 @@ function checkReferences (c, refprop) {
     var populator = c._populators[refprop];
     for (var rec of c.records) {
         if (!populator(rec)) {
-            logger.warn('%s references nonexistant %s',
+            logger.warn('%s references nonexistent %s',
                 c.identify(rec), refprop);
         }
     }

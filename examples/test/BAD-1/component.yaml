@@ -8,7 +8,7 @@ satisfies:
   narrative:
     - key: a
       text: |
-        This component references a nonexistant control.
+        This component references a nonexistent control.
         This is not an error -- components may satisfy multiple standards,
         some of which may be omitted from a particular SSP.
     - key: b
