@@ -10,6 +10,7 @@ var program = require('commander')
   , commands =
     { list: require('./commands/list')
     , validate: require('./commands/validate')
+    , refcheck: require('./commands/refcheck')
     };
 
 program.version(package.version);
@@ -75,6 +76,13 @@ program
   .description('Validate all OpenControl artefacts')
   .action(function () {
     commands.validate(program.datadir);
+  });
+
+program
+  .command('refcheck')
+  .description('Referential integrity check')
+  .action(function () {
+    loadDatabase(db => commands.refcheck(db));
   });
 
 program

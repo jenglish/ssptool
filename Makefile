@@ -60,6 +60,7 @@ regtest ::
 	@echo "CLI regression tests..."
 	@$(SSPTOOL) list          | diff - ${REGTEST_DATA}/list.expect
 	@$(SSPTOOL) validate 2>&1 | diff - ${REGTEST_DATA}/validate.expect
+	@$(SSPTOOL) refcheck 2>&1 | diff - ${REGTEST_DATA}/refcheck.expect
 usage ::
 	@echo "make regtest"
 
