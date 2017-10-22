@@ -8,8 +8,7 @@ block content
         each colname in report.columns
           th= colname
     tbody
-      each row in rows
+      each rec in records
         tr
-          each col in row
-            td= col
-
+          each col in report.columns
+            td: +showThe(rec, col)

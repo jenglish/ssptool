@@ -1,0 +1,32 @@
+//- Display rec[field], with additional styling/linking depending on field
+//-
+mixin showThe(rec, field)
+  -var value = rec[field]
+  case field
+    when 'control_key'
+      a(href=linkto.control(rec.standard_key, rec.control_key))= value
+    when 'component_key'
+      a(href=linkto.component(rec.component_key))= value
+
+    when 'unsatisfied'
+      +s_label('unsatisfied', 'danger', value)
+    when 's_unknown'
+      +s_label('???', 'danger', value)
+    when 's_planned'
+      +s_label('planned', 'warning', value)
+    when 's_partial'
+      +s_label('partial', 'warning', value)
+    when 's_complete'
+      +s_label('complete', 'success', value)
+    when 's_none'
+      +s_label('none', 'info', value)
+
+    default: | #{value}
+
+//- color-coded label+count for s_* columns in /reports/completion
+mixin s_label(label, variant, count)
+  if count
+    span.label(class='label-' + variant)
+      = label
+      span.badge= count
+
