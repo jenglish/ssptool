@@ -20,6 +20,15 @@ help :: pre-help usage post-help
 usage ::
 	@echo "make qa"
 
+TESTDATADIR = examples/test/opencontrols
+DEMODATADIR = examples/demo/opencontrols
+
+examples/%/opencontrols :
+	@echo "Getting $* data..."
+	(cd examples/$* ; compliance-masonry get)
+clean ::
+	-rm -rf examples/*/opencontrols
+
 test-prep ::
 	( cd examples/test ; compliance-masonry get )
 usage ::
@@ -36,6 +45,7 @@ lint-fix ::
 	$(NMBIN)/eslint --fix $(LINTABLE)
 
 qa :: test
+test :: $(TESTDATADIR)
 test ::
 	@echo "Testing..."
 	@$(NMBIN)/mocha -R dot
@@ -49,13 +59,14 @@ jsdoc ::
 usage ::
 	@echo "make jsdoc"
 
-demo ::
-	(cd examples/test ; node ../../main.js server)
+demo : $(DEMODATADIR)
+	(cd examples/demo ; node ../../main.js server --config ssptool.yaml )
 usage ::
 	@echo "make demo"
 
 REGTEST_DATA = test/regtest
 qa :: regtest
+regtest :: $(TESTDATADIR)
 regtest ::
 	@echo "CLI regression tests..."
 	@$(SSPTOOL) list          | diff - ${REGTEST_DATA}/list.expect

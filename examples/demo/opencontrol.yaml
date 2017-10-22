@@ -1,0 +1,12 @@
+schema_version: "1.0.0"
+name: Genosha
+metadata:
+  description: ssptool demo data
+components:
+- ./PE_Policy
+certifications:
+- certifications/NIST-800-171-Appendix-D.yaml
+dependencies:
+  standards:
+  - url: https://github.com/opencontrol/NIST-800-53-Standards
+    revision: master
