@@ -7,8 +7,8 @@ const { Loader } = require('../lib/opencontrol/loader')
   , debug = require('debug')('validate')
   ;
 
-function reportErrors (file, errors) {
-    logger.warn(file.relative);
+function reportErrors (filename, errors) {
+    logger.warn(filename);
     for (var error of errors) {
         logger.warn('\t' + error.dataPath + ': ' + error.message);
         debug(error);
@@ -19,15 +19,21 @@ function validate_a (what) {
     return function (file) {
         debug('Checking ', file.relative);
         if (!validator.validate(what, file.data)) {
-            reportErrors(file, validator.errors);
+            reportErrors(file.relative, validator.errors);
         }
     };
 }
 
 var alldone = (err, _unused) => { if (err) logError(err); logger.info('Done.'); };
 
-function validate (datadir) {
-    var loader = new Loader();
+function validate (config) {
+    var datadir = config.datadir
+      , loader = new Loader()
+      ;
+
+    if (config._errors) {
+        reportErrors('config file', config._errors);
+    }
     async.series([
         k => loader.loadComponents(datadir, validate_a('component'), k),
         k => loader.loadStandards(datadir, validate_a('standard'), k),

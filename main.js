@@ -75,7 +75,8 @@ program
   .command('validate')
   .description('Validate all OpenControl artefacts')
   .action(function () {
-    commands.validate(program.datadir);
+    loadConfig ((err, config) =>
+      err ? logError(err) : commands.validate(config));
   });
 
 program
