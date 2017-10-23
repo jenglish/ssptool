@@ -64,6 +64,11 @@ demo : $(DEMODATADIR)
 usage ::
 	@echo "make demo"
 
+test-server : $(TESTDATADIR)
+	(cd examples/test ; node ../../main.js server )
+usage ::
+	@echo "make test-server"
+
 REGTEST_DATA = test/regtest
 qa :: regtest
 regtest :: $(TESTDATADIR)

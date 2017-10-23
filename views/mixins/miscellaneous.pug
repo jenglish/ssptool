@@ -30,4 +30,14 @@ mixin keyedtext(narrative)
         = " "
       = n.text
 
+mixin identification-block
+  dl.dl-horizontal
+    block
+mixin identification-item(label, value)
+    dt= label
+    dd= value
+mixin identification-heading(label)
+    dt= label
+    dd
+      block
 

@@ -3,5 +3,12 @@ extends layout
 block content
   div.content
     section
+      if page.data.title
+        h1= page.data.title
+      +identification-block
+        +identification-item('Date', page.data.date)
+        +identification-item('Version', page.data.version)
+        +identification-item('Author', page.data.author)
+
       != page.html
 

@@ -1,13 +1,11 @@
 extends layout
 block content
   h1 #{control.name}
-  dl.dl-horizontal
-    dt Control
-    dd #{control.key}
-    dt Standard
-    dd #{control.standard_key}
-    dt Certifications
-    dd
+
+  +identification-block
+    +identification-item('Control', control.key)
+    +identification-item('Standard', control.standard_key)
+    +identification-heading('Certifications')
       each certification in certifications
         span.label.label-default #{certification.certification}
 

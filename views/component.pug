@@ -2,15 +2,10 @@ extends layout
 block content
   div.content
     h1 #{component.name}
-    dl.dl-horizontal
-      dt Component
-      dd #{component.key}
-      dt System
-      dd #{component.system}
-      dt Documentation
-      dd #{component.documentation_complete ? 'Yep' : 'Nope'}
-      dt Responsible role
-      dd #{component.responsible_role}
+    +identification-block
+      +identification-item('Component', component.key)
+      +identification-item('System', component.system)
+      +identification-item('Responsible-role', component.responsible_role)
 
     if satisfies && satisfies.length
       h2 Satisfies
