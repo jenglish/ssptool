@@ -1,5 +1,6 @@
 ---
 title: Freedonia website SSP introduction
+date: 2017-10-22
 ---
 
 A Freedonia SSP (as well as one for USA) comprises:

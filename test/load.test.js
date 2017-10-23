@@ -87,8 +87,10 @@ describe('Loader', function () {
             var readme = db.pages.chain()
                 .find({ relative: 'README.md' }).value();
             expect(readme).to.have.property('data');
-            expect(readme.data).to.have.property('title');
             expect(readme).to.have.property('html');
+            expect(readme.data).to.have.property('title');
+            expect(readme.data).to.have.property('date');
+            expect(readme.data.date).to.be.a('string');
         });
 
     });
