@@ -10,7 +10,10 @@ block content
         span.label.label-default #{certification.certification}
 
   h2 Description
-  p= control.description
+  if control.narrative
+    +Narrative(control.narrative)
+  else
+    p= control.description
 
   if satisfied && satisfied.length
     h2 Satisfied By

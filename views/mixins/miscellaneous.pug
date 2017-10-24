@@ -1,4 +1,3 @@
-
 mixin stylesheet(uri)
     link(rel='stylesheet', href=uri)
 
@@ -40,4 +39,21 @@ mixin identification-heading(label)
     dt= label
     dd
       block
+
+mixin NarrativeItem(item)
+  if item.key
+    dt= item.key
+    dd= item.text
+  else
+    p= item.text
+  if item.narrative
+    +Narrative(item.narrative)
+
+mixin Narrative(narrative)
+  if narrative.length == 1 && !narrative[0].key
+    +NarrativeItem(narrative[0])
+  else
+    dl.dl-narrative
+      each item in narrative
+        +NarrativeItem(item)
 

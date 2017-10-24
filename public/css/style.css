@@ -39,6 +39,13 @@ ul.toc > li.toc-closed > ul {
   overflow: hidden;
 }
 
+/* Narrative:
+ */
+dl.dl-narrative {
+  padding-left: 20px;
+  margin: 0pt;
+}
+
 /* Avoid disappearing/reappearing scrollbar -
  * force it always on:
  */
