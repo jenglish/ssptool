@@ -8,5 +8,5 @@ certifications:
 - certifications/NIST-800-171-Appendix-D.yaml
 dependencies:
   standards:
-  - url: https://github.com/opencontrol/NIST-800-53-Standards
+  - url: https://github.com/jenglish/NIST-800-53-Standards
     revision: master

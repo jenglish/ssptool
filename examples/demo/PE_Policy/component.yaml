@@ -1,6 +1,6 @@
 schema_version: 3.0.0
 system: Genosha
-name: Physical and Enviromnental Protection Policy
+name: Physical and Environmental Protection Policy
 satisfies:
 - standard_key: NIST-800-53
   control_key: PE-3

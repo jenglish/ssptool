@@ -1,5 +1,7 @@
 ---
 title: Introduction
+date: 2017-10-24
+version: 1.0.0
 ---
 
 Genosha, Inc., a small engineering firm, found themselves faced
