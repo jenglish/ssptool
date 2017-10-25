@@ -4,6 +4,7 @@
 
 var program = require('commander')
   , package = require('./package.json')
+  , fs = require('fs')
   , config = require('./lib/config')
   , opencontrol = require('./lib/opencontrol')
   , logger = console
@@ -25,14 +26,18 @@ program.option('-m, --docdir <dir>','path to markdown documents','./markdowns');
 function logError(err) { logger.error(err.message); }
 
 /**
- * Load configuration from a config file (if --config specified)
- * or from command-line arguments / program defaults (otherwise).
+ * Load configuration from file if --config specified or ssptool.yaml exists,
+ * or from command-line arguments / program defaults otherwise.
  */
 function loadConfig (cb) {
+    var defaultFile = 'ssptool.yaml'
+      , defaultConfig = { datadir: program.datadir, docdir: program.docdir }
+      ;
     if (program.config) {
         config.load(program.config, cb);
     } else {
-        cb(null, { datadir: program.datadir, docdir: program.docdir });
+        fs.access(defaultFile, fs.constants.R_OK, err =>
+            err ? cb(null, defaultConfig) : config.load(defaultFile, cb));
     }
 }
 
