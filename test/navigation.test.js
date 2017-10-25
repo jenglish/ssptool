@@ -155,11 +155,11 @@ describe('Sitemap', function () {
         s.add('/sectionB/page2', 'Section B page 2');
         s.end();
 
-        expect(s.toplinks.length).to.equal(2);
-        expect(s.toplinks[0]).to.be.a(NavItem);
-        expect(s.toplinks[0].label).to.eql('Section A');
-        expect(s.toplinks[1]).to.be.a(NavItem);
-        expect(s.toplinks[1].label).to.eql('Section B');
+        expect(s.roots.length).to.equal(2);
+        expect(s.roots[0]).to.be.a(NavItem);
+        expect(s.roots[0].label).to.eql('Section A');
+        expect(s.roots[1]).to.be.a(NavItem);
+        expect(s.roots[1].label).to.eql('Section B');
     });
 });
 
