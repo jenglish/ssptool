@@ -4,7 +4,11 @@ mixin showThe(rec, field)
   -var value = rec[field]
   case field
     when 'control_key'
-      a(href=linkto.control(rec.standard_key, rec.control_key))= value
+      if rec.certification
+        a(href=linkto.pcontrol(rec.certification, rec.standard_key, rec.control_key))= value
+      else
+        a(href=linkto.control(rec.standard_key, rec.control_key))= value
+
     when 'component_key'
       a(href=linkto.component(rec.component_key))= value
 
