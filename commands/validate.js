@@ -28,6 +28,7 @@ var alldone = (err, _unused) => { if (err) logError(err); logger.info('Done.'); 
 
 function validate (config) {
     var datadir = config.datadir
+      , docdir = config.docdir
       , loader = new Loader()
       ;
 
@@ -38,6 +39,7 @@ function validate (config) {
         k => loader.loadComponents(datadir, validate_a('component'), k),
         k => loader.loadStandards(datadir, validate_a('standard'), k),
         k => loader.loadCertifications(datadir, validate_a('certification'), k),
+        k => loader.loadMarkdown(docdir, '**/*.md', validate_a('page'), k),
     ], alldone);
 }
 

@@ -6,7 +6,7 @@
 #
 
 NMBIN = ./node_modules/.bin
-SSPTOOL = node main.js --datadir=examples/test/opencontrols
+SSPTOOL = node $(CURDIR)/main.js
 LINTABLE =			\
 	'*.js'			\
 	'lib/**/*.js'		\
@@ -69,14 +69,15 @@ test-server : $(TESTDATADIR)
 usage ::
 	@echo "make test-server"
 
-REGTEST_DATA = test/regtest
+TD = $(CURDIR)/examples/test
+RD = $(CURDIR)/test/regtest
 qa :: regtest
 regtest :: $(TESTDATADIR)
 regtest ::
 	@echo "CLI regression tests..."
-	@$(SSPTOOL) list          | diff - ${REGTEST_DATA}/list.expect
-	@$(SSPTOOL) validate 2>&1 | diff - ${REGTEST_DATA}/validate.expect
-	@$(SSPTOOL) refcheck 2>&1 | diff - ${REGTEST_DATA}/refcheck.expect
+	@cd ${TD} ; $(SSPTOOL) list          | diff - ${RD}/list.expect
+	@cd ${TD} ; $(SSPTOOL) validate 2>&1 | diff - ${RD}/validate.expect
+	@cd ${TD} ; $(SSPTOOL) refcheck 2>&1 | diff - ${RD}/refcheck.expect
 usage ::
 	@echo "make regtest"
 

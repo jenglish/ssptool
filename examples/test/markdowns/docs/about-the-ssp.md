@@ -1,5 +1,6 @@
 ---
 title: About the System Security Plan
+version: draft
 ---
 
 The typical USA FedRAMP system security plan (SSP)

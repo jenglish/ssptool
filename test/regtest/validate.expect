@@ -1,3 +1,5 @@
 AU_policy/component.yaml
 	.satisfies[0].implementation_status: should be equal to one of the allowed values
+docs/about-the-ssp.md
+	.version: should match format "semver"
 Done.
