@@ -69,15 +69,14 @@ test-server : $(TESTDATADIR)
 usage ::
 	@echo "make test-server"
 
-TD = $(CURDIR)/examples/test
-RD = $(CURDIR)/test/regtest
+TD = examples/test
 qa :: regtest
 regtest :: $(TESTDATADIR)
 regtest ::
 	@echo "CLI regression tests..."
-	@cd ${TD} ; $(SSPTOOL) list          | diff - ${RD}/list.expect
-	@cd ${TD} ; $(SSPTOOL) validate 2>&1 | diff - ${RD}/validate.expect
-	@cd ${TD} ; $(SSPTOOL) refcheck 2>&1 | diff - ${RD}/refcheck.expect
+	@cd ${TD} ; $(SSPTOOL) list          | diff - regtest/list.expect
+	@cd ${TD} ; $(SSPTOOL) validate 2>&1 | diff - regtest/validate.expect
+	@cd ${TD} ; $(SSPTOOL) refcheck 2>&1 | diff - regtest/refcheck.expect
 usage ::
 	@echo "make regtest"
 
