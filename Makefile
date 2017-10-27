@@ -7,6 +7,7 @@
 
 NMBIN = ./node_modules/.bin
 SSPTOOL = node $(CURDIR)/main.js
+
 LINTABLE =			\
 	'*.js'			\
 	'lib/**/*.js'		\
@@ -60,12 +61,15 @@ usage ::
 	@echo "make jsdoc"
 
 demo : $(DEMODATADIR)
-	(cd examples/demo ; node ../../main.js server --config ssptool.yaml )
+	cd examples/demo ; \
+	$(SSPTOOL) validate ; \
+	$(SSPTOOL) refcheck ; \
+	$(SSPTOOL) server
 usage ::
 	@echo "make demo"
 
 test-server : $(TESTDATADIR)
-	(cd examples/test ; node ../../main.js server )
+	(cd examples/test ; $(SSPTOOL) server )
 usage ::
 	@echo "make test-server"
 
