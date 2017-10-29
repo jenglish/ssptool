@@ -60,6 +60,7 @@ describe('Proper 404 handling', function () {
     it('handles missing components', badPage('/components/XX-Policy'));
     it('handles missing standards',  badPage('/standards/no-such-standard'));
     it('handles missing pages',  badPage('/pages/no-such-page'));
+    it('handles missing reports',  badPage('/reports/no-such-report'));
 });
 
 describe('Pages', function () {
