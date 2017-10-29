@@ -10,9 +10,9 @@ mixin satisfied(sats)
     tbody
       each sat in sats
         tr
-          td: a(href=linkto.component(sat.component_key))= sat.component_key
+          td #[+showThe(sat, 'component_key')]
           td= sat.component && sat.component.name
-          td= sat.implementation_status
+          td #[+showThe(sat, 'implementation_status')]
 
 mixin satisfies(sats)
   table.table
@@ -24,8 +24,7 @@ mixin satisfies(sats)
     tbody
       each sat in sats
         tr
-          td: a(href=linkto.control(sat.standard_key, sat.control_key))
-            = sat.control_key
+          td #[+showThe(sat, 'control_key')]
           td= sat.control && sat.control.name
-          td= sat.implementation_status
+          td #[+showThe(sat, 'implementation_status')]
 

@@ -35,6 +35,11 @@ test-prep ::
 usage ::
 	@echo "make test-prep"
 
+css ::
+	$(NMBIN)/lessc less/style.less > public/css/style.css
+usage ::
+	@echo "make css"
+
 qa :: lint
 lint ::
 	@echo "Linting..."

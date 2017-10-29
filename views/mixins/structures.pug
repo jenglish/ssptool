@@ -1,0 +1,37 @@
+//- 
+//- block-level mixins used in main content
+//-
+mixin stylesheet(uri)
+    link(rel='stylesheet', href=uri)
+
+mixin info-block
+  div.alert.alert-success
+    block
+
+mixin warning-block
+  div.alert.alert-warning
+    block
+
+mixin identification-block
+  dl.dl-horizontal
+    block
+mixin identification-item(label, value)
+    dt= label
+    dd= value
+mixin identification-heading(label)
+    dt= label
+    dd
+      block
+
+mixin narrative-block(narrative)
+  div.narrative
+    each item in narrative
+      +narrative-item(item)
+mixin narrative-item(item)
+  p.narrative #[+narrative-key(item)] #{item.text}
+  if item.narrative
+    +narrative-block(item.narrative)
+mixin narrative-key(item)
+  if item.key
+    b.narrative-key= item.key
+

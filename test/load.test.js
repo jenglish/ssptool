@@ -74,7 +74,7 @@ describe('Loader', function () {
     describe('Pages', function () {
 
         it('should load markdown pages', function () {
-            expect(db.pages.records.length).to.eql(2);
+            expect(db.pages.records.length).to.eql(3);
         });
 
         it('... identified by relative pathname', function () {

@@ -12,25 +12,30 @@ mixin showThe(rec, field)
     when 'component_key'
       a(href=linkto.component(rec.component_key))= value
 
+    when 'implementation_status'
+      +statusTag(value)
+
     when 'unsatisfied'
-      +s_label('unsatisfied', 'danger', value)
+      +s_label('unsatisfied', value)
     when 's_unknown'
-      +s_label('???', 'danger', value)
+      +s_label('unknown', value)
     when 's_planned'
-      +s_label('planned', 'warning', value)
+      +s_label('planned', value)
     when 's_partial'
-      +s_label('partial', 'warning', value)
+      +s_label('partial', value)
     when 's_complete'
-      +s_label('complete', 'success', value)
+      +s_label('complete', value)
     when 's_none'
-      +s_label('none', 'info', value)
+      +s_label('none', value)
 
     default: | #{value}
 
 //- color-coded label+count for s_* columns in /reports/completion
-mixin s_label(label, variant, count)
+mixin s_label(status, count)
   if count
-    span.label(class='label-' + variant)
-      = label
-      span.badge= count
+    span.tag(class = 'tag-' + status)
+      | #{status}: #[b= count]
+
+mixin statusTag(status)
+  span.tag(class = 'tag-' + status) #{status}
 

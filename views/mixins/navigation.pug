@@ -2,64 +2,58 @@
 //- Navigational aides
 //-
 
-- var onpath = function (item) {
--   if (!navinfo) { return false; };
--   for (var c of navinfo.breadcrumbs) {
--     if (item.path == c.path) return true;
--   }
--   return false;
-- }
+- var under = item => navinfo && navinfo.descendantOf(item);
+
+//- link to a NavItem using title as anchor text
+mixin navinfo-linkto(navitem)
+  a(href=navitem.path): navitem.title
+
+//- link to a NavItem using label as anchor text
+mixin navinfo-brieflink(navitem)
+  a(href=navitem.path, title=navitem.title)= navitem.label
 
 //- relative link
 //-  rel: 'prev', 'next', 'up', etc.
 //-  label: fixed anchor text
-//
-mixin rellink(rel, label)
-  if navinfo && navinfo.links[rel]
-    - var navitem = navinfo.links[rel]
-    a(rel=rel, href=navitem.path, title=navitem.label)
-      = label
+mixin navinfo-rellink(rel, label)
+  - var navitem = navinfo && navinfo.links[rel]
+  if navitem
+    a(rel=rel, href=navitem.path, title=navitem.label)= label
   else
     a.disabled= label
 
-//- link to a NavItem using label as anchor text
-//-
-mixin brieflink(navitem)
-  a(href=navitem.path, title=navitem.title)= navitem.label
-
-//-link to a NavItem using title as anchor text
-mixin linkto(navitem)
-  a(href=navitem.path): navitem.title
-
 //- Bootstrap breadcrumb bar
-mixin breadcrumbs
+mixin breadcrumbs-bar
   if navinfo && navinfo.breadcrumbs
     ol.breadcrumb
       each crumb in navinfo.breadcrumbs
         li: a(href=crumb.path)= crumb.label
 
 //- Full table of contents
-
 mixin toc(contents)
   if contents.length
     ul.toc
       each item in contents
-        li(class = onpath(item) ? 'toc-open' : 'toc-closed')
+        li(class = under(item) ? 'toc-open' : 'toc-closed')
           span.toc-title: a(href=item.path)= item.title
           +toc(item.contents)
+
+mixin toc-panel(toc)
+  +panel(toc.title)
+    +toc(toc.contents)
 
 //- Bootstrap pager - next/prev links
 mixin pager
   nav(aria-label="...")
     ul.pager
-      li.previous: +rellink('prev', '\u2190 Previous')
-      li.next: +rellink('next', 'Next \u2192')
+      li.previous: +navinfo-rellink('prev', '\u2190 Previous')
+      li.next: +navinfo-rellink('next', 'Next \u2192')
 
 //- Top-level navigation links
 mixin topnav
   ul.nav.navbar-nav
     if toplinks
       each link in toplinks
-        li(class = onpath(link) ? 'active' : null)
-          +brieflink(link)
+        li(class = under(link) ? 'active' : null)
+          +navinfo-brieflink(link)
 

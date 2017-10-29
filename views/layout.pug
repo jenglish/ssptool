@@ -1,8 +1,10 @@
-include mixins/data
-include mixins/entities
 include mixins/navigation
+include mixins/widgets
+include mixins/elements
+include mixins/structures
 include mixins/tables
-include mixins/miscellaneous
+
+- var bootstrap = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css';
 
 doctype html
 html
@@ -23,10 +25,10 @@ html
         include parts/navbar
         div.row
           div.col-xs-3
-            block sidebar
-              include parts/sidebar
+            block sidepane
+              include parts/sidepane
           div.col-xs-9
-            +breadcrumbs
+            +breadcrumbs-bar
             block content
         include parts/footer
 

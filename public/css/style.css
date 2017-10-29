@@ -1,17 +1,10 @@
-/* NOTES:
- * bootstrap does not appear to set L/R margins for ul or li, only T/B
- * bootstrap uses margin-bottom: for all vertical spacing, margin-top: always 0
- * Firefox defaults appear to use ul.padding-left for indentation
- * TOC titles are often long enough to wrap, so additional li margin needed
- * spacing here designed to work OK inside a bootstrap panel-body
- * bootstrap panel-body uses padding: 15px
+/*
+ * ssptool - additional styling
  */
-
 ul.toc {
   margin-left: 0pt;
-  padding-left: 0pt
+  padding-left: 0pt;
 }
-
 ul.toc ul {
   padding-left: 20px;
 }
@@ -20,37 +13,62 @@ ul.toc li {
   list-style-type: none;
   margin: 0px 0px 5px 0px;
 }
-
 ul.toc li.toc-open {
   list-style-type: disclosure-open;
 }
-
 ul.toc li.toc-closed {
   list-style-type: disclosure-closed;
 }
 ul.toc > li.toc-closed > ul {
-    display: none;
+  display: none;
 }
-
 .panel ul.toc li {
-  list-style-position: inside;	/* otherwise bullet vanishes */
+  list-style-position: inside;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
-/* Narrative:
- */
-dl.dl-narrative {
-  padding-left: 20px;
-  margin: 0pt;
+.tag {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 0px 6px;
+  display: inline-block;
+  white-space: nowrap;
 }
-
-/* Avoid disappearing/reappearing scrollbar -
- * force it always on:
- */
+.tag-planned {
+  background-color: #fcf8e3;
+  color: #000000;
+  border-color: #f9e7c3;
+}
+.tag-partial {
+  background-color: #d9edf7;
+  color: #000000;
+  border-color: #bce8f1;
+}
+.tag-complete {
+  background-color: #dff0d8;
+  color: #000000;
+  border-color: #d0e6be;
+}
+.tag-none {
+  background-color: #eeeeee;
+  color: #000000;
+  border-color: #dcdcdc;
+}
+.tag-unknown {
+  background-color: #f2d3de;
+  color: #000000;
+  border-color: #eab7d2;
+}
+.tag-unsatisfied {
+  background-color: #f2d3de;
+  color: #000000;
+  border-color: #eab7d2;
+}
+div.narrative div.narrative {
+  padding-left: 20px;
+}
 html {
   overflow-y: scroll;
 }
-
 /*EOF*/

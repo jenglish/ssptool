@@ -31,6 +31,7 @@
   "devDependencies": {
     "eslint": "^4.8.0",
     "jsdoc": "^3.5.5",
+    "less": "^2.7.3",
     "mocha": "^4.0.0",
     "supertest": "^3.0.0"
   },

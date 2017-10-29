@@ -1,0 +1,31 @@
+//
+// implementation_status tags:
+//
+.tag {
+  border:               1px solid black;
+  border-radius:        6px;
+  padding:              0px 6px;
+  display:              inline-block;
+  white-space:          nowrap;
+}
+
+.tag-variant(@bgcolor) {
+  background-color:     @bgcolor;
+  color:                contrast(@bgcolor);
+  border-color:         darken(spin(@bgcolor, -10), 7%);
+}
+
+// Colors taken from Bootstrap:
+//
+//   @state-success-bg:  #dff0d8;
+//   @state-info-bg:     #d9edf7;
+//   @state-warning-bg:  #fcf8e3;
+//   @state-danger-bg:   #f2dede;
+//
+.tag-planned            { .tag-variant(#fcf8e3); }
+.tag-partial            { .tag-variant(#d9edf7); }
+.tag-complete           { .tag-variant(#dff0d8); }
+.tag-none               { .tag-variant(#eeeeee); }
+.tag-unknown            { .tag-variant(#f2d3de); }
+.tag-unsatisfied        { .tag-variant(#f2d3de); }
+

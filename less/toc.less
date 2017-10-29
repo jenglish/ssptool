@@ -1,0 +1,41 @@
+// NOTES:
+// bootstrap does not appear to set L/R margins for ul or li, only T/B
+// bootstrap uses margin-bottom: for all vertical spacing, margin-top: always 0
+// Firefox defaults appear to use ul.padding-left for indentation
+// TOC titles are often long enough to wrap, so additional li margin needed
+// spacing here designed to work OK inside a bootstrap panel-body
+// bootstrap panel-body uses padding: 15px
+//
+
+ul.toc {
+  margin-left: 0pt;
+  padding-left: 0pt;
+}
+
+ul.toc ul {
+  padding-left: 20px;
+}
+ul.toc li {
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0px 0px 5px 0px;
+}
+
+ul.toc li.toc-open {
+  list-style-type: disclosure-open;
+}
+
+ul.toc li.toc-closed {
+  list-style-type: disclosure-closed;
+}
+ul.toc > li.toc-closed > ul {
+    display: none;
+}
+
+.panel ul.toc li {
+  list-style-position: inside;	// otherwise bullet vanishes
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+

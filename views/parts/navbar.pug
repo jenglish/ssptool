@@ -7,9 +7,9 @@ mixin brand
 mixin rellinks
   if navinfo
     ul.nav.navbar-nav
-      li: +rellink('prev', "\u2190 Previous")
-      li: +rellink('next', "Next \u2192")
-      li: +rellink('up', "Up \u2191")
+      li: +navinfo-rellink('prev', "\u2190 Previous")
+      li: +navinfo-rellink('next', "Next \u2192")
+      li: +navinfo-rellink('up', "Up \u2191")
 
 nav.navbar.navbar-default
   div.navbar-header
