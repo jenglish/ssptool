@@ -1,0 +1,11 @@
+extends doc-layout
+block content
+  h1 #{title}
+  +identification-block
+    +identification-item('Date', page.data.date)
+    +identification-item('Version', page.data.version)
+    +identification-item('Author', page.data.author)
+
+  != page.html
+
+

@@ -73,6 +73,15 @@ demo : $(DEMODATADIR)
 usage ::
 	@echo "make demo"
 
+demo-ssp :: $(DEMODATADIR)
+	cd examples/demo; \
+	$(SSPTOOL) document SSP > SSP.html ;
+usage ::
+	@echo "make demo-ssp"
+clean ::
+	-rm -f examples/demo/SSP.html
+
+
 test-server : $(TESTDATADIR)
 	(cd examples/test ; $(SSPTOOL) server )
 usage ::

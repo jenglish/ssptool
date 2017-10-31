@@ -12,6 +12,7 @@ var program = require('commander')
     { list: require('./commands/list')
     , validate: require('./commands/validate')
     , refcheck: require('./commands/refcheck')
+    , document: require('./commands/document')
     };
 
 program.version(package.version);
@@ -112,6 +113,15 @@ program
                 JSON.stringify(report.run(db), null, ' '));
         });
     }
+  });
+
+program
+  .command('document <docid>')
+  .description('Generate document')
+  .action(function (docid) {
+    loadConfig ((err, config) =>
+      err ? logError(err) : opencontrol.load(config, (err, db) =>
+        err ? logError(err) : commands.document(config, db, docid)));
   });
 
 program

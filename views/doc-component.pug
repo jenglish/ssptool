@@ -1,0 +1,25 @@
+extends doc-layout
+block content
+  div.content
+    h1 #{component.name}
+    +identification-block
+      +identification-item('Component', component.key)
+      +identification-item('System', component.system)
+      +identification-item('Responsibility', component.responsible_role)
+
+    if satisfies && satisfies.length
+      h2 Satisfies
+      +satisfies(satisfies)
+
+      h2 Details
+      each sat in satisfies
+        h3
+          | #{sat.control_key} #{sat.control && sat.control.name} #{""}
+          small #[+showThe(sat, 'implementation_status')]
+        +narrative-block(sat.narrative)
+
+    if component.references && component.references.length
+      h2 References
+      ol
+        each ref in component.references
+          li: a(href=ref.path)= ref.name
