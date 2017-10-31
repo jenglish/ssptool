@@ -71,4 +71,10 @@ div.narrative div.narrative {
 html {
   overflow-y: scroll;
 }
+figure {
+  text-align: center;
+}
+figure img {
+  max-width: 50%;
+}
 /*EOF*/

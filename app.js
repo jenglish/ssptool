@@ -53,16 +53,19 @@ app.use(errorHandler);
 /**
  * Initialization.
  *
+ * @param (Config) config
  * @param (opencontrol.Database) db
  */
 
-app.initialize = function (db) {
+app.initialize = function (config, db) {
     app.set('db', db);
     app.set('sitemap', routes.sitemap);
     app.locals.appurl = routes.appurl;
     app.locals.linkto = routes.linkto;
 
-    routes.buildSite(db);
+    routes.buildSite(config, db);
+    routes.router.use('/pages', express.static(config.docdir));
+
     app.locals.toplinks = routes.sitemap.toplinks;
 };
 

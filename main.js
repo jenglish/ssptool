@@ -58,16 +58,19 @@ program
     var app = require('./app')
       , http = require('http')
       , server = http.createServer(app)
-      ;
-    server.on('error', logError);
+      , startServer = (config, db) => {
+          logger.info('Initializing...');
+          app.initialize(config, db);
+          logger.info('Listening on http://localhost:%d', options.port);
+          server.listen(options.port, () => logger.info('Ready.'));
+        };
 
-    logger.info('Loading opencontrol data...');
-    loadDatabase(db => {
-      logger.info('Initializing...');
-      app.initialize(db);
-      logger.info('Listening on http://localhost:%d', options.port);
-      server.listen(options.port, () => logger.info('Ready.'));
-    });
+    server.on('error', logError);
+    logger.info('Loading data...');
+    loadConfig ((err, config) =>
+      err ? logError(err) : opencontrol.load(config, (err, db) =>
+        err ? logError(err) : startServer(config, db)));
+
   });
 
 program

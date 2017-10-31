@@ -29,9 +29,18 @@ sections is like this:
 
 ## How are images included?
 
-By including them with Markdown:
+Markdown syntax should work:
 
 ![Waterfall SDLC Image](./Waterfall_model.png)
 
-This does not yet work in `ssptool`, but it's on the TODO list...
+You can also use embedded HTML. Recommend using a *figure* element wrapper.
+
+<figure>
+<img src="cat-picture.svg"/>
+<figcaption>Cat picture by FASTILY [CC BY-SA 4.0]</figcaption>
+</figure>
+
+## References
+
+- [Wikimedia Commons](https://commons.wikimedia.org/wiki/File%3ABlack_and_White_Cat_Sketch.svg)
 

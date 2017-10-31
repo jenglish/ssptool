@@ -47,9 +47,9 @@ function badPage (path) {
 
 before(function (done) { mock.preflight(done); });
 before(function (done) {
-    opencontrol.load(mock.loadOptions, function (err, db) {
+    opencontrol.load(mock.config, function (err, db) {
         if (err) { return done(err); }
-        app.initialize(db);
+        app.initialize(mock.config, db);
         done();
     });
 });

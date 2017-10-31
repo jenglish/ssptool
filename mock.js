@@ -29,7 +29,7 @@ function preflight (done) {
     });
 }
 
-exports.loadOptions = { datadir: datadir, docdir: docdir };
+exports.config = { datadir: datadir, docdir: docdir };
 exports.preflight = preflight;
 exports.expected = { // see freedonia-compliance repo
     standard: 'FRIST-800-53',

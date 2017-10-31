@@ -12,7 +12,7 @@ describe('Loader', function () {
     var db;
 
     it('should work', function (done) {
-        opencontrol.load(mock.loadOptions, function (err, _db) {
+        opencontrol.load(mock.config, function (err, _db) {
             db = _db;
             done(err, db);
         });
