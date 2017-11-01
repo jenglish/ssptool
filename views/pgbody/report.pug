@@ -1,0 +1,12 @@
+//- reports
+table.table.table-bordered
+  thead
+    tr
+      each colname in report.columns
+        th= colname
+  tbody
+    each rec in records
+      tr
+        each col in report.columns
+          td: +showThe(rec, col)
+

@@ -1,34 +1,5 @@
+//- control pages - document
 extends doc-layout
 block content
-  h1 #{control.name}
-
-  +identification-block
-    +identification-item('Control', control.key)
-    +identification-item('Standard', control.standard_key)
-    +identification-heading('Certifications')
-      each certification in certifications
-        span.label.label-default #{certification.certification}
-
-  h2 Description
-  if control.narrative
-    +narrative-block(control.narrative)
-  else
-    p= control.description
-
-  if satisfied && satisfied.length
-    h2 Satisfied By
-    +satisfied(satisfied)
-
-    h2 Details
-    each sat in satisfied
-      h3
-        | #{sat.component.name} #{""}
-        small #[+showThe(sat, 'implementation_status')]
-      +narrative-block(sat.narrative)
-  else if certifications && certifications.length
-    +warning-block
-      | This control is not satisfied by any component
-  else
-    +info-block
-      | This control is not referenced in any certification
-
+  +section-title
+  include pgbody/control

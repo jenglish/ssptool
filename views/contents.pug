@@ -1,9 +1,7 @@
-//- template for index pages - just show immediate contents
+//- template for index pages - just list subsections
 extends layout
-
 block content
   h1 #{navinfo.title}
-
   ul.toc
     each item in navinfo.contents
       li: a(href=item.path)= item.title
