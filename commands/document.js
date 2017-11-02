@@ -7,7 +7,7 @@ const path = require('path')
   , debug = require('debug')('document')
   ;
 
-const { Renderer, generate } = require('../lib/document');
+const { Renderer, build } = require('../lib/document');
 
 function notfound (what, name) {
     throw new Error(what + ' ' + name + ' not found');
@@ -21,7 +21,7 @@ function document (config, db, docid) {
             || notfound('document', docid);
 
         debug('generating...');
-        let document = generate(db, spec);
+        let document = build(db, spec);
 
         debug('rendering...');
         let renderer = new Renderer({
