@@ -1,0 +1,20 @@
+schema_version: 3.0.0
+system: Genosha
+name: Audit Policy
+satisfies:
+  - standard_key: NIST-800-53
+    control_key: AU-2
+    implementation_status: complete
+    narrative:
+    - text: |
+        Application and server logs are sent to a 9600-baud Okidata
+        dot matrix printer located in the broom closet.
+  - standard_key: NIST-800-53
+    control_key: AU-2
+    implementation_status: planned
+    narrative:
+    - text: |
+        Our existing system is clearly obsolete.
+        We are planning to upgrade to a laser printer
+        as soon as the budget allows.
+

@@ -2,14 +2,19 @@ datadir: ./opencontrols
 docdir: ./pages
 
 documents:
-  SSP:
-    title: "System Security Plan"
+  intro:
+    title: Introduction
+    page: 00-README.md
+  ssp:
+    title: System Security Plan
     contents:
-      - generate: toc
       - page: ssp-intro.md
       - title: Security Controls
         generate: controls
         profile: NIST-800-171-Appendix-D
       - title: System Components
         generate: components
+  poam:
+    title: Plan of Action
+    page: POAM.md
 

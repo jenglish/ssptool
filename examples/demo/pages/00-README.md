@@ -1,6 +1,6 @@
 ---
 title: Introduction
-author: Joe Engilsh <jenglish@flightlab.com>
+author: Joe English <jenglish@flightlab.com>
 date: 2017-10-24
 version: 1.0.0
 ---

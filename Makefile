@@ -75,7 +75,7 @@ usage ::
 
 demo-ssp :: $(DEMODATADIR)
 	cd examples/demo; \
-	$(SSPTOOL) document SSP > SSP.html ;
+	$(SSPTOOL) document ssp > SSP.html ;
 usage ::
 	@echo "make demo-ssp"
 clean ::

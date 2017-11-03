@@ -1,0 +1,22 @@
+schema_version: 3.0.0
+system: Genosha
+name: Media Protection Policy
+satisfies:
+  - standard_key: NIST-800-53
+    control_key: MP-6
+    implementation_status: complete
+    narrative:
+    - key: a
+      text: |
+        All sensitive data, including application and server logs,
+        are disposed of using an Ultron-4000 Mark 2 industrial grade
+        paper shredder.
+
+    - key: b
+      text: |
+        The Ultron-4000 Mark 2 is only capable of shredding 400 pages
+        per minute, and is therefore reserved for use on security-sensitive
+        data (we go through a lot of paper for some reason). Excess server
+        logs are fed to our backup disposal system, a FloraColossus-X
+        Redwood-class wood chipper.
+
