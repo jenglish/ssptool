@@ -58,6 +58,7 @@ app.use(errorHandler);
  */
 
 app.initialize = function (config, db) {
+    app.set('config', config);
     app.set('db', db);
     app.set('sitemap', routes.sitemap);
     app.locals.appurl = routes.appurl;
@@ -67,6 +68,7 @@ app.initialize = function (config, db) {
     routes.router.use('/pages', express.static(config.docdir));
 
     app.locals.toplinks = routes.sitemap.toplinks;
+    app.locals.config = config;
 };
 
 module.exports = app;

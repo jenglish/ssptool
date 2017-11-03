@@ -2,11 +2,16 @@
 extends layout
 
 block content
-  h1 #{appname}
-  p Welcome to #{appname} #{appversion}
-
-  if navinfo && navinfo.toc
-    ul
-      each item in navinfo.toc.contents
-        li: a(href=item.path)= item.title
+  if config && config.documents
+    +panel('Documents')
+      ul.list-group
+        each document, docid in config.documents
+          ul.list-group-item 
+            +glyphicon('print')
+            = ' '
+            a(href=linkto.document(docid)) 
+              | #{docid} - #{document.title}
+  else
+    h1 #{appname}
+    p Welcome to #{appname} #{appversion}
 

@@ -97,3 +97,20 @@ describe('Crawl the whole site', function () {
     });
 });
 
+describe('See if documents work', function () {
+    it('can build and send a document', function (done) {
+
+    const linkto = app.locals.linkto;
+    mock.config.documents = {
+        doc1: {
+            title: 'doc1',
+            contents:
+            [ { generate: 'controls' }
+            , { generate: 'components' }
+            ],
+        }
+    };
+    tryPage(linkto.document('doc1'))(done);
+
+    });
+});
