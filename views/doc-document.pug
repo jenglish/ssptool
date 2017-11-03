@@ -1,0 +1,8 @@
+extends doc-layout
+
+block content
+  h1 #{document.title}
+  div.frontmatter
+    +doc-toc(document.contents)
+
+

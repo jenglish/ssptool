@@ -6,4 +6,11 @@ include mixins/tables
 mixin section-title
   h1 #[span.section-number #{section.number}] #{section.title}
 
+mixin doc-toc(sections)
+  if sections.length
+    ul.toc
+      each section in sections
+        li: a(href='#' + section.id) #{section.number} #{section.title}
+        +doc-toc(section.contents)
+
 block content
