@@ -1,4 +1,6 @@
 //- HTML HEAD element for documents
+include mixins/structures
 head
   meta(charset='utf-8')
   title #{document.title}
+  +stylesheet('/css/doc-style.css')
