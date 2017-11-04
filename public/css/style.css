@@ -68,6 +68,19 @@ ul.toc > li.toc-closed > ul {
 div.narrative div.narrative {
   padding-left: 20px;
 }
+table.identification {
+  width: 100%;
+  margin: 0pt 0pt 16px 0pt;
+}
+table.identification th {
+  padding: 0 4px;
+  width: 15%;
+  font-weight: bold;
+  text-align: right;
+}
+table.identification td {
+  padding: 0 4px;
+}
 html {
   overflow-y: scroll;
 }

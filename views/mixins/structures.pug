@@ -13,14 +13,16 @@ mixin warning-block
     block
 
 mixin identification-block
-  dl.dl-horizontal
+  table.identification
     block
 mixin identification-item(label, value)
-    dt= label
-    dd= value
+  tr
+    th= label
+    td= value
 mixin identification-heading(label)
-    dt= label
-    dd
+  tr
+    th= label
+    td
       block
 
 mixin narrative-block(narrative)
