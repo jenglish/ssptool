@@ -1,0 +1,219 @@
+.tag {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 0px 6px;
+  display: inline-block;
+  white-space: nowrap;
+}
+.tag-planned {
+  background-color: #fcf8e3;
+  color: #000000;
+  border-color: #f9e7c3;
+}
+.tag-partial {
+  background-color: #d9edf7;
+  color: #000000;
+  border-color: #bce8f1;
+}
+.tag-complete {
+  background-color: #dff0d8;
+  color: #000000;
+  border-color: #d0e6be;
+}
+.tag-none {
+  background-color: #eeeeee;
+  color: #000000;
+  border-color: #dcdcdc;
+}
+.tag-unknown {
+  background-color: #f2d3de;
+  color: #000000;
+  border-color: #eab7d2;
+}
+.tag-unsatisfied {
+  background-color: #f2d3de;
+  color: #000000;
+  border-color: #eab7d2;
+}
+div.narrative div.narrative {
+  padding-left: 24pt;
+}
+table.identification {
+  width: 100%;
+  margin: 0pt 0pt 12pt 0pt;
+}
+table.identification th {
+  padding: 0 3pt;
+  width: 15%;
+  font-weight: bold;
+  text-align: right;
+}
+table.identification td {
+  padding: 0 3pt;
+}
+body {
+  font-family: "Liberation Serif", "Times New Roman", serif;
+  font-size: 12pt;
+  line-spacing: 1.0;
+  width: 6.5in;
+  margin: 0in auto;
+  color: #333333;
+}
+h1 {
+  margin: 0pt 0pt 12pt 0pt;
+  font-family: "Liberation Sans", "Arial", sans-serif;
+  font-size: 24pt;
+  font-weight: bold;
+  padding: 0pt;
+}
+h2 {
+  margin: 0pt 0pt 12pt 0pt;
+  font-family: "Liberation Sans", "Arial", sans-serif;
+  font-size: 18pt;
+  font-weight: bold;
+  padding: 0pt;
+}
+h3 {
+  margin: 0pt 0pt 12pt 0pt;
+  font-family: "Liberation Sans", "Arial", sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  padding: 0pt;
+}
+h4 {
+  margin: 0pt 0pt 12pt 0pt;
+  font-family: "Liberation Sans", "Arial", sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  padding: 0pt;
+}
+h5 {
+  margin: 0pt 0pt 12pt 0pt;
+  font-family: "Liberation Sans", "Arial", sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  padding: 0pt;
+}
+h6 {
+  margin: 0pt 0pt 12pt 0pt;
+  font-family: "Liberation Sans", "Arial", sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  padding: 0pt;
+}
+pre,
+samp,
+code,
+tt {
+  font-family: "Liberation Mono", "Courier New", monospace;
+}
+a {
+  text-decoration: none;
+  color: #333333;
+}
+a:hover {
+  background-color: #afefff;
+}
+blockquote {
+  margin: 0pt 0pt 12pt 0pt;
+  border-left: 3pt solid #c8c8c8;
+  padding: 0pt 0pt 0pt 21pt;
+  font-style: italic;
+  text-align: justify;
+}
+p {
+  margin: 0pt 0pt 12pt 0pt;
+  text-align: justify;
+}
+p.narrative {
+  margin-bottom: 6pt;
+}
+table.identification {
+  margin: 0pt 0pt 12pt 0pt;
+}
+table.table {
+  margin: 0pt 0pt 12pt 0pt;
+  font-family: "Carlito", "Arial Narrow", "Calibri", sans-serif;
+  color-adjust: exact;
+  display: table;
+  page-break-inside: avoid;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #c8c8c8;
+  width: 100%;
+}
+table.table th {
+  font-weight: bold;
+  text-align: left;
+}
+table.table th,
+table.table td {
+  padding: 3pt;
+  border: 1px solid #c8c8c8;
+  vertical-align: baseline;
+}
+table.table thead tr {
+  background-color: #d8d8d8;
+}
+table.table thead tr th,
+table.table thead tr td {
+  text-align: center;
+  vertical-align: bottom;
+}
+table.table tr {
+  border-top: 1px solid #c8c8c8;
+  background-color: #ffffff;
+}
+table.table tr:nth-child(2n) {
+  background-color: #efefef;
+}
+ul,
+ol {
+  margin: 0pt 0pt 12pt 24pt;
+  padding: 0pt;
+}
+ul ul,
+ol ul,
+ul ol,
+ol ol {
+  margin-bottom: 0pt;
+}
+ul li,
+ol li {
+  list-style-position: outside;
+}
+ul {
+  list-style-type: disc;
+}
+ul.toc {
+  margin: 0pt 0pt 12pt 0;
+}
+ul.toc ul {
+  margin-left: 24pt;
+  margin-bottom: 0pt;
+}
+ul.toc li {
+  list-style-type: none;
+}
+ul.toc li a::after {
+  content: leader('.') target-counter(attr(href), page);
+}
+section {
+  page-break-after: always;
+}
+@page {
+  @top-right {
+    content: "Page " counter(page);
+  }
+}
+div.alert {
+  margin: 0pt 0pt 12pt 0pt;
+  border: 1px solid #c8c8c8;
+  border-radius: 6pt;
+  padding: 6pt;
+  text-align: center;
+}
+div.alert.alert-warning {
+  color: #993333;
+  border-color: #993333;
+}

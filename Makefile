@@ -37,6 +37,7 @@ usage ::
 
 css ::
 	$(NMBIN)/lessc less/style.less > public/css/style.css
+	$(NMBIN)/lessc less/doc-style.less > public/css/doc-style.css
 usage ::
 	@echo "make css"
 

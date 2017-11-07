@@ -2,50 +2,50 @@
 // Plain old boring style sheet suitable for printing.
 //
 
-@rmfamily:	"Liberation Serif", "Times New Roman", serif;
-@sffamily:	"Liberation Sans",  "Arial", sans-serif;
-@ttfamily:	"Liberation Mono",  "Courier", monospace;
-@cffamily:	"Carlito", "Arial Narrow", "Calibri", sans-serif;
+@rmfamily:      "Liberation Serif", "Times New Roman", serif;
+@sffamily:      "Liberation Sans",  "Arial", sans-serif;
+@ttfamily:      "Liberation Mono",  "Courier New", monospace;
+@cffamily:      "Carlito", "Arial Narrow", "Calibri", sans-serif;
 
-@display-family:	@sffamily;
-@body-family:		@rmfamily;
-@table-family:		@cffamily;
+@display-family:        @sffamily;
+@body-family:           @rmfamily;
+@table-family:          @cffamily;
 
-@normalsize:		12pt;
-@blg:			12pt;
-@indent:		24pt;
+@normalsize:            12pt;
+@blg:                   12pt;
+@indent:                24pt;
 
-@gray:			#c8c8c8;
-@gray-light:		#d8d8d8;
-@gray-lightest:		#efefef;
+@gray:                  #c8c8c8;
+@gray-light:            #d8d8d8;
+@gray-lightest:         #efefef;
 
-@text-color:		#333333;
-@rule-color:		@gray;
+@text-color:            #333333;
+@rule-color:            @gray;
 
 @import "elements";
 @import "structures";
 
 body {
-    font-family:	@body-family;
-    font-size:		@normalsize;
-    line-spacing:	1.0;
+    font-family:        @body-family;
+    font-size:          @normalsize;
+    line-spacing:       1.0;
 
-    width:		6.5in;
-    margin:		0in auto;
+    width:              6.5in;
+    margin:             0in auto;
 
-    color:		@text-color;
+    color:              @text-color;
 }
 
-.block-margins() {
-    margin:		0pt 0pt @blg 0pt;
+.block-margins(@indentation: 0pt) {
+    margin:             0pt 0pt @blg @indentation;
 }
 
 .heading(@font-size) {
-    font-family:	@display-family;
-    font-size:		@font-size;
-    font-weight:	bold;
-    margin:		0pt 0pt @blg 0pt;
-    padding:		0pt;
+    .block-margins;
+    font-family:        @display-family;
+    font-size:          @font-size;
+    font-weight:        bold;
+    padding:            0pt;
 }
 
 h1 { .heading(24pt); }
@@ -57,31 +57,31 @@ h6 { .heading(12pt); }
 
 pre,
 samp, code, tt {
-    font-family:	@ttfamily;
+    font-family:        @ttfamily;
 }
 
 a {
-    text-decoration:	none;
-    color:		@text-color;
+    text-decoration:    none;
+    color:              @text-color;
 }
 a:hover {
-    background-color:	#afefff;
+    background-color:   #afefff;
 }
 
 blockquote {
     .block-margins;
-    border-left: 	3pt solid @rule-color;
-    padding:		0pt 0pt 0pt (@indent - 3pt);
-    font-style:		italic;
-    text-align:		justify;
+    border-left:        3pt solid @rule-color;
+    padding:            0pt 0pt 0pt (@indent - 3pt);
+    font-style:         italic;
+    text-align:         justify;
 }
 
 p {
     .block-margins;
-    text-align:	justify;
+    text-align: justify;
 }
 p.narrative {
-    margin-bottom:	@blg/2;
+    margin-bottom:      @blg/2;
 }
 
 table.identification {
@@ -90,70 +90,76 @@ table.identification {
 
 table.table {
     .block-margins;
-    font-family:	@table-family;
-    color-adjust:	exact;
-    display:		table;
-    page-break-inside:	avoid;
+    font-family:        @table-family;
+    color-adjust:       exact;
+    display:            table;
+    page-break-inside:  avoid;
     border-collapse:    collapse;
-    border-spacing:	0;
+    border-spacing:     0;
     border:             1px solid @rule-color;
     width:              100%;
 
     th {
-    	font-weight:	bold;
-	text-align:	left;
+        font-weight:    bold;
+        text-align:     left;
     }
     th, td {
-	padding:	@blg/4;
-	border: 	1px solid @rule-color;
-	vertical-align:	baseline;
+        padding:        @blg/4;
+        border:         1px solid @rule-color;
+        vertical-align: baseline;
     }
 
     thead tr {
-	background-color:	@gray-light;
-	th, td {
-	    text-align: 	center;
-	    vertical-align:	bottom;
-	}
+        background-color:       @gray-light;
+        th, td {
+            text-align:         center;
+            vertical-align:     bottom;
+        }
     }
     tr {
-	border-top: 		1px solid @rule-color;
-	background-color:	#ffffff;
-	&:nth-child(2n) {
-	    background-color:	@gray-lightest;
-	}
+        border-top:             1px solid @rule-color;
+        background-color:       #ffffff;
+        &:nth-child(2n) {
+            background-color:   @gray-lightest;
+        }
     }
 }
-
 
 ul, ol {
-    margin-left: 0pt;
-    padding-left: 0pt;
+    .block-margins(@indent);
+    padding: 0pt;
     ul, ol {
-	padding-left: @indent;
-	margin: 0pt;
+        margin-bottom: 0pt;
     }
     li {
-	list-style-position: outside;
+        list-style-position: outside;
     }
 }
 
-ul		{ list-style-type: disc; }
-ul.toc li 	{ list-style-type: none; }
-
-ul.toc a::after {
-    content: leader('.') target-counter(attr(href), page);
+ul {
+    list-style-type: disc;
+}
+ul.toc {
+    .block-margins(0);
+    ul {
+        margin-left: @indent;
+        margin-bottom: 0pt;
+    }
+    li {
+        list-style-type: none;
+        a::after {
+            // someday somebody will implement this:
+            content: leader('.') target-counter(attr(href), page);
+        }
+    }
 }
 
 section {
-    page-break-after:	always;
+    page-break-after:   always;
 }
 @page {
-    @top-center {
-	content: "Page " counter(page);
-    }
-    @bottom-center {
-	content: "Of course this doesn't work";
+    @top-right {
+        content: "Page " counter(page);
     }
 }
 
@@ -161,12 +167,12 @@ section {
 //
 div.alert {
     .block-margins;
-    border:		1px solid @rule-color;
-    border-radius:	@blg/2;
-    padding:		@blg/2;
-    text-align:		center;
+    border:             1px solid @rule-color;
+    border-radius:      @blg/2;
+    padding:            @blg/2;
+    text-align:         center;
 }
 div.alert.alert-warning {
-    color:		#993333;
-    border-color:	#993333;
+    color:              #993333;
+    border-color:       #993333;
 }
