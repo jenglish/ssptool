@@ -7,6 +7,7 @@ var path = require('path')
   , basedir = path.join(__dirname, 'examples/test')
   , datadir = path.join(basedir, 'opencontrols')
   , docdir = path.join(basedir, 'markdowns')
+  , assetsdir = path.join(basedir, 'assets')
   ;
 
 var prepScript =
@@ -29,7 +30,7 @@ function preflight (done) {
     });
 }
 
-exports.config = { datadir: datadir, docdir: docdir };
+exports.config = { datadir: datadir, docdir: docdir, assetsdir: assetsdir };
 exports.preflight = preflight;
 exports.expected = { // see freedonia-compliance repo
     standard: 'FRIST-800-53',

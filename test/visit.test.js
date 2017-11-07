@@ -95,6 +95,23 @@ describe('Crawl the whole site', function () {
             tasks.push(tryPage(linkto.control(standard_key, control_key))));
         async.series(tasks, done);
     });
+
+    it('serves non-markdown assets in /pages', function (done) {
+        var path = '/pages/docs/Waterfall_model.png';
+        agent.get(path)
+            .expect(200)
+            .expect('content-type', /png/)
+            .end(errorContext(path, done));
+    });
+
+    it('serves non-markdown assets in /assets', function (done) {
+        var path = '/assets/cat-picture.svg';
+        agent.get(path)
+            .expect(200)
+            .expect('content-type', /svg/)
+            .end(errorContext(path, done));
+    });
+
 });
 
 describe('See if documents work', function () {

@@ -65,7 +65,8 @@ app.initialize = function (config, db) {
     app.locals.linkto = routes.linkto;
 
     routes.buildSite(config, db);
-    routes.router.use('/pages', express.static(config.docdir));
+    routes.router.use('/pages',  express.static(config.docdir));
+    routes.router.use('/assets', express.static(config.assetsdir||'./assets'));
 
     app.locals.toplinks = routes.sitemap.toplinks;
     app.locals.config = config;

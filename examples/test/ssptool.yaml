@@ -1,0 +1,6 @@
+documents:
+  doc1:
+    title: 'doc1'
+    contents:
+    - generate: 'controls'
+    - generate: 'components'

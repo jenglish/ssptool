@@ -33,10 +33,12 @@ Markdown syntax should work:
 
 ![Waterfall SDLC Image](./Waterfall_model.png)
 
-You can also use embedded HTML. Recommend using a *figure* element wrapper.
+You can also use embedded HTML.
+Recommend using a *figure* element wrapper, and storing
+files under `/assets/`.
 
 <figure>
-<img src="cat-picture.svg"/>
+<img src="/assets/cat-picture.svg"/>
 <figcaption>Cat picture by FASTILY [CC BY-SA 4.0]</figcaption>
 </figure>
 
