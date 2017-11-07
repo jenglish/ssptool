@@ -38,3 +38,13 @@ exports.expected = { // see freedonia-compliance repo
     certification: 'FredRAMP-low',
     certified: ['AU-1', 'AU-2', 'PE-2', 'SC-1', 'SC-7'],
 };
+
+exports.config.documents = {
+    doc1: {
+        title: 'test document',
+        contents:
+            [ { title: 'test controls generator', generate: 'controls' }
+            , { title: 'test components generator', generate: 'components' }
+            ]
+    }
+};

@@ -1,6 +1,5 @@
 //- pages
 extends layout
 block content
-  if page.data.title
-    h1= page.data.title
+  +page-title
   include pgbody/page

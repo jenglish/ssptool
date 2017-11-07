@@ -6,11 +6,11 @@ block content
     +panel('Documents')
       ul.list-group
         each document, docid in config.documents
-          ul.list-group-item 
-            +glyphicon('print')
+          ul.list-group-item
+            a(href=linkto.section(docid, docid))
+              | #{document.title}
             = ' '
-            a(href=linkto.document(docid)) 
-              | #{docid} - #{document.title}
+            +printlink(docid)
   else
     h1 #{appname}
     p Welcome to #{appname} #{appversion}

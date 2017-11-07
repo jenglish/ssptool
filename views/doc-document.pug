@@ -3,7 +3,8 @@ extends doc-layout
 block content
   h1 #{document.title}
   div.frontmatter
-    h2 Table of Contents
-    +doc-toc(document.contents)
+    section#toc
+      h2 Table of Contents
+      +doc-toc(document.contents)
 
 

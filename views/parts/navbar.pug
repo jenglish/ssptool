@@ -4,9 +4,15 @@ mixin brand
   a(href="/")
     img.navbar-brand(src='/img/opencontrol-icon.png')
 
+mixin printlink(docid)
+  a(href=linkto.document(docid), title='Print')
+    +glyphicon('print')
+
 mixin rellinks
   if navinfo
     ul.nav.navbar-nav
+      if docid
+        li: +printlink(docid)
       li: +navinfo-rellink('prev', "\u2190 Previous")
       li: +navinfo-rellink('next', "Next \u2192")
       li: +navinfo-rellink('up', "Up \u2191")
