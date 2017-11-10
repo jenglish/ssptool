@@ -11,9 +11,12 @@ documents:
       - page: ssp-intro.md
       - title: Security Controls
         generate: controls
-        profile: NIST-800-171-Appendix-D
       - title: System Components
         generate: components
+      - title: Appendix
+        report: completion
+        params:
+          profile: NIST-800-171-Appendix-D
   poam:
     title: Plan of Action
     page: POAM.md

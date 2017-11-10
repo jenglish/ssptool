@@ -96,11 +96,20 @@ program
   });
 
 program
-  .command('report [reportid]')
+  .command('report [reportid] [inputs...]')
   .description('Generate report')
-  .action(function (reportid) {
+  .action(function (reportid, inputs) {
     const reports = require('./lib/reports');
     const report = reports[reportid];
+    var params = {};
+    inputs.forEach(input => {
+        let pair=input.split('=');
+        if (pair.length == 2) {
+            params[pair[0]] = pair[1];
+        } else {
+            logger.error('%s: should be name=value', input);
+        }
+    });
     if (reportid && !report) {
         logger.error('Report %s not defined', reportid);
     }
@@ -113,7 +122,7 @@ program
     } else {
         loadDatabase(db => {
             process.stdout.write(
-                JSON.stringify(report.run(db), null, ' '));
+                JSON.stringify(report.run(db, params), null, ' '));
         });
     }
   });

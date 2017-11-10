@@ -96,6 +96,8 @@ regtest ::
 	@cd ${TD} ; $(SSPTOOL) list          | diff - regtest/list.expect
 	@cd ${TD} ; $(SSPTOOL) validate 2>&1 | diff - regtest/validate.expect
 	@cd ${TD} ; $(SSPTOOL) refcheck 2>&1 | diff - regtest/refcheck.expect
+	@cd ${TD} ; $(SSPTOOL) report completion profile=FredRAMP-low \
+		2>&1 | diff - regtest/report.expect
 usage ::
 	@echo "make regtest"
 

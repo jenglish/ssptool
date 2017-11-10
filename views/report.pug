@@ -3,3 +3,12 @@ extends layout
 block content
   +page-title
   include pgbody/report
+
+block append sidepane
+  +panel('Options')
+    form(method='GET')
+      each input in report.inputs
+        label #{input.label || input.name}
+        input.form-control(type='text',name=input.name,value=query[input.name])
+      button.btn(type='submit') Go
+

@@ -1,0 +1,26 @@
+[
+ {
+  "control_key": "AU-1",
+  "name": "Audit and Accountability Policy and Procedures"
+ },
+ {
+  "control_key": "AU-2",
+  "name": "Audit Events",
+  "s_none": 2
+ },
+ {
+  "control_key": "PE-2",
+  "name": "Physical Access Authorizations",
+  "s_complete": 1
+ },
+ {
+  "control_key": "SC-1",
+  "name": "System and Communications Protection Policy and Procedures",
+  "s_none": 1
+ },
+ {
+  "control_key": "SC-7",
+  "name": "Boundary Protection",
+  "s_none": 1
+ }
+]
