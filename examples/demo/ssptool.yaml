@@ -7,11 +7,14 @@ documents:
     page: 00-README.md
   ssp:
     title: System Security Plan
+    page: ssp-intro.md
     contents:
-      - page: ssp-intro.md
-      - title: Security Controls
+      - title: System Information
+        contents:
+        - page: personnel.md
+      - page: controls-intro.md
         generate: controls
-      - title: System Components
+      - page: components-intro.md
         generate: components
       - title: Appendix
         report: completion

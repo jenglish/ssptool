@@ -18,7 +18,7 @@ satisfies:
 Federal Information Systems: a Security Life Cycle Approach"
 provides guidelines for applying the NIST Risk Management Framework (RMF).
 
-Activies include:
+Activities include:
 
 - security categorization
 - security control selection and implementation
