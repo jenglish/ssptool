@@ -3,6 +3,9 @@
   +identification-item('System', component.system)
   +identification-item('Responsibility', component.responsible_role)
 
+if component.page
+  != component.page.html
+
 if satisfies && satisfies.length
   h2 Satisfies
   +satisfies(satisfies)
