@@ -84,7 +84,7 @@ clean ::
 
 
 test-server : $(TESTDATADIR)
-	(cd examples/test ; $(SSPTOOL) server )
+	(cd examples/test ; node test-server.js)
 usage ::
 	@echo "make test-server"
 
