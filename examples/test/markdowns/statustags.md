@@ -21,3 +21,12 @@ is used when no component satisfies a control
 (and hence there is no implementation_status).
 
 
+## Cross-references
+
+You can use wiki-style cross-references like this:
+[[docs/about-the-ssp]].
+(If that isn't rendered as a link, see
+[this issue](https://github.com/jsepia/markdown-it-wikilinks/issues/2)).
+
+Omit the `*.md` file extension, and specify the path relative to `/pages/`.
+

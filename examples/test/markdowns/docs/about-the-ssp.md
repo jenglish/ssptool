@@ -42,6 +42,11 @@ files under `/assets/`.
 <figcaption>Cat picture by FASTILY [CC BY-SA 4.0]</figcaption>
 </figure>
 
+## Cross-references
+
+You can use Wiki-style links like this: [[statustags]].
+Omit the *.md extension.
+
 ## References
 
 - [Wikimedia Commons](https://commons.wikimedia.org/wiki/File%3ABlack_and_White_Cat_Sketch.svg)
