@@ -4,6 +4,7 @@ metadata:
   description: ssptool demo data
 components:
 - ./PE_Policy
+- ./MP_Policy
 certifications:
 - certifications/NIST-800-171-Appendix-D.yaml
 dependencies:

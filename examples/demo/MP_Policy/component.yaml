@@ -16,7 +16,7 @@ satisfies:
       text: |
         The Ultron-4000 Mark 2 is only capable of shredding 400 pages
         per minute, and is therefore reserved for use on security-sensitive
-        data (we go through a lot of paper for some reason). Excess server
-        logs are fed to our backup disposal system, a FloraColossus-X
-        Redwood-class wood chipper.
+        data (we go through a lot of paper for some reason).
 
+        Excess server logs are fed to our backup disposal system,
+        a FloraColossus-X Redwood-class wood chipper.

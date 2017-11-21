@@ -30,10 +30,10 @@ mixin narrative-block(narrative)
     each item in narrative
       +narrative-item(item)
 mixin narrative-item(item)
-  p.narrative #[+narrative-key(item)] #{item.text}
+  if item.key
+    p.narrative-key: b= item.key
+  if item.text
+    != markdown(item.text)
   if item.narrative
     +narrative-block(item.narrative)
-mixin narrative-key(item)
-  if item.key
-    b.narrative-key= item.key
 

@@ -5,6 +5,7 @@ var express = require('express')
   , logger = require('morgan')
   , package = require('./package.json')
   , routes = require('./lib/routes')
+  , mdparser = require('./lib/opencontrol/mdparser')
   , app = express()
   ;
 
@@ -63,6 +64,7 @@ app.initialize = function (config, db) {
     app.set('sitemap', routes.sitemap);
     app.locals.appurl = routes.appurl;
     app.locals.linkto = routes.linkto;
+    app.locals.markdown = mdparser.parse;
 
     routes.buildSite(config, db);
     routes.router.use('/pages',  express.static(config.docdir));

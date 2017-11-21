@@ -68,6 +68,9 @@ ul.toc > li.toc-closed > ul {
 div.narrative div.narrative {
   padding-left: 20px;
 }
+p.narrative-key {
+  margin: 0;
+}
 table.identification {
   width: 100%;
   margin: 0pt 0pt 16px 0pt;
