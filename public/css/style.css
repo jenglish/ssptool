@@ -65,6 +65,12 @@ ul.toc > li.toc-closed > ul {
   color: #000000;
   border-color: #eab7d2;
 }
+figure {
+  text-align: center;
+}
+figure img {
+  max-width: 100%;
+}
 div.narrative div.narrative {
   padding-left: 20px;
 }
@@ -86,11 +92,5 @@ table.identification td {
 }
 html {
   overflow-y: scroll;
-}
-figure {
-  text-align: center;
-}
-figure img {
-  max-width: 100%;
 }
 /*EOF*/

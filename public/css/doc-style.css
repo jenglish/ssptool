@@ -35,6 +35,12 @@
   color: #000000;
   border-color: #eab7d2;
 }
+figure {
+  text-align: center;
+}
+figure img {
+  max-width: 100%;
+}
 div.narrative div.narrative {
   padding-left: 24pt;
 }
