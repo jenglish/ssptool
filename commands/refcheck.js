@@ -41,13 +41,19 @@ function checkReferences (c, refprop) {
 function refcheck (db) {
     db.satisfactions.identify = identifier('satisfaction',
         ['component_key', 'standard_key', 'control_key']);
-
     db.certifications.identify = identifier('certification',
         ['certification', 'standard_key', 'control_key']);
+    db.controls.identify = identifier('control',
+        ['standard_key', 'control_key']);
+    db.mappings.identify = identifier('mapping',
+        ['standard_a', 'control_a', 'standard_b', 'control_b']);
 
     checkReferences(db.satisfactions, 'control');
     checkReferences(db.satisfactions, 'component'); // can't fail, check anwyay
     checkReferences(db.certifications, 'control');
+
+    checkReferences(db.mappings, 'lhs');
+    checkReferences(db.mappings, 'rhs');
 }
 
 module.exports = refcheck;
