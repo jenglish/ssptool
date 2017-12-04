@@ -28,3 +28,18 @@ mixin satisfies(sats)
           td= sat.control && sat.control.name
           td #[+showThe(sat, 'implementation_status')]
 
+mixin controls(controls)
+  table.table
+    thead
+      tr
+        th Standard
+        th Control
+        th Name
+    tbody
+      each control in controls
+        -var url=linkto.control(control.standard_key, control.key)
+        tr
+          td #{control.standard_key}
+          td: a(href=url) #{control.key}
+          td: a(href=url) #{control.name}
+

@@ -11,6 +11,10 @@ if control.narrative
 else
   p= control.description
 
+if mapped_to && mapped_to.length
+  h2 Mapped To
+  +controls(mapped_to)
+
 if satisfied && satisfied.length
   h2 Satisfied By
   +satisfied(satisfied)
