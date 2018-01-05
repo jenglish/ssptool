@@ -52,7 +52,7 @@ function loadDatabase (cb) {
  */
 program
   .command('server')
-  .option('-p --port <port>', 'Server port', 3000, parseInt)
+  .option('-p --port <port>', 'Server port', 8080, parseInt)
   .description('Run preview server')
   .action(function (options) {
     var app = require('./app')
