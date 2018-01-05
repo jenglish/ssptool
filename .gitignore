@@ -1,6 +1,5 @@
 npm-debug.log
 node_modules/
 jsdocs/
-examples/*/opencontrols/
 examples/demo/*.html
 local.mk
