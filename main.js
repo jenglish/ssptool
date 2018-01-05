@@ -51,7 +51,7 @@ function loadDatabase (cb) {
 /** Launch HTTP server
  */
 program
-  .command('server', {isDefault: true})
+  .command('server')
   .option('-p --port <port>', 'Server port', 3000, parseInt)
   .description('Run preview server')
   .action(function (options) {
@@ -144,4 +144,3 @@ program
 
 program.parse(process.argv);
 if (!program.args.length) { program.help(); } 
-
