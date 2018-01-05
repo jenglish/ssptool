@@ -1,0 +1,24 @@
+schema_version: "1.0.0"
+name: Template Information System
+metadata:
+  description: Template Information System
+  maintainers:
+    - Shawn Wells <shawn@redhat.com>
+
+components:
+#    - ./SI-System_and_Information_Integrity
+
+dependencies:
+  standards:
+    - url: https://github.com/opencontrol/standards
+      revision: master
+  certifications:
+    - url: https://github.com/opencontrol/FedRAMP-Certifications
+      revision: master
+  systems:
+    - url: https://github.com/ComplianceCenter/template-system-process-controls
+      revision: opencontrol
+    - url: https://github.com/ComplianceCenter/redhat-openstack-platform-13
+      revision: opencontrol
+    - url: https://github.com/ComplianceCenter/redhat-openshift-v3
+      revision: opencontrol
