@@ -3,7 +3,9 @@
   "version": "0.4.4",
   "private": true,
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "run": "node main.js server",
+    "start": "node main.js server"
   },
   "bin": {
     "ssptool": "./main.js"
