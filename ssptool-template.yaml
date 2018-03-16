@@ -1,0 +1,135 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: ssptool
+objects:
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+    labels:
+      app: ssptool
+    name: ssptool
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ssptool:latest
+    postCommit: {}
+    resources:
+      requests:
+        memory: 1Gi
+    runPolicy: Serial
+    source:
+      git:
+        ref: master
+        uri: https://github.com/jenglish/ssptool
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: nodejs:8
+          namespace: openshift
+      type: Source
+    triggers:
+    - imageChange: {}
+      type: ImageChange
+    - type: ConfigChange
+  status:
+    lastVersion: 0
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+    labels:
+      app: ssptool
+    name: ssptool
+  spec:
+    replicas: 1
+    selector:
+      deploymentconfig: ssptool
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          app: ssptool
+          deploymentconfig: ssptool
+      spec:
+        containers:
+        - name: ssptool
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ssptool
+        from:
+          kind: ImageStreamTag
+          name: ssptool:latest
+      type: ImageChange
+    - type: ConfigChange
+  status:
+    availableReplicas: 0
+    latestVersion: 0
+    observedGeneration: 0
+    replicas: 0
+    unavailableReplicas: 0
+    updatedReplicas: 0
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+    labels:
+      app: ssptool
+    name: ssptool
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+    labels:
+      app: ssptool
+    name: ssptool
+  spec:
+    port:
+      targetPort: 3000-tcp
+    to:
+      kind: Service
+      name: ssptool
+      weight: 100
+    wildcardPolicy: None
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: ssptool
+    name: ssptool
+  spec:
+    ports:
+    - name: 3000-tcp
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      deploymentconfig: ssptool
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
