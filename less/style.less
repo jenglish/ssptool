@@ -9,10 +9,16 @@
 @import "elements.less";
 @import "structures.less";
 
-// Avoid disappearing/reappearing scrollbar -force always on:
-//
+//- Avoid disappearing/reappearing scrollbar - force always on:
+//-
 html {
   overflow-y: scroll;
+}
+
+//- Hide navigation elements when printing:
+//-
+@media print {
+  #sidepane, #breadcrumbs { display: none; }
 }
 
 /*EOF*/

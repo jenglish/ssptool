@@ -27,11 +27,12 @@ html
       div.container-fluid
         include parts/navbar
         div.row
-          div.col-xs-3
+          div#sidepane.col-md-3
             block sidepane
               include parts/sidepane
-          div.col-xs-9
-            +breadcrumbs-bar
+          div.col-md-9
+            div#breadcrumbs
+              +breadcrumbs-bar
             block content
         include parts/footer
 

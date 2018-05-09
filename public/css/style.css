@@ -93,4 +93,10 @@ table.identification td {
 html {
   overflow-y: scroll;
 }
+@media print {
+  #sidepane,
+  #breadcrumbs {
+    display: none;
+  }
+}
 /*EOF*/
