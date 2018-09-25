@@ -10,7 +10,14 @@ const { Loader } = require('../lib/opencontrol/loader')
 function reportErrors (filename, errors) {
     logger.warn(filename);
     for (var error of errors) {
+        var details = [];
+        for (var k in error.params) {
+            details.push(k + '=' + error.params[k].toString());
+        }
         logger.warn('\t' + error.dataPath + ': ' + error.message);
+        if (details.length) {
+            logger.warn('\t' + '(' + details.join(',') + ')');
+        }
         debug(error);
     }
 }
