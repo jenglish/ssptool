@@ -1,6 +1,6 @@
 {
   "name": "ssptool",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "private": true,
   "scripts": {
     "test": "mocha",
@@ -11,32 +11,32 @@
     "ssptool": "./main.js"
   },
   "dependencies": {
-    "ajv": "^5.2.3",
-    "async": "^2.5.0",
-    "commander": "^2.11.0",
-    "debug": "^3.1.0",
+    "ajv": "^6.10.0",
+    "async": "^2.6.2",
+    "commander": "^2.19.0",
+    "debug": "^4.1.1",
     "expect.js": "^0.3.1",
-    "express": "~4.15.5",
+    "express": "^4.16.4",
     "gulp-gray-matter": "^3.0.1",
-    "js-yaml": "^3.10.0",
-    "lodash": "^4.17.4",
-    "markdown-it": "^8.4.0",
+    "js-yaml": "^3.12.2",
+    "lodash": "^4.17.11",
+    "markdown-it": "^8.4.2",
     "markdown-it-wikilinks": "^1.0.1",
-    "morgan": "~1.9.0",
-    "pug": "2.0.0-beta11",
-    "semver": "^5.4.1",
-    "serve-favicon": "~2.4.5",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.3",
+    "semver": "^5.6.0",
+    "serve-favicon": "^2.5.0",
     "stream-end": "^0.1.0",
     "stream-exhaust": "^1.0.2",
-    "through2": "^2.0.3",
-    "vinyl-fs": "^2.4.4"
+    "through2": "^3.0.1",
+    "vinyl-fs": "^3.0.3"
   },
   "devDependencies": {
-    "eslint": "^4.8.0",
+    "eslint": "^5.15.2",
     "jsdoc": "^3.5.5",
-    "less": "^2.7.3",
-    "mocha": "^4.0.0",
-    "supertest": "^3.0.0"
+    "less": "^3.9.0",
+    "mocha": "^6.0.2",
+    "supertest": "^4.0.2"
   },
   "main": "main.js",
   "description": "express app for working with OpenControl content",
