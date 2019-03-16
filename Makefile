@@ -62,9 +62,11 @@ usage ::
 qa :: jsdoc
 jsdoc ::
 	@echo "Running jsdoc..."
-	@$(NMBIN)/jsdoc -c .jsdoc.json -r lib -d jsdocs
+	@$(NMBIN)/jsdoc -c .jsdoc.json -r lib -d public/jsdocs
 usage ::
 	@echo "make jsdoc"
+clean ::
+	@-rm -rf public/jsdocs
 
 demo : $(DEMODATADIR)
 	cd examples/demo ; \
