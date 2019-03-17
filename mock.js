@@ -35,7 +35,7 @@ exports.preflight = preflight;
 exports.expected = { // see freedonia-compliance repo
     standard: 'FRIST-800-53',
     controls: ['AU-1', 'AU-2', 'AU-2 (3)', 'PE-2', 'SC-1', 'SC-7', 'XX-1'],
-    components: ['AU_policy', 'AWS_implementation', 'AWS_core', 'BAD-1'],
+    components: ['AU_policy', 'AWS_implementation', 'AWS_core', 'BAD-1', 'moda', 'modb'],
     certification: 'FredRAMP-low',
     certified: ['AU-1', 'AU-2', 'PE-2', 'SC-1', 'SC-7'],
 };

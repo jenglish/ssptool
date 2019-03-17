@@ -74,7 +74,7 @@ describe('Loader', function () {
     describe('Pages', function () {
 
         it('should load markdown pages', function () {
-            expect(db.pages.records.length).to.eql(3);
+            expect(db.pages.records.length).to.equal(5);
         });
 
         it('... identified by relative pathname', function () {
@@ -90,7 +90,24 @@ describe('Loader', function () {
             expect(readme).to.have.property('html');
             expect(readme.data).to.have.property('title');
             expect(readme.data).to.have.property('date');
+            // make sure YAML parser doesn't do anything funky with datestamps:
             expect(readme.data.date).to.be.a('string');
+        });
+
+        it('sub/dir/README.md renamed to sub/dir', function () {
+            var moda = db.pages.findByKey('modules/moda')
+              , modb = db.pages.findByKey('modules/modb')
+              ;
+            expect(moda).to.have.property('html');
+            expect(modb).to.have.property('html');
+        });
+
+        it('pages can also be components', function () {
+            var moda = db.components.findByKey('moda')
+              , modb = db.components.findByKey('modb')
+              ;
+            expect(moda).to.be.ok();
+            expect(modb).to.be.ok();
         });
 
     });
