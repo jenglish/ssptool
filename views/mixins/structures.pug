@@ -37,3 +37,12 @@ mixin narrative-item(item)
   if item.narrative
     +narrative-block(item.narrative)
 
+mixin control-references(satisfies)
+  each rec, standard_key in page.data.satisfies || {}
+    - var sep = ": "
+    = standard_key
+    each description, control_key in rec
+      = sep
+      a(href=linkto.control(standard_key, control_key))= control_key
+      - sep = ", "
+
