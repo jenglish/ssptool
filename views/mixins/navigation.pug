@@ -42,6 +42,12 @@ mixin toc-panel(toc)
   +panel(toc.title)
     +toc(toc.contents)
 
+//- Table of contents - top-level sections only
+mixin minitoc(contents)
+  ul.toc
+    each item in contents
+      li: a(href=item.path)= item.title
+
 //- Bootstrap pager - next/prev links
 mixin pager
   nav(aria-label="...")
