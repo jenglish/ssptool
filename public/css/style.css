@@ -86,6 +86,7 @@ table.identification th {
   width: 15%;
   font-weight: bold;
   text-align: right;
+  vertical-align: baseline;
 }
 table.identification td {
   padding: 0 4px;

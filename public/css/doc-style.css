@@ -56,6 +56,7 @@ table.identification th {
   width: 15%;
   font-weight: bold;
   text-align: right;
+  vertical-align: baseline;
 }
 table.identification td {
   padding: 0 3pt;
@@ -63,7 +64,7 @@ table.identification td {
 body {
   font-family: "Liberation Serif", "Times New Roman", serif;
   font-size: 12pt;
-  line-spacing: 1.0;
+  line-spacing: 1;
   width: 6.5in;
   margin: 0in auto;
   color: #333333;
