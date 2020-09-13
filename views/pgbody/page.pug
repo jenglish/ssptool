@@ -2,8 +2,8 @@
   +identification-item('Date', page.data.date)
   +identification-item('Version', page.data.version)
   +identification-item('Author', page.data.author)
-  if page.data.last_changed
-    +identification-item('Last changed', page.data.last_changed)
+  if page.data.last_modified
+    +identification-item('Last modified', page.data.last_modified)
   if page.data.satisfies
     +identification-heading('References')
       +control-references(page.data.satisfies)
