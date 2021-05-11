@@ -23,7 +23,7 @@
     "markdown-it": "^8.4.2",
     "markdown-it-wikilinks": "^1.0.1",
     "morgan": "^1.9.1",
-    "pug": "^2.0.3",
+    "pug": "^3.0.2",
     "semver": "^5.6.0",
     "serve-favicon": "^2.5.0",
     "stream-end": "^0.1.0",
