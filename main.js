@@ -60,10 +60,12 @@ program
       , http = require('http')
       , server = http.createServer(app)
       , startServer = (config, db) => {
+          const serverConfig = config.server || {};
+          const port = serverConfig.port || options.port;
           logger.info('Initializing...');
           app.initialize(config, db);
-          logger.info('Listening on http://localhost:%d', options.port);
-          server.listen(options.port, () => logger.info('Ready.'));
+          logger.info('Listening on http://localhost:%d', port);
+          server.listen(port, () => logger.info('Ready.'));
         };
 
     server.on('error', logError);
