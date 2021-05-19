@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * @file ssptool CLI main entry point.
  */

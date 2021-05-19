@@ -15,7 +15,6 @@
     "async": "^2.6.2",
     "commander": "^2.19.0",
     "debug": "^4.1.1",
-    "expect.js": "^0.3.1",
     "express": "^4.16.4",
     "gulp-gray-matter": "^3.0.1",
     "js-yaml": "^3.12.2",
@@ -33,6 +32,7 @@
   },
   "devDependencies": {
     "eslint": "^5.15.2",
+    "expect.js": "^0.3.1",
     "jsdoc": "^3.6.5",
     "less": "^3.9.0",
     "mocha": "^6.0.2",
