@@ -16,7 +16,7 @@
     "commander": "^2.19.0",
     "debug": "^4.1.1",
     "express": "^4.16.4",
-    "gulp-gray-matter": "^3.0.1",
+    "gray-matter": "^4.0.3",
     "js-yaml": "^3.12.2",
     "lodash": "^4.17.11",
     "markdown-it": "^8.4.2",
