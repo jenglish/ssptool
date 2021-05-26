@@ -1,3 +1,5 @@
+/** @file ssptool web app.
+ */
 
 var express = require('express')
   , path = require('path')
@@ -5,6 +7,8 @@ var express = require('express')
   , logger = require('morgan')
   , package = require('./package.json')
   , routes = require('./lib/routes')
+  , loadConfig = require('./lib/config').load
+  , loadOpenControl = require('./lib/opencontrol').load
   , mdparser = require('./lib/opencontrol/mdparser')
   , app = express()
   ;
@@ -22,12 +26,18 @@ function chooseLogger (app) {
     }
 }
 
+/** Terminal route handler.
+ *  Issues 404 error if no other routes match.
+ */
 function notFoundHandler (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 }
 
+/** Terminal error handler.
+ *  Last handler in chain, shows error page.
+ */
 function errorHandler (err, req, res, next) {
     if (res.headersSent) { return next(err); }
     res.locals.message = err.message;
@@ -35,6 +45,19 @@ function errorHandler (err, req, res, next) {
     res.locals.path = req.path;
     res.status(err.status || 500);
     res.render('error');
+}
+
+/** Route middleware for navinfo.
+ *
+ * Looks up req.path in the Sitemap,
+ * sets res.locals.navinfo if found.
+ * It is not an error if the path is not present in the sitemap;
+ * res.locals.navinfo is null in that case.
+ */
+function navigationMiddleware (req, res, next) {
+    const sitemap = req.app.get('sitemap');
+    res.locals.navinfo = sitemap && sitemap.navinfo(req.path);
+    next();
 }
 
 app.set('views', basepath('views'));
@@ -47,31 +70,63 @@ app.locals.apphomepage = package.homepage;
 app.use(favicon(basepath('public/favicon.ico')));
 chooseLogger(app);
 app.use(express.static(basepath('public'), { maxAge: 1000 * 60 * 60 }));
+app.use(navigationMiddleware);
 app.use(routes.router);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
 /**
- * Initialization.
+ * (re)initialize site map.
  *
  * @param (Config) config
  * @param (opencontrol.Database) db
  */
 
-app.initialize = function (config, db) {
+app.reinitialize = function (config, db) {
+    const sitemap = routes.buildSite(config, db);
+
     app.set('config', config);
     app.set('db', db);
-    app.set('sitemap', routes.sitemap);
+    app.set('sitemap', sitemap);
+
+    app.locals.config = config;
     app.locals.appurl = routes.appurl;
     app.locals.linkto = routes.linkto;
     app.locals.markdown = mdparser.parse;
+    app.locals.toplinks = sitemap.toplinks;
+};
 
-    routes.buildSite(config, db);
+/** POST /reload
+ */
+function reload (req, res, next) {
+    let returnPath = req.header('Referer') || routes.appurl('')
+      , config = req.app.get('config')
+      , reloadConfig = (config, cb) => config._configfile
+        ? loadConfig(config._configfile, cb)
+        : cb(null,config)
+    ;
+
+    reloadConfig(config, (err, config) =>
+        err ? next(err) : loadOpenControl(config, (err, db) => {
+            if (err) return next(err);
+            app.reinitialize(config, db);
+            res.redirect(303, returnPath);
+        })
+    );
+}
+
+/**
+ * Initialize application.
+ *
+ * @param (Config) configuration.
+ * @param (opencontrol.Database) db
+ */
+app.initialize = function (config, db) {
     routes.router.use('/pages',  express.static(config.docdir));
     routes.router.use('/assets', express.static(config.assetsdir||'./assets'));
+    routes.router.post('/reload', reload);
 
-    app.locals.toplinks = routes.sitemap.toplinks;
-    app.locals.config = config;
+    app.reinitialize(config, db);
 };
 
 module.exports = app;

@@ -1,3 +1,5 @@
+/** @file `ssptool validate` command
+ */
 
 const { Loader } = require('../lib/opencontrol/loader')
   , validator = require('../lib/opencontrol/validator')
@@ -40,7 +42,7 @@ function validate (config) {
       ;
 
     if (config._errors) {
-        reportErrors('config file', config._errors);
+        reportErrors(config._configfile || 'configuration', config._errors);
     }
     async.series([
         k => loader.loadComponents(datadir, validate_a('component'), k),

@@ -8,18 +8,22 @@ mixin printlink(docid)
   a(href=linkto.document(docid), title='Print')
     +glyphicon('print')
 
-mixin rellinks
-  if navinfo
-    ul.nav.navbar-nav
-      if docid
-        li: +printlink(docid)
-      li: +navinfo-rellink('prev', "\u2190 Previous")
-      li: +navinfo-rellink('next', "Next \u2192")
-      li: +navinfo-rellink('up', "Up \u2191")
+mixin reload-button
+  form.navbar-form.navbar-right(action=appurl('reload'),method='POST')
+    button.btn.btn-default(type='submit',title='Reload')
+      +glyphicon('refresh')
 
 nav.navbar.navbar-default
   div.navbar-header
     +brand
     +topnav
+  +reload-button
   div.navbar-right
-    +rellinks
+    ul.nav.navbar-nav
+      if docid
+        li: +printlink(docid)
+      if navinfo
+        li: +navinfo-rellink('prev', "\u2190 Previous")
+        li: +navinfo-rellink('next', "Next \u2192")
+        li: +navinfo-rellink('up', "Up \u2191")
+

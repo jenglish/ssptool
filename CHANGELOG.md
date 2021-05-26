@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- Add 'Reload' button
 - `ssptool server`: can now specify port in `ssptool.yaml` file
 - drop dependency on unmaintained `gulp-gray-matter` package
 - refreshed other dependencies

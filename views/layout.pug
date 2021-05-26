@@ -5,7 +5,8 @@ include mixins/structures
 include mixins/tables
 
 mixin page-title
-  h1= navinfo.title
+  if navinfo
+    h1= navinfo.title
 
 - var bootstrap = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css';
 

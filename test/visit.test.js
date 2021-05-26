@@ -120,3 +120,12 @@ describe('See if documents work', function () {
         tryPage(linkto.document('doc1'))(done);
     });
 });
+
+describe('See if reload works', function () {
+    it('responds to /reload route', function (done) {
+        agent.post('/reload')
+            .expect(303)
+            .expect('location', '/')
+            .end(done);
+    });
+});
