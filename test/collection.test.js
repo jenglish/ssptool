@@ -96,31 +96,27 @@ describe('References', function () {
         , { id: 'E-003', dept: 'D-RDRDRD', name: 'Eric Erickson Jr' }
         , { id: 'E-004', dept: 'D-RDRDRD', name: 'Eric Erickson Sr' }
         ].forEach(e => employee.add(e));
-        // test doesn't actually use that table...
-
-        describe ('populate method', function () {
-
-            it('resolves references', function () {
-                var e = employee.findByKey('E-004');
-
-                expect(e.name).to.eql('Eric Erickson Sr');
-                employee.populate(e);
-                expect(e.department).to.be.ok();
-                expect(e.department.name).to.eql('Redundancy Department');
-            });
-
-            it('record need not be a member of the collection', function () {
-                var e = employee.populate({ id: 'X-023', dept: 'D-SLYWKS' });
-                expect(e.department.name).to.eql('Silly Walks');
-            });
-
-            it('referenced record need not exist', function () {
-                var e = employee.populate({ id: 'E-LIM', dept: 'D-NOSUCH' });
-                expect(e.department).to.be(null);
-            });
-        });
-
     });
 
+    describe('populate method', function () {
+        it('resolves references', function () {
+            var e = employee.findByKey('E-004');
+
+            expect(e.name).to.eql('Eric Erickson Sr');
+            employee.populate(e);
+            expect(e.department).to.be.ok();
+            expect(e.department.name).to.eql('Redundancy Department');
+        });
+
+        it('record need not be a member of the collection', function () {
+            var e = employee.populate({ id: 'X-023', dept: 'D-SLYWKS' });
+            expect(e.department.name).to.eql('Silly Walks');
+        });
+
+        it('referenced record need not exist', function () {
+            var e = employee.populate({ id: 'E-LIM', dept: 'D-NOSUCH' });
+            expect(e.department).to.be(null);
+        });
+    });
 
 });
