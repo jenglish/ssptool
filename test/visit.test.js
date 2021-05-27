@@ -112,6 +112,15 @@ describe('Crawl the whole site', function () {
             .end(errorContext(path, done));
     });
 
+    it('serves JSON schema documents', function (done) {
+        async.series(
+            ['standard', 'certification', 'component'].map(schema => k => {
+                agent.get('/schemas/' + schema + '.json')
+                    .expect(200)
+                    .end(k);
+            }), done);
+    });
+
 });
 
 describe('See if documents work', function () {
@@ -129,3 +138,4 @@ describe('See if reload works', function () {
             .end(done);
     });
 });
+
