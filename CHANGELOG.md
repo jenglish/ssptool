@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- Partial support for component schema v3.1.0 (#16)
 - Add 'Reload' button
 - `ssptool server`: can now specify port in `ssptool.yaml` file
 - drop dependency on unmaintained `gulp-gray-matter` package
