@@ -1,11 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+- Support markdown in control descriptions (#19)
 - Partial support for component schema v3.1.0 (#16)
 - Add 'Reload' button
-- `ssptool server`: can now specify port in `ssptool.yaml` file
-- drop dependency on unmaintained `gulp-gray-matter` package
-- refreshed other dependencies
+- `ssptool server`: can now specify port in `ssptool.yaml` file (#14)
+- Drop dependency on unmaintained `gulp-gray-matter` package
+- Refreshed other dependencies
 
 ## [0.4.6] - 2020-05-12
 - Upgrade pug to version 3

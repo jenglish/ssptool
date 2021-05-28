@@ -13,8 +13,8 @@ satisfies:
   - key: a.2
     text: |
       Ingress/egress to the facility is controlled by:
-      (1) an outer moat, containing sharks
-      (2) a 30-foot high Sentinel-proof impregnable wall
-      (3) an inner moat containing more sharks. With laser beams.
-      (4) auxilliary laser cannon defense just in case
+      1. An outer moat, containing sharks
+      2. A 30-foot high Sentinel-proof impregnable wall
+      3. An inner moat containing more sharks. With laser beams.
+      4. Auxilliary laser cannon defense just in case
 

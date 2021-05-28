@@ -8,8 +8,8 @@
 h2 Description
 if control.narrative
   +narrative-block(control.narrative)
-else
-  p= control.description
+else if control.description
+  != markdown(control.description)
 
 if mapped_to && mapped_to.length
   h2 Mapped To

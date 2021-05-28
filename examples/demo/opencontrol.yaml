@@ -3,11 +3,12 @@ name: Genosha
 metadata:
   description: ssptool demo data
 components:
+- ./AU_Policy
 - ./PE_Policy
 - ./MP_Policy
 certifications:
 - certifications/NIST-800-171-Appendix-D.yaml
 dependencies:
   standards:
-  - url: https://github.com/jenglish/NIST-800-53-Standards
+  - url: https://github.com/opencontrol/standards
     revision: master
