@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.5.0] - 2020-05-28
 - Support markdown in control descriptions (#19)
 - Partial support for component schema v3.1.0 (#16)
 - Add 'Reload' button
