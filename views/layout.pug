@@ -8,15 +8,13 @@ mixin page-title
   if navinfo
     h1= navinfo.title
 
-- var bootstrap = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css';
-
 doctype html
 html
   head
     meta(charset='utf-8')
     meta(name='vieport', content='width=device-width, initial-scale=1')
     block stylesheets
-      +stylesheet(bootstrap)
+      +stylesheet('https://unpkg.com/patternfly/dist/css/patternfly.min.css')
       +stylesheet('/css/style.css')
     title
       if navinfo && navinfo.title

@@ -40,7 +40,7 @@ All documentation is on the [wiki] for now.
 
 ## Colophon
 
-Built with [express], [pug], and [Bootstrap 3].
+Built with [express], [pug], and [Bootstrap 3] / [PatternFly 3].
 Tested on node v8.0.0.
 
 [OpenControl]: http://open-control.org/
@@ -48,6 +48,7 @@ Tested on node v8.0.0.
 [express]: https://expressjs.com/
 [pug]: https://pugjs.org/
 [Bootstrap 3]: https://getbootstrap.com/docs/3.3/
+[PatternFly 3]: https://www.patternfly.org/v3/
 [wiki]: https://github.com/jenglish/ssptool/wiki
 [project board]: https://github.com/jenglish/ssptool/projects/1
 
