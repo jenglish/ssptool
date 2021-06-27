@@ -28,14 +28,10 @@ mixin identification-heading(label)
 mixin narrative-block(narrative)
   div.narrative
     each item in narrative
-      +narrative-item(item)
-mixin narrative-item(item)
-  if item.key
-    p.narrative-key: b= item.key
-  if item.text
-    != markdown(item.text)
-  if item.narrative
-    +narrative-block(item.narrative)
+      if item.key
+        p.narrative-key: b= item.key
+      if item.text
+        != markdown(item.text)
 
 mixin control-references(satisfies)
   each rec, standard_key in page.data.satisfies || {}

@@ -5,10 +5,8 @@
     each certification in certifications
       span.label.label-default #{certification.certification}
 
-h2 Description
-if control.narrative
-  +narrative-block(control.narrative)
-else if control.description
+if control.description
+  h2 Description
   != markdown(control.description)
 
 if mapped_to && mapped_to.length
