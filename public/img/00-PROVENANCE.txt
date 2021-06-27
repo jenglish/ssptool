@@ -1,0 +1,9 @@
+File: opencontrol-icon.png
+Source: opencontrol logo snarfed off of slack channel,
+    converted to *.ico via https://www.favicon-generator.org/
+License: CC0 https://github.com/opencontrol/website/blob/master/LICENSE
+
+File: GraphQL-mark-black.svg
+Source: https://github.com/graphql/artwork/blob/main/GraphQL/icon/GraphQL-mark-black.svg
+License: https://github.com/graphql/artwork/#readme
+

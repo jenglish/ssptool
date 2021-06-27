@@ -17,6 +17,8 @@
     "cors": "^2.8.5",
     "debug": "^4.1.1",
     "express": "^4.16.4",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.5.0",
     "gray-matter": "^4.0.3",
     "js-yaml": "^3.12.2",
     "lodash": "^4.17.11",
@@ -29,6 +31,7 @@
     "stream-end": "^0.1.0",
     "stream-exhaust": "^1.0.2",
     "through2": "^3.0.1",
+    "url-search-params-polyfill": "^8.1.1",
     "vinyl-fs": "^3.0.3"
   },
   "devDependencies": {

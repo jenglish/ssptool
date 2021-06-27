@@ -6,3 +6,5 @@ satisfies:
     SC-7: blah.
 implementation_status: complete
 ---
+
+Description of Module B.

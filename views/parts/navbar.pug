@@ -1,12 +1,16 @@
 //- top navigation bar
 
 mixin brand
-  a(href="/")
+  a(href='/')
     img.navbar-brand(src='/img/opencontrol-icon.png')
 
 mixin printlink(docid)
   a(href=linkto.document(docid), title='Print')
     +glyphicon('print')
+
+mixin graphql-link
+  a(href='/graphql', title='GraphQL browser')
+    img(height='20rem', src='/img/GraphQL-mark-black.svg')
 
 mixin reload-button
   form.navbar-form.navbar-right(action=appurl('reload'),method='POST')
@@ -22,6 +26,7 @@ nav.navbar.navbar-default
     ul.nav.navbar-nav
       if docid
         li: +printlink(docid)
+      li: +graphql-link
       if navinfo
         li: +navinfo-rellink('prev', "\u2190 Previous")
         li: +navinfo-rellink('next', "Next \u2192")

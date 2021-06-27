@@ -7,3 +7,4 @@ satisfies:
 implementation_status: complete
 ---
 
+Description of Module A.

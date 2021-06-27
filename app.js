@@ -7,6 +7,7 @@ var express = require('express')
   , logger = require('morgan')
   , package = require('./package.json')
   , routes = require('./lib/routes')
+  , graphql = require('./lib/graphql')
   , loadConfig = require('./lib/config').load
   , loadOpenControl = require('./lib/opencontrol').load
   , mdparser = require('./lib/opencontrol/mdparser')
@@ -70,6 +71,7 @@ app.locals.apphomepage = package.homepage;
 app.use(favicon(basepath('public/favicon.ico')));
 chooseLogger(app);
 app.use(express.static(basepath('public'), { maxAge: 1000 * 60 * 60 }));
+app.use('/graphql', graphql.middleware);
 app.use(navigationMiddleware);
 app.use(routes.router);
 app.use(notFoundHandler);
