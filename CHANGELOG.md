@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v0.5.1] - 2021-06-27
 - Experimental GraphQL support 
 - Integrate PatternFly stylesheet (#6)
 
