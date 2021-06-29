@@ -10,11 +10,19 @@ Features include:
 - Command-line interface for batch operations
 - Validation
 - Report generation
+- *(new!)* GraphQL query API *(added Jun 2021)*
 
 ## Status
 
-Currently _(Oct 2017)_ in early development / dogfood mode.
+Currently _(Jun 2021)_ in beta / dogfood mode.
 Progress is being tracked on the [project board].
+
+## Intended audience
+
+It is hoped that this tool will be useful
+for people tasked with security compliance requirements
+who feel more comfortable with Markdown and YAML
+than with MS Word and Excel.
 
 ## Quick start
 
@@ -32,11 +40,12 @@ node /path/to/ssptool/main.js server
 ```
 
 Then point your web browser at localhost:3000
+
 Run `ssptool help` for more options.
 
 ## More info
 
-All documentation is on the [wiki] for now.
+Most documentation is on the [wiki] for now.
 
 ## Colophon
 
