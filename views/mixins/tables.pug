@@ -4,42 +4,57 @@ mixin satisfied(sats)
   table.table
     thead
       tr
-        th Component
-        th Name
-        th Status
+        th(width="20%") Component
+        th(width="65%") Name
+        th(width="15%") Status
     tbody
       each sat in sats
         tr
-          td #[+showThe(sat, 'component_key')]
-          td= sat.component && sat.component.name
-          td #[+showThe(sat, 'implementation_status')]
+          th #[+showThe(sat, 'component_key')]
+          th= sat.component && sat.component.name
+          th #[+showThe(sat, 'implementation_status')]
+        each item in sat.narrative
+          tr
+            td= item.key
+            td= item.text
+            td
 
 mixin satisfies(sats)
   table.table
     thead
       tr
-        th Control
-        th Name
-        th Status
+        th(width="20%") Control
+        th(width="65%") Name
+        th(width="15%") Status
     tbody
       each sat in sats
         tr
-          td #[+showThe(sat, 'control_key')]
-          td= sat.control && sat.control.name
-          td #[+showThe(sat, 'implementation_status')]
+          th #[+showThe(sat, 'control_key')]
+          th= sat.control && sat.control.name
+          th #[+showThe(sat, 'implementation_status')]
+        each item in sat.narrative
+          tr
+            td= item.key
+            td= item.text
+            td
 
-mixin controls(controls)
+mixin mapped-to(controls)
   table.table
     thead
       tr
-        th Standard
-        th Control
-        th Name
+        th(width="20%") Standard
+        th(width="65%") Name
+        th(width="15%") Control
     tbody
       each control in controls
         -var url=linkto.control(control.standard_key, control.key)
         tr
           td #{control.standard_key}
-          td: a(href=url) #{control.key}
           td: a(href=url) #{control.name}
+          td: a(href=url) #{control.key}
+        each sat in (control.satisfied_by || [])
+          tr
+            td #[+showThe(sat, 'component_key')]
+            td= sat.component && sat.component.name
+            td #[+showThe(sat, 'implementation_status')]
 

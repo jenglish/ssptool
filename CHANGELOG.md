@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+- Distinguish "component satisfies control" from
+  "component may be relevant to a control" (fixes: #18)
 - Drop support for nested narrative items schema extension.
 
 ## [v0.5.1] - 2021-06-27
