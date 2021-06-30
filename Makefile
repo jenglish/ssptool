@@ -5,8 +5,7 @@
 # `make qa` is the main one.
 #
 
-NMBIN = ./node_modules/.bin
-SSPTOOL = node $(CURDIR)/main.js
+SSPTOOL = npx ssptool
 
 LINTABLE =			\
 	'*.js'			\
@@ -36,33 +35,33 @@ usage ::
 	@echo "make test-prep"
 
 css ::
-	$(NMBIN)/lessc less/style.less > public/css/style.css
-	$(NMBIN)/lessc less/doc-style.less > public/css/doc-style.css
+	npx lessc less/style.less > public/css/style.css
+	npx lessc less/doc-style.less > public/css/doc-style.css
 usage ::
 	@echo "make css"
 
 qa :: lint
 lint ::
 	@echo "Linting..."
-	@$(NMBIN)/eslint $(LINTABLE)
+	@npx eslint $(LINTABLE)
 usage ::
 	@echo "make lint"
 
 lint-fix ::
-	$(NMBIN)/eslint --fix $(LINTABLE)
+	npx eslint --fix $(LINTABLE)
 
 qa :: test
 test :: $(TESTDATADIR)
 test ::
 	@echo "Testing..."
-	@$(NMBIN)/mocha -R dot
+	@npx mocha -R dot
 usage ::
 	@echo "make test"
 
 qa :: jsdoc
 jsdoc ::
 	@echo "Running jsdoc..."
-	@$(NMBIN)/jsdoc -c .jsdoc.json -r lib -d public/jsdocs
+	@npx jsdoc -c .jsdoc.json -r lib -d public/jsdocs
 usage ::
 	@echo "make jsdoc"
 clean ::
@@ -90,18 +89,11 @@ test-server : $(TESTDATADIR)
 usage ::
 	@echo "make test-server"
 
-TD = examples/test
 qa :: regtest
 regtest :: $(TESTDATADIR)
 regtest ::
 	@echo "CLI regression tests..."
-	@cd ${TD} ; $(SSPTOOL) document doc1 > /dev/null \
-	@cd ${TD} ; $(SSPTOOL) list          | diff - regtest/list.expect
-	@cd ${TD} ; $(SSPTOOL) validate 2>&1 | diff - regtest/validate.expect
-	@cd ${TD} ; $(SSPTOOL) refcheck 2>&1 | diff - regtest/refcheck.expect
-	@cd ${TD} ; $(SSPTOOL) report completion profile=FredRAMP-low \
-		2>&1 | diff - regtest/report.expect \
-	;
+	@$(MAKE) -sC examples/test regtest
 usage ::
 	@echo "make regtest"
 
