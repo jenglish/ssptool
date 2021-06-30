@@ -59,6 +59,7 @@ describe('Proper 404 handling', function () {
     it('returns 404 for missing pages', badPage('/no/such/page'));
     it('handles missing components', badPage('/components/XX-Policy'));
     it('handles missing standards',  badPage('/standards/no-such-standard'));
+    it('handles missing controls', badPage('/standards/no/control'));
     it('handles missing pages',  badPage('/pages/no-such-page'));
     it('handles missing reports',  badPage('/reports/no-such-report'));
 });
@@ -79,7 +80,7 @@ describe('Crawl the whole site', function () {
     });
 
     it('can serve all pages in the sitemap', function (done) {
-        this.timeout(5000); // can take a while on slow machines
+        this.timeout(10000); // can take a while on slow machines
         var tasks = [];
         for (var item in sitemap.items) {
             tasks.push(tryPage(item));
