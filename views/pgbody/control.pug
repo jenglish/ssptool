@@ -17,7 +17,15 @@ if control.mapped_to && control.mapped_to.length
 
 if control.satisfied_by && control.satisfied_by.length
   h2 Satisfied By
-  +satisfied(control.satisfied_by)
+  +satisfied-by(control.satisfied_by)
+
+  h2 Details
+  each sat in control.satisfied_by
+    h3
+      | #{sat.component.name} #{""}
+      small #[+showThe(sat, 'implementation_status')]
+    +narrative-block(sat.narrative)
+
 else if control.mapped_to && control.mapped_to.length
   // omit warning / info blocks
 else if control.required_by && control.required_by.length

@@ -25,6 +25,14 @@ mixin identification-heading(label)
     td
       block
 
+mixin narrative-block(narrative)
+  div.narrative
+    each item in narrative
+      if item.key
+        p.narrative-key: b= item.key
+      if item.text
+        != markdown(item.text)
+
 mixin control-references(satisfies)
   each rec, standard_key in satisfies || {}
     - var sep = ": "

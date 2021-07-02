@@ -10,6 +10,13 @@ if component.satisfies && component.satisfies.length
   h2 Satisfies
   +satisfies(component.satisfies)
 
+  h2 Details
+  each sat in component.satisfies
+    h3
+      | #{sat.control_key} #{sat.control && sat.control.name} #{""}
+      small #[+showThe(sat, 'implementation_status')]
+    +narrative-block(sat.narrative)
+
 if component.references && component.references.length
   h2 References
   ol

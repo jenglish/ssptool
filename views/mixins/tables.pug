@@ -1,6 +1,6 @@
 //- various tables ...
 
-mixin satisfied(sats)
+mixin satisfied-by(sats)
   table.table
     thead
       tr
@@ -13,11 +13,6 @@ mixin satisfied(sats)
           th #[+showThe(sat, 'component_key')]
           th= sat.component && sat.component.name
           th #[+showThe(sat, 'implementation_status')]
-        each item in sat.narrative
-          tr
-            td= item.key
-            td= item.text
-            td
 
 mixin satisfies(sats)
   table.table
@@ -32,11 +27,6 @@ mixin satisfies(sats)
           th #[+showThe(sat, 'control_key')]
           th= sat.control && sat.control.name
           th #[+showThe(sat, 'implementation_status')]
-        each item in sat.narrative
-          tr
-            td= item.key
-            td= item.text
-            td
 
 mixin mapped-to(mapped_to)
   table.table
