@@ -9,24 +9,24 @@ var expect = require('expect.js')
 
 var db;
 
-/** Run GraphQL query against ssptool schema and mock database.
- * @return Promise<graphql.ExecutionResult>
+/** Unwrap a graphql.ExecutionResult
  */
-function gqlQuery(source, variableValues) {
+function gqlAnswer(result) {
+    return new Promise((resolve, reject) =>
+        result.errors ? reject(result.errors) : resolve(result.data));
+}
+
+/** Run GraphQL query against ssptool schema and mock database.
+ *  @return Promise<Object> - ExecutionResult.data
+ */
+function doQuery(source, variableValues) {
     return graphql({
         source,
         schema,
         rootValue,
         variableValues,
         contextValue: { db },
-    });
-}
-
-/** Unwrap a graphql.ExecutionResult
- */
-function gqlAnswer(result) {
-    return new Promise((resolve, reject) =>
-        result.errors ? reject(result.errors) : resolve(result.data));
+    }).then(gqlAnswer);
 }
 
 before(function (done) { mock.preflight(done); });
@@ -41,8 +41,7 @@ describe('GraphQL API', function () {
     describe('Controls', function () {
 
     it('... controls query', function () {
-        return gqlQuery('query { controls { key name }}')
-            .then(gqlAnswer)
+        return doQuery('query { controls { key name }}')
             .then(ans => {
                 expect(ans).to.be.ok();
                 expect(ans).to.have.property('controls');
@@ -50,8 +49,7 @@ describe('GraphQL API', function () {
             });
     });
     it('... standards query', function () {
-        return gqlQuery('{ standards { key } }')
-            .then(gqlAnswer)
+        return doQuery('{ standards { key } }')
             .then(ans => {
                 expect(ans).to.be.ok();
                 expect(ans).to.have.property('standards');
@@ -70,8 +68,7 @@ describe('GraphQL API', function () {
                     }
                 }
             }`;
-        return gqlQuery(query, { key: expected.standard })
-            .then(gqlAnswer)
+        return doQuery(query, { key: expected.standard })
             .then(({ standard }) => {
                 expect(standard).to.be.ok();
                 expect(standard.controls.length)
@@ -90,17 +87,17 @@ describe('GraphQL API', function () {
                 key name description
               }
             }`;
-        return gqlQuery(query, {
+        return doQuery(query, {
             standard_key: expected.standard,
             key: expected.controls[0]
-        }).then(gqlAnswer);
+        });
     });
     });
 
     describe('Components', function () {
 
     it('... list all components', function () {
-        return gqlQuery(`
+        return doQuery(`
             query {
                 components {
                     key
@@ -119,42 +116,39 @@ describe('GraphQL API', function () {
                     }
                 }
             }
-        `).then(gqlAnswer)
+        `)
         .then(({ components }) => {
             expect(components).to.be.an('array');
         });
     });
 
     it('... component query', function () {
-        return gqlQuery(`
+        return doQuery(`
             query Q($key: String!) {
                 component(key: $key) { name description }
             }`, {
                 key: 'moda'
             }
-        ).then(gqlAnswer)
-        .then(({ component }) => {
+        ).then(({ component }) => {
             expect(component).to.be.ok();
             expect(component.description).to.contain('Description of Module A');
         });
     });
 
     it('... component query for nonexistant component empty key', function () {
-        return gqlQuery(`
+        return doQuery(`
             query Q($key: String!) {
                 component(key: $key) { name description }
             }`, {
                 key: 'nosuchcomponent'
             }
-        )
-        .then(gqlAnswer)
-        .then(({ component }) => {
+        ).then(({ component }) => {
             expect(component).to.be(null);
         });
     });
 
     it('... component -> satisfies link', function () {
-        return gqlQuery(`
+        return doQuery(`
             query {
                 component(key: "AU_policy") {
                     name
@@ -165,7 +159,6 @@ describe('GraphQL API', function () {
                 }
             }
         `)
-        .then(gqlAnswer)
         .then(({ component }) => {
             expect(component).to.be.ok();
             expect(component.satisfies).to.have.length(2);
@@ -173,14 +166,13 @@ describe('GraphQL API', function () {
     });
 
     it('... component -> satisfies -> control link', function () {
-        return gqlQuery(`
+        return doQuery(`
             query {
                 component(key: "moda") {
                     satisfies { control_key control { key name } }
                 }
             }
         `)
-        .then(gqlAnswer)
         .then(({ component }) => {
             expect(component).to.be.ok();
             expect(component.satisfies).to.have.length(1);
@@ -192,14 +184,13 @@ describe('GraphQL API', function () {
     });
 
     it('... control -> satisfied_by -> component link', function () {
-        return gqlQuery(`
+        return doQuery(`
             query Q($std: String!, $key: String!) {
                 control(standard_key: $std, key: $key) {
                     satisfied_by { component { key name } }
                 }
             }
         `, { std: expected.standard, key: 'SC-1' } )
-        .then(gqlAnswer)
         .then(({ control }) => {
             expect(control).to.be.ok();
             expect(control.satisfied_by).to.have.length(2);
@@ -215,8 +206,7 @@ describe('GraphQL API', function () {
     describe('Profiles', function () {
 
     it('... profiles query', function () {
-        return gqlQuery('{ profiles { key } }')
-            .then(gqlAnswer)
+        return doQuery('{ profiles { key } }')
             .then(ans => {
                 expect(ans).to.be.ok();
                 expect(ans).to.have.property('profiles');
@@ -227,8 +217,7 @@ describe('GraphQL API', function () {
     });
 
     it('... profiles -> control', function () {
-        return gqlQuery('{ profiles { key controls { key name } } }')
-            .then(gqlAnswer)
+        return doQuery('{ profiles { key controls { key name } } }')
             .then(({ profiles }) => {
                 let controls = profiles[0].controls;
                 expect(controls.length).to.equal(expected.certified.length);
@@ -240,12 +229,11 @@ describe('GraphQL API', function () {
     });
 
     it('... profile query', function () {
-        return gqlQuery(`
+        return doQuery(`
             query Q($key: String!) {
                 profile(key: $key) { key controls { key } }
             }
         `, { key: expected.certification })
-        .then(gqlAnswer)
         .then(({ profile }) => {
             expect(profile).to.be.ok();
         })
@@ -253,12 +241,11 @@ describe('GraphQL API', function () {
     });
 
     it('... profile query - nonexistent profile', function () {
-        return gqlQuery(`
+        return doQuery(`
             query Q($key: String!) {
                 profile(key: $key) { key controls { key } }
             }
         `, { key: 'no-such-profile' })
-        .then(gqlAnswer)
         .then(({ profile }) => {
             expect(profile).to.be(null);
         })

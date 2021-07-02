@@ -1,26 +1,29 @@
 +identification-block
   +identification-item('Control', control.key)
   +identification-item('Standard', control.standard_key)
-  +identification-heading('Certifications')
-    each certification in certifications
-      span.label.label-default #{certification.certification}
+  if control.required_by && control.required_by.length
+    +identification-heading('Profiles')
+      each profile in control.required_by
+        a(href=linkto.certification(profile.key)) #{profile.key}
+        = "; " 
 
 if control.description
   h2 Description
   != markdown(control.description)
 
-if mapped_to && mapped_to.length
+if control.mapped_to && control.mapped_to.length
   h2 Mapped To
-  +mapped-to(mapped_to)
+  +mapped-to(control.mapped_to)
 
-if satisfied && satisfied.length
+if control.satisfied_by && control.satisfied_by.length
   h2 Satisfied By
-  +satisfied(satisfied)
-else if certifications && certifications.length
+  +satisfied(control.satisfied_by)
+else if control.mapped_to && control.mapped_to.length
+  // omit warning / info blocks
+else if control.required_by && control.required_by.length
   +warning-block
     | This control is not satisfied by any component
 else
   +info-block
     | This control is not referenced in any certification
-
 

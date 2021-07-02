@@ -38,7 +38,7 @@ mixin satisfies(sats)
             td= item.text
             td
 
-mixin mapped-to(controls)
+mixin mapped-to(mapped_to)
   table.table
     thead
       tr
@@ -46,8 +46,9 @@ mixin mapped-to(controls)
         th(width="65%") Name
         th(width="15%") Control
     tbody
-      each control in controls
-        -var url=linkto.control(control.standard_key, control.key)
+      each map in mapped_to
+        -let control = map.control
+        -let url=linkto.control(control.standard_key, control.key)
         tr
           td #{control.standard_key}
           td: a(href=url) #{control.name}

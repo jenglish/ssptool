@@ -3,12 +3,12 @@
   +identification-item('System', component.system)
   +identification-item('Responsibility', component.responsible_role)
 
-if component.page
-  != component.page.html
+if component.description
+  != markdown(component.description)
 
-if satisfies && satisfies.length
+if component.satisfies && component.satisfies.length
   h2 Satisfies
-  +satisfies(satisfies)
+  +satisfies(component.satisfies)
 
 if component.references && component.references.length
   h2 References
