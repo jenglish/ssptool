@@ -68,14 +68,29 @@ app.locals.appname = package.name;
 app.locals.appversion = package.version;
 app.locals.apphomepage = package.homepage;
 
-app.use(favicon(basepath('public/favicon.ico')));
-chooseLogger(app);
-app.use(express.static(basepath('public'), { maxAge: 1000 * 60 * 60 }));
-app.use('/graphql', graphql.middleware);
-app.use(navigationMiddleware);
-app.use(routes.router);
-app.use(notFoundHandler);
-app.use(errorHandler);
+/**
+ * Initialize application.
+ *
+ * @param (Config) configuration.
+ * @param (opencontrol.Database) db
+ */
+app.initialize = function (config, db) {
+    app.use(favicon(basepath('public/favicon.ico')));
+    chooseLogger(app);
+
+    app.use(express.static(basepath('public'), { maxAge: 1000 * 60 * 60 }));
+    app.use('/graphql', graphql.middleware);
+    app.use(navigationMiddleware);
+    app.use(routes.router);
+    app.use('/pages',  express.static(config.docdir));
+    app.use('/assets', express.static(config.assetsdir||'./assets'));
+    app.post('/reload', reload);
+
+    app.use(notFoundHandler);
+    app.use(errorHandler);
+
+    app.reinitialize(config, db);
+};
 
 /**
  * (re)initialize site map.
@@ -83,7 +98,6 @@ app.use(errorHandler);
  * @param (Config) config
  * @param (opencontrol.Database) db
  */
-
 app.reinitialize = function (config, db) {
     const sitemap = routes.buildSite(config, db);
 
@@ -116,19 +130,5 @@ function reload (req, res, next) {
         })
     );
 }
-
-/**
- * Initialize application.
- *
- * @param (Config) configuration.
- * @param (opencontrol.Database) db
- */
-app.initialize = function (config, db) {
-    routes.router.use('/pages',  express.static(config.docdir));
-    routes.router.use('/assets', express.static(config.assetsdir||'./assets'));
-    routes.router.post('/reload', reload);
-
-    app.reinitialize(config, db);
-};
 
 module.exports = app;
