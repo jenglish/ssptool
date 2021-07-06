@@ -15,7 +15,7 @@ html
     meta(name='vieport', content='width=device-width, initial-scale=1')
     block stylesheets
       +stylesheet('https://unpkg.com/patternfly/dist/css/patternfly.min.css')
-      +stylesheet('/css/style.css')
+      +stylesheet(appurl('css','style.css'))
     title
       if navinfo && navinfo.title
         | #{navinfo.title} - #{appname}

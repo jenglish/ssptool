@@ -1,16 +1,16 @@
 //- top navigation bar
 
 mixin brand
-  a(href='/')
-    img.navbar-brand(src='/img/opencontrol-icon.png')
+  a(href=appurl())
+    img.navbar-brand(src=appurl('img','opencontrol-icon.png'))
 
 mixin printlink(docid)
   a(href=linkto.document(docid), title='Print')
     +glyphicon('print')
 
 mixin graphql-link
-  a(href='/graphql', title='GraphQL browser')
-    img(height='20rem', src='/img/GraphQL-mark-black.svg')
+  a(href=appurl('graphql'), title='GraphQL browser')
+    img(height='20rem', src=appurl('img','GraphQL-mark-black.svg'))
 
 mixin reload-button
   form.navbar-form.navbar-right(action=appurl('reload'),method='POST')
