@@ -1,10 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+- Drop support for nested narrative items schema extension.
 - Reimplemented internal queries in terms of GraphQL
 - Distinguish "component satisfies control" from
   "component may be relevant to a control" (fixes: #18)
-- Drop support for nested narrative items schema extension.
+- Add "related_to" relation, converse of "mapped_to"
 
 ## [v0.5.1] - 2021-06-27
 - Experimental GraphQL support 

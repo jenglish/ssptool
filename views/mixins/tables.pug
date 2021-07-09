@@ -28,7 +28,7 @@ mixin satisfies(sats)
           th= sat.control && sat.control.name
           th #[+showThe(sat, 'implementation_status')]
 
-mixin mapped-to(mapped_to)
+mixin related-controls(controlrefs)
   table.table
     thead
       tr
@@ -36,8 +36,8 @@ mixin mapped-to(mapped_to)
         th(width="65%") Name
         th(width="15%") Control
     tbody
-      each map in mapped_to
-        -let control = map.control
+      each ref in controlrefs
+        -let control = ref.control
         -let url=linkto.control(control.standard_key, control.key)
         tr
           td #{control.standard_key}

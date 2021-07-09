@@ -13,7 +13,11 @@ if control.description
 
 if control.mapped_to && control.mapped_to.length
   h2 Mapped To
-  +mapped-to(control.mapped_to)
+  +related-controls(control.mapped_to)
+
+if control.related_to && control.related_to.length
+  h2 Related To
+  +related-controls(control.related_to)
 
 if control.satisfied_by && control.satisfied_by.length
   h2 Satisfied By
