@@ -96,7 +96,8 @@ html {
 }
 @media print {
   #sidepane,
-  #breadcrumbs {
+  #breadcrumbs,
+  footer {
     display: none;
   }
 }
