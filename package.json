@@ -38,7 +38,7 @@
   "devDependencies": {
     "eslint": "^5.15.2",
     "expect.js": "^0.3.1",
-    "jsdoc": "^3.6.5",
+    "jsdoc": "^3.6.11",
     "less": "^3.9.0",
     "mocha": "^6.0.2",
     "supertest": "^4.0.2"
